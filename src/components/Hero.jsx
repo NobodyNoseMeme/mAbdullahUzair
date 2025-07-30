@@ -184,15 +184,12 @@ const Hero = () => {
                 fontFamily: "'Playfair Display', 'Crimson Text', 'Cormorant Garamond', serif", 
                 fontWeight: 700, 
                 letterSpacing: '-0.01em',
-                textShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
+                textShadow: '0 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.1)',
+                color: 'var(--hero-text-color)'
               }}
           >
             <span className="inline-block transform transition-all duration-300">
-              Hi, I\'m Muhammad Abdullah Uzair
+              Hi, I'm Muhammad Abdullah Uzair
             </span>
           </h1>
           
