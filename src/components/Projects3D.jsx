@@ -432,7 +432,7 @@ const Projects3D = () => {
                           </h4>
                           <ul className="space-y-1">
                             {project.features.slice(0, 2).map((feature, idx) => (
-                              <li key={idx} className="text-xs text-gray-600 dark:text-gray-100 flex items-center">
+                              <li key={idx} className="text-xs text-gray-700 dark:text-gray-200 flex items-center">
                                 <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>
                                 {feature}
                               </li>
