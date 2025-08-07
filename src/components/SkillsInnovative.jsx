@@ -121,7 +121,7 @@ const SkillsInnovative = () => {
         { name: 'Python', level: 82, icon: '🐍', description: 'Machine learning and backend development' },
         { name: 'C++', level: 85, icon: '⚙️', description: 'System programming and algorithm implementation' },
         { name: 'C', level: 88, icon: '🔧', description: 'Low-level programming and performance optimization' },
-        { name: 'Machine Learning', level: 75, icon: '🤖', description: 'ML algorithms and data analysis with Python' },
+        { name: 'Machine Learning', level: 75, icon: '����', description: 'ML algorithms and data analysis with Python' },
         { name: 'Vibe Coding', level: 95, icon: '✨', description: 'Intuitive problem-solving with creative flow' }
       ]
     },
@@ -325,11 +325,13 @@ const SkillsInnovative = () => {
                   onMouseEnter={() => handleSkillHover(skill)}
                   onMouseLeave={handleSkillLeave}
                 >
-                  {/* Hover Tooltip */}
+                  {/* Enhanced Hover Tooltip */}
                   {hoveredSkill?.name === skill.name && (
-                    <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 z-50 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-xl text-sm whitespace-nowrap pointer-events-none">
-                      {skill.description}
-                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 z-50 bg-gray-900 dark:bg-gray-800 text-white px-4 py-3 rounded-xl shadow-2xl text-sm max-w-xs pointer-events-none animate-in fade-in duration-200">
+                      <div className="font-semibold mb-1 text-purple-300">{skill.name}</div>
+                      <div className="text-gray-200">{skill.description}</div>
+                      <div className="text-xs text-gray-400 mt-2">Proficiency: {skill.level}%</div>
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
                     </div>
                   )}
 
