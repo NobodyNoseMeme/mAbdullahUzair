@@ -394,7 +394,7 @@ Type 'help' to see available commands.`;
                         onKeyDown={handleKeyDown}
                         className="flex-1 bg-transparent text-white outline-none font-mono text-xs sm:text-sm min-w-0"
                         autoComplete="off"
-                        spellCheck="false"
+                        spellCheck={false}
                       />
                     </form>
                   )}
