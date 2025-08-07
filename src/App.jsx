@@ -142,9 +142,9 @@ function App() {
       <main>
         <Hero />
         <About />
-        <Skills />
+        <SkillsEnhanced />
         <Experience />
-        <Projects />
+        <Projects3D />
         <Education />
         <Contact />
       </main>
