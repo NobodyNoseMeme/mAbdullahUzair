@@ -250,6 +250,19 @@ const Projects3D = () => {
     setIsAutoPlaying(false);
   };
 
+  // Auto-play functionality
+  useEffect(() => {
+    if (isAutoPlaying) {
+      autoPlayRef.current = setInterval(() => {
+        nextProject();
+      }, 4000);
+    } else {
+      clearInterval(autoPlayRef.current);
+    }
+
+    return () => clearInterval(autoPlayRef.current);
+  }, [isAutoPlaying]);
+
   return (
     <section ref={sectionRef} id="projects" className="py-20 bg-gradient-to-br from-slate-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-slate-900 relative overflow-hidden min-h-screen">
       {/* Enhanced Background Elements */}
