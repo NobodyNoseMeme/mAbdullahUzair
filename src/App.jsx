@@ -3,9 +3,9 @@ import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import Skills from './components/Skills';
+import SkillsEnhanced from './components/SkillsEnhanced';
 import Experience from './components/Experience';
-import Projects from './components/Projects';
+import Projects3D from './components/Projects3D';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -154,4 +154,3 @@ function App() {
 }
 
 export default App;
-
