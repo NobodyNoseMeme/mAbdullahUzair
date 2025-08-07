@@ -251,7 +251,7 @@ const SkillsInnovative = () => {
                     isActive ? 'scale-125 z-20' : 'scale-100 hover:scale-110 z-10'
                   }`}
                   style={{
-                    transform: `translate(${x + mousePosition.x * 10}px, ${y + mousePosition.y * 10}px)`,
+                    transform: `translate(${x + (mousePosition.x || 0) * 10}px, ${y + (mousePosition.y || 0) * 10}px)`,
                   }}
                   onClick={() => setActiveOrb(index)}
                 >
