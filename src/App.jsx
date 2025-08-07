@@ -9,6 +9,7 @@ import Projects3D from './components/Projects3D';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import FloatingActionButton from './components/FloatingActionButton';
 import './App.css';
 
 function App() {
