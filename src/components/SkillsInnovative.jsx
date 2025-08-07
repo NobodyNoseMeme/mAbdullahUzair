@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Code, Database, Globe, Smartphone, Server, Palette, Brain, Zap, Sparkles, Orbit, Cpu, Layers, Monitor, Smartphone as Mobile } from 'lucide-react';
+import { Code, Server, Brain, Zap, Sparkles, Cpu, Monitor } from 'lucide-react';
 
 const SkillsInnovative = () => {
   const [isVisible, setIsVisible] = useState(false);
