@@ -157,21 +157,29 @@ const Projects3D = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Mouse tracking for 3D perspective effects
+  // Optimized mouse tracking for 3D perspective effects
   useEffect(() => {
+    let animationFrame;
     const handleMouseMove = (e) => {
-      if (carouselRef.current && !isDragging) {
-        const rect = carouselRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const mouseX = ((e.clientX - centerX) / rect.width) * 30; // Reduced range
-        const mouseY = ((e.clientY - centerY) / rect.height) * 15; // Reduced range
-        setMousePosition({ x: mouseX, y: mouseY });
-      }
+      if (animationFrame || isDragging) return;
+      animationFrame = requestAnimationFrame(() => {
+        if (carouselRef.current && !isDragging) {
+          const rect = carouselRef.current.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const mouseX = ((e.clientX - centerX) / rect.width) * 20; // Further reduced range
+          const mouseY = ((e.clientY - centerY) / rect.height) * 10; // Further reduced range
+          setMousePosition({ x: mouseX, y: mouseY });
+        }
+        animationFrame = null;
+      });
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+    };
   }, [isDragging]);
 
   // Drag functionality
