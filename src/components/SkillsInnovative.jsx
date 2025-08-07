@@ -394,8 +394,8 @@ const SkillsInnovative = () => {
                 className="text-center p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 transform hover:scale-105 transition-all duration-300"
               >
                 <div className="text-3xl mb-2">{stat.icon}</div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-200">{stat.label}</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{stat.value}</div>
+                <div className="text-sm text-gray-700 dark:text-gray-300">{stat.label}</div>
               </div>
             ))}
           </div>
