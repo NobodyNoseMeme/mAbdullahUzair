@@ -380,7 +380,7 @@ const SkillsInnovative = () => {
               >
                 <div className="text-3xl mb-2">{stat.icon}</div>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">{stat.label}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-200">{stat.label}</div>
               </div>
             ))}
           </div>
