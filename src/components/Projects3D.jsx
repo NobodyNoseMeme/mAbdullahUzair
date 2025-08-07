@@ -278,10 +278,10 @@ const Projects3D = () => {
             key={i}
             className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-30 animate-pulse"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              left: `${(Math.random() * 100).toFixed(1)}%`,
+              top: `${(Math.random() * 100).toFixed(1)}%`,
+              animationDelay: `${(Math.random() * 3).toFixed(2)}s`,
+              animationDuration: `${(2 + Math.random() * 3).toFixed(2)}s`
             }}
           />
         ))}
