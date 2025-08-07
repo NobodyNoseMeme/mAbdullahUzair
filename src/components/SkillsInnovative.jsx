@@ -324,8 +324,15 @@ const SkillsInnovative = () => {
                   }}
                   onMouseEnter={() => handleSkillHover(skill)}
                   onMouseLeave={handleSkillLeave}
-                  title={skill.description}
                 >
+                  {/* Hover Tooltip */}
+                  {hoveredSkill?.name === skill.name && (
+                    <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 z-50 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-xl text-sm whitespace-nowrap pointer-events-none">
+                      {skill.description}
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  )}
+
                   {/* Skill Icon */}
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center text-2xl font-bold transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 mr-4">
