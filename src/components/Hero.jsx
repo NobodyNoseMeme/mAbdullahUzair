@@ -75,7 +75,7 @@ const Hero = () => {
         <div 
           className="absolute bottom-20 right-20 w-48 h-48 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-10 animate-bounce"
           style={{
-            transform: `translate(${mousePosition.x * -25}px, ${mousePosition.y * -25}px) rotate(${mousePosition.x * -15}deg)`,
+            transform: `translate(${(mousePosition.x || 0) * -25}px, ${(mousePosition.y || 0) * -25}px) rotate(${(mousePosition.x || 0) * -15}deg)`,
             transition: 'transform 0.4s ease-out'
           }}
         />
@@ -83,7 +83,7 @@ const Hero = () => {
           className="absolute top-1/2 right-1/4 w-32 h-32 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full opacity-10 animate-pulse"
           style={{ 
             animationDelay: '1s',
-            transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px) scale(${1 + mousePosition.x * 0.1})`,
+            transform: `translate(${(mousePosition.x || 0) * 20}px, ${(mousePosition.y || 0) * 20}px) scale(${1 + (mousePosition.x || 0) * 0.1})`,
             transition: 'transform 0.6s ease-out'
           }}
         />
@@ -93,7 +93,7 @@ const Hero = () => {
           className="absolute top-1/4 left-1/3 w-16 h-16 border-4 border-purple-300 opacity-20 animate-spin"
           style={{
             animationDuration: '20s',
-            transform: `translate(${mousePosition.x * 15}px, ${mousePosition.y * 15}px) rotate(${mousePosition.x * 45}deg)`,
+            transform: `translate(${(mousePosition.x || 0) * 15}px, ${(mousePosition.y || 0) * 15}px) rotate(${(mousePosition.x || 0) * 45}deg)`,
             transition: 'transform 0.3s ease-out'
           }}
         />
@@ -101,7 +101,7 @@ const Hero = () => {
           className="absolute bottom-1/3 left-1/4 w-12 h-12 bg-blue-300 opacity-20 animate-bounce"
           style={{
             animationDelay: '0.5s',
-            transform: `translate(${mousePosition.x * -20}px, ${mousePosition.y * -20}px) rotate(${mousePosition.x * -30}deg)`,
+            transform: `translate(${(mousePosition.x || 0) * -20}px, ${(mousePosition.y || 0) * -20}px) rotate(${(mousePosition.x || 0) * -30}deg)`,
             transition: 'transform 0.4s ease-out'
           }}
         />
@@ -118,7 +118,7 @@ const Hero = () => {
               top: `${30 + i * 10}%`,
               animationDuration: `${15 + i * 5}s`,
               animationDirection: i % 2 === 0 ? 'normal' : 'reverse',
-              transform: `translate(${mousePosition.x * (5 + i * 3)}px, ${mousePosition.y * (5 + i * 3)}px) rotate(${mousePosition.x * (10 + i * 5)}deg)`,
+              transform: `translate(${(mousePosition.x || 0) * (5 + i * 3)}px, ${(mousePosition.y || 0) * (5 + i * 3)}px) rotate(${(mousePosition.x || 0) * (10 + i * 5)}deg)`,
               transition: 'transform 0.5s ease-out'
             }}
           />
@@ -128,7 +128,7 @@ const Hero = () => {
         <div 
           className="absolute top-16 right-16 transform-3d"
           style={{
-            transform: `translate(${mousePosition.x * 25}px, ${mousePosition.y * 25}px) rotateX(${mousePosition.y * 20}deg) rotateY(${mousePosition.x * 20}deg)`,
+            transform: `translate(${(mousePosition.x || 0) * 25}px, ${(mousePosition.y || 0) * 25}px) rotateX(${(mousePosition.y || 0) * 20}deg) rotateY(${(mousePosition.x || 0) * 20}deg)`,
             transition: 'transform 0.4s ease-out'
           }}
         >
@@ -137,7 +137,7 @@ const Hero = () => {
         <div 
           className="absolute bottom-16 left-16 transform-3d"
           style={{
-            transform: `translate(${mousePosition.x * -30}px, ${mousePosition.y * -30}px) rotateX(${mousePosition.y * -25}deg) rotateY(${mousePosition.x * -25}deg)`,
+            transform: `translate(${(mousePosition.x || 0) * -30}px, ${(mousePosition.y || 0) * -30}px) rotateX(${(mousePosition.y || 0) * -25}deg) rotateY(${(mousePosition.x || 0) * -25}deg)`,
             transition: 'transform 0.5s ease-out'
           }}
         >
@@ -148,7 +148,7 @@ const Hero = () => {
         <div 
           className="absolute top-1/3 right-1/3 text-4xl opacity-10 animate-pulse"
           style={{
-            transform: `translate(${mousePosition.x * 12}px, ${mousePosition.y * 12}px) rotate(${mousePosition.x * 5}deg)`,
+            transform: `translate(${(mousePosition.x || 0) * 12}px, ${(mousePosition.y || 0) * 12}px) rotate(${(mousePosition.x || 0) * 5}deg)`,
             transition: 'transform 0.3s ease-out'
           }}
         >
@@ -158,7 +158,7 @@ const Hero = () => {
           className="absolute bottom-1/4 right-1/2 text-3xl opacity-10 animate-bounce"
           style={{
             animationDelay: '1s',
-            transform: `translate(${mousePosition.x * -18}px, ${mousePosition.y * -18}px) rotate(${mousePosition.x * -8}deg)`,
+            transform: `translate(${(mousePosition.x || 0) * -18}px, ${(mousePosition.y || 0) * -18}px) rotate(${(mousePosition.x || 0) * -8}deg)`,
             transition: 'transform 0.4s ease-out'
           }}
         >
@@ -168,7 +168,7 @@ const Hero = () => {
           className="absolute top-2/3 left-1/2 text-3xl opacity-10 animate-pulse"
           style={{
             animationDelay: '2s',
-            transform: `translate(${mousePosition.x * 22}px, ${mousePosition.y * 22}px) rotate(${mousePosition.x * 12}deg)`,
+            transform: `translate(${(mousePosition.x || 0) * 22}px, ${(mousePosition.y || 0) * 22}px) rotate(${(mousePosition.x || 0) * 12}deg)`,
             transition: 'transform 0.5s ease-out'
           }}
         >
