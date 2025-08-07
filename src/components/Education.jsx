@@ -13,7 +13,7 @@ const Education = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
@@ -203,4 +203,3 @@ const Education = () => {
 };
 
 export default Education;
-
