@@ -37,7 +37,7 @@ const Projects3D = () => {
   // Mouse tracking for 3D perspective effects
   useEffect(() => {
     const handleMouseMove = (e) => {
-      if (carouselRef.current) {
+      if (carouselRef.current && !isDragging) {
         const rect = carouselRef.current.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -49,7 +49,50 @@ const Projects3D = () => {
 
     document.addEventListener('mousemove', handleMouseMove);
     return () => document.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isDragging]);
+
+  // Drag functionality
+  useEffect(() => {
+    const handleMouseDown = (e) => {
+      if (carouselRef.current?.contains(e.target)) {
+        setIsDragging(true);
+        setDragStart({ x: e.clientX, y: e.clientY });
+        setLastRotation(rotation);
+        setIsAutoPlaying(false);
+        e.preventDefault();
+      }
+    };
+
+    const handleMouseMove = (e) => {
+      if (isDragging) {
+        const deltaX = e.clientX - dragStart.x;
+        const newRotation = lastRotation + (deltaX * 0.5); // Sensitivity adjustment
+        setRotation(newRotation);
+        e.preventDefault();
+      }
+    };
+
+    const handleMouseUp = () => {
+      if (isDragging) {
+        setIsDragging(false);
+        // Snap to nearest project
+        const snapAngle = Math.round(rotation / 60) * 60;
+        const targetProject = Math.abs(Math.round(rotation / 60)) % projects.length;
+        setRotation(snapAngle);
+        setCurrentProject(targetProject);
+      }
+    };
+
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragStart, rotation, lastRotation, projects.length]);
 
   // Auto-play functionality
   useEffect(() => {
