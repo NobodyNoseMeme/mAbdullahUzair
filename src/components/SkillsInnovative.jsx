@@ -159,7 +159,7 @@ const SkillsInnovative = () => {
               <stop offset="100%" stopColor="rgba(59, 130, 246, 0.3)"/>
             </radialGradient>
           </defs>
-          {skillNodes.map((node, i) => (
+          {skillNodes.filter(node => node && typeof node.x === 'number').map((node, i) => (
             <g key={i}>
               <circle
                 cx={500 + node.x + (mousePosition.x || 0) * 20}
