@@ -201,7 +201,7 @@ const Contact = () => {
                   Send Message
                 </h3>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6">
                   {/* Name Field */}
                   <div className="relative group">
                     <div className={`absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 ${focusedField === 'name' ? 'opacity-30' : ''}`} />
