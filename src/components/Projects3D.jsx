@@ -555,7 +555,7 @@ const Projects3D = () => {
                   </h4>
                   <div className="grid grid-cols-1 gap-2">
                     {projects[currentProject].features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center text-gray-600 dark:text-gray-300">
+                      <div key={idx} className="flex items-center text-gray-700 dark:text-gray-200">
                         <span className="w-2 h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mr-3"></span>
                         {feature}
                       </div>
