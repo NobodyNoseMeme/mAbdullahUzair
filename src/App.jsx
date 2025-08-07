@@ -146,7 +146,7 @@ function App() {
       <main>
         <Hero />
         <About />
-        <SkillsInnovative />
+        <Skills />
         <Experience />
         <Projects3D />
         <Education />
