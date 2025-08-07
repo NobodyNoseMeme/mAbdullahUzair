@@ -245,11 +245,11 @@ const Projects3D = () => {
         {/* Enhanced Section Header */}
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="flex items-center justify-center mb-6">
-            <Cube className="w-8 h-8 text-purple-600 mr-3 animate-spin"/>
+            <Box className="w-8 h-8 text-purple-600 mr-3 animate-spin"/>
             <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
               Project Showcase
             </h2>
-            <Cube className="w-8 h-8 text-blue-600 ml-3 animate-spin" style={{animationDelay: '0.5s'}}/>
+            <Box className="w-8 h-8 text-blue-600 ml-3 animate-spin" style={{animationDelay: '0.5s'}}/>
           </div>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Innovative solutions crafted with cutting-edge technologies and creative design
