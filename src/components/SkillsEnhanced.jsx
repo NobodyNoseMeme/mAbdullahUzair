@@ -361,9 +361,7 @@ const SkillsEnhanced = () => {
                 key={skill.name}
                 className="group relative bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-4 hover:rotate-1 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden"
                 style={{
-                  animationDelay: `${index * 100}ms`,
-                  transformStyle: 'preserve-3d',
-                  perspective: '1000px'
+                  animationDelay: `${index * 100}ms`
                 }}
                 onMouseEnter={(e) => handleSkillHover(skill, e)}
                 onMouseLeave={handleSkillLeave}
