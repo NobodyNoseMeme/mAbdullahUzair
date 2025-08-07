@@ -88,7 +88,8 @@ const Experience = () => {
             return (
               <div
                 key={exp.id}
-                className={`group relative transition-all duration-1000 delay-${300 + index * 200} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                className={`group relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{transitionDelay: `${300 + index * 200}ms`}}
                 onMouseEnter={() => setHoveredCard(exp.id)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
