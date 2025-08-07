@@ -290,7 +290,7 @@ const SkillsInnovative = () => {
                     x2={x}
                     y2={y}
                     stroke={index === activeOrb ? "rgba(147, 51, 234, 0.6)" : "rgba(147, 51, 234, 0.2)"}
-                    strokeWidth={index === activeOrb ? "3" : "1"}
+                    strokeWidth={index === activeOrb ? 3 : 1}
                     strokeDasharray="5,5"
                     className="animate-pulse"
                   />
