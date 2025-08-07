@@ -10,6 +10,9 @@ const Projects3D = () => {
   const [rotation, setRotation] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [lastRotation, setLastRotation] = useState(0);
   const sectionRef = useRef(null);
   const carouselRef = useRef(null);
   const autoPlayRef = useRef(null);
