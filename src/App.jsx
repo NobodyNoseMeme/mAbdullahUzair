@@ -3,7 +3,7 @@ import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import SkillsEnhanced from './components/SkillsEnhanced';
+import SkillsInnovative from './components/SkillsInnovative';
 import Experience from './components/Experience';
 import Projects3D from './components/Projects3D';
 import Education from './components/Education';
