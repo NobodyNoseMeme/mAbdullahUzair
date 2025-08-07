@@ -220,7 +220,7 @@ const Projects3D = () => {
   const nextProject = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setRotation(prev => prev - 60); // 360 / 6 projects = 60 degrees per project
+    setRotation(prev => (prev || 0) - 60); // 360 / 6 projects = 60 degrees per project
     setTimeout(() => {
       setCurrentProject((prev) => (prev + 1) % projects.length);
       setIsTransitioning(false);
@@ -230,7 +230,7 @@ const Projects3D = () => {
   const prevProject = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setRotation(prev => prev + 60);
+    setRotation(prev => (prev || 0) + 60);
     setTimeout(() => {
       setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
       setIsTransitioning(false);
