@@ -17,6 +17,129 @@ const Projects3D = () => {
   const carouselRef = useRef(null);
   const autoPlayRef = useRef(null);
 
+  const projects = [
+    {
+      title: 'MacroMate',
+      description: 'AI-powered health and fitness web application designed as my Final Year Project. Features intelligent meal recommendations and comprehensive nutrition tracking with machine learning algorithms.',
+      image: '/api/placeholder/600/400',
+      technologies: ['React.js', 'Node.js', 'MongoDB', 'AI/ML', 'Express.js', 'Python'],
+      features: [
+        'AI-powered meal recommendations',
+        'Real-time nutrition tracking',
+        'Progress visualization',
+        'Personalized fitness plans',
+        'Machine learning algorithms'
+      ],
+      liveUrl: '#',
+      githubUrl: '#',
+      status: 'In Development',
+      rating: 4.8,
+      year: '2024',
+      gradient: 'from-purple-500 via-pink-500 to-red-500',
+      category: 'Full Stack AI'
+    },
+    {
+      title: 'XRevStudio.com',
+      description: 'Portfolio website for a creative studio built during internship at Levelup Solutions. Focused on cross-browser compatibility and mobile responsiveness with modern UI/UX.',
+      image: '/api/placeholder/600/400',
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'PHP', 'SEO'],
+      features: [
+        'Responsive design',
+        'Cross-browser compatibility',
+        'Interactive portfolio gallery',
+        'Contact form integration',
+        'SEO optimized structure'
+      ],
+      liveUrl: 'https://xrevstudio.com',
+      githubUrl: '#',
+      status: 'Completed',
+      rating: 4.6,
+      year: '2024',
+      gradient: 'from-blue-500 via-cyan-500 to-teal-500',
+      category: 'Professional Web'
+    },
+    {
+      title: 'ObecheInterior.com',
+      description: 'Visually appealing landing page for an interior design company. Designed and developed during internship with focus on modern aesthetics and user experience.',
+      image: '/api/placeholder/600/400',
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'Responsive Design'],
+      features: [
+        'Modern design aesthetics',
+        'Smooth animations',
+        'Gallery showcase',
+        'Service descriptions',
+        'Mobile optimization'
+      ],
+      liveUrl: 'https://obecheinterior.com',
+      githubUrl: '#',
+      status: 'Completed',
+      rating: 4.7,
+      year: '2024',
+      gradient: 'from-green-500 via-emerald-500 to-teal-500',
+      category: 'Landing Page'
+    },
+    {
+      title: 'LevelUpSol.com.pk',
+      description: 'Company website for a software agency. Contributed to UI/UX enhancements and page optimization for better performance and user engagement.',
+      image: '/api/placeholder/600/400',
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'Bootstrap', 'SEO'],
+      features: [
+        'UI/UX enhancements',
+        'Page optimization',
+        'Service portfolio',
+        'Team showcase',
+        'Performance optimized'
+      ],
+      liveUrl: 'https://levelupsol.com.pk',
+      githubUrl: '#',
+      status: 'Completed',
+      rating: 4.5,
+      year: '2024',
+      gradient: 'from-orange-500 via-red-500 to-pink-500',
+      category: 'Corporate Web'
+    },
+    {
+      title: 'CricketX.net',
+      description: 'Cricket website developed during internship at Levelup Solutions. Focused on layout design, responsiveness, and sports content management.',
+      image: '/api/placeholder/600/400',
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'Responsive Design'],
+      features: [
+        'Responsive layout design',
+        'Cricket content management',
+        'Interactive features',
+        'Mobile optimization',
+        'Fast loading performance'
+      ],
+      liveUrl: 'https://cricketx.net',
+      githubUrl: '#',
+      status: 'Completed',
+      rating: 4.4,
+      year: '2024',
+      gradient: 'from-indigo-500 via-purple-500 to-pink-500',
+      category: 'Sports Web'
+    },
+    {
+      title: 'HackerFolio',
+      description: 'Amazing hackdesign portfolio site with modern UI/UX and innovative design patterns. Showcases advanced React development skills.',
+      image: '/api/placeholder/600/400',
+      technologies: ['React.js', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
+      features: [
+        'Modern hack design aesthetics',
+        'Interactive animations',
+        'Dark/Light theme toggle',
+        'Responsive layout',
+        'Performance optimized'
+      ],
+      liveUrl: 'https://abdullahcodes.vercel.app/',
+      githubUrl: 'https://github.com/mabdullahuzair/HackerFolio',
+      status: 'Completed',
+      rating: 4.9,
+      year: '2024',
+      gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
+      category: 'Portfolio'
+    }
+  ];
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
