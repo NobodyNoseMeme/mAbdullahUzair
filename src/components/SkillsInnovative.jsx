@@ -195,10 +195,10 @@ const SkillsInnovative = () => {
             key={i}
             className="absolute text-purple-400/20 font-mono text-sm animate-float"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`
+              left: `${Math.floor(Math.random() * 100)}%`,
+              top: `${Math.floor(Math.random() * 100)}%`,
+              animationDelay: `${(Math.random() * 5).toFixed(1)}s`,
+              animationDuration: `${(3 + Math.random() * 4).toFixed(1)}s`
             }}
           >
             {['</>', '{...}', '()', '[]', '==>', '<-', '&&', '||'][Math.floor(Math.random() * 8)]}
