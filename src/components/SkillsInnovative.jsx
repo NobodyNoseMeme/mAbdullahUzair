@@ -330,11 +330,11 @@ const SkillsInnovative = () => {
                 >
                   {/* Enhanced Hover Tooltip */}
                   {hoveredSkill?.name === skill.name && (
-                    <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 z-50 bg-gray-900 dark:bg-gray-800 text-white px-4 py-3 rounded-xl shadow-2xl text-sm max-w-xs pointer-events-none animate-in fade-in duration-200">
-                      <div className="font-semibold mb-1 text-purple-300">{skill.name}</div>
-                      <div className="text-gray-200">{skill.description}</div>
-                      <div className="text-xs text-gray-400 mt-2">Proficiency: {skill.level}%</div>
-                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-gray-900 dark:border-t-gray-800"></div>
+                    <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 z-50 bg-gray-900 dark:bg-gray-700 text-white px-4 py-3 rounded-xl shadow-2xl text-sm max-w-xs pointer-events-none animate-in fade-in duration-200">
+                      <div className="font-semibold mb-1 text-purple-200">{skill.name}</div>
+                      <div className="text-gray-100">{skill.description}</div>
+                      <div className="text-xs text-gray-300 mt-2">Proficiency: {skill.level}%</div>
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
                     </div>
                   )}
 
