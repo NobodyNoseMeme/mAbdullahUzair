@@ -10,26 +10,34 @@ const Hero = () => {
 
   useEffect(() => {
     setIsVisible(true);
-    
-    // Mouse tracking for interactive background elements
+
+    // Optimized mouse tracking with throttling
+    let animationFrame;
     const handleMouseMove = (e) => {
-      const rect = document.getElementById('hero')?.getBoundingClientRect();
-      if (rect) {
-        setMousePosition({
-          x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
-          y: ((e.clientY - rect.top) / rect.height - 0.5) * 2
-        });
-      }
+      if (animationFrame) return;
+      animationFrame = requestAnimationFrame(() => {
+        const rect = document.getElementById('hero')?.getBoundingClientRect();
+        if (rect) {
+          setMousePosition({
+            x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
+            y: ((e.clientY - rect.top) / rect.height - 0.5) * 2
+          });
+        }
+        animationFrame = null;
+      });
     };
 
     const heroSection = document.getElementById('hero');
     if (heroSection) {
-      heroSection.addEventListener('mousemove', handleMouseMove);
+      heroSection.addEventListener('mousemove', handleMouseMove, { passive: true });
     }
 
     return () => {
       if (heroSection) {
         heroSection.removeEventListener('mousemove', handleMouseMove);
+      }
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
       }
     };
   }, []);
