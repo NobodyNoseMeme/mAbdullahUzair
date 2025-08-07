@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ExternalLink, Github, ChevronLeft, ChevronRight, Eye, Star, Calendar, Play, Pause, Code, Sparkles, Zap, Cube } from 'lucide-react';
+import { ExternalLink, Github, ChevronLeft, ChevronRight, Eye, Star, Calendar, Play, Pause, Code, Sparkles, Zap, Box } from 'lucide-react';
 import { Button } from '@/components/ui/button.jsx';
 
 const Projects3D = () => {
