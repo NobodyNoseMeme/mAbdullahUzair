@@ -191,7 +191,7 @@ const Contact = () => {
 
           {/* Unique Contact Form */}
           <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700 relative overflow-hidden">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 lg:p-8 shadow-2xl border border-gray-200 dark:border-gray-700 relative overflow-hidden">
               {/* Form Background Effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/10 dark:to-blue-900/10 opacity-50" />
               
