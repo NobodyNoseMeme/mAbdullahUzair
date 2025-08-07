@@ -313,7 +313,7 @@ const Projects3D = () => {
               className={`relative w-64 h-64 transition-transform duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
               style={{
                 transformStyle: 'preserve-3d',
-                transform: `rotateY(${rotation}deg) rotateX(${(mousePosition.y || 0) * 0.5}deg) rotateZ(${(mousePosition.x || 0) * 0.2}deg)`
+                transform: `rotateY(${rotation || 0}deg) rotateX(${(mousePosition.y || 0) * 0.5}deg) rotateZ(${(mousePosition.x || 0) * 0.2}deg)`
               }}
             >
               {projects.map((project, index) => {
