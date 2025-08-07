@@ -328,7 +328,7 @@ const Projects3D = () => {
                     key={index}
                     className={`absolute w-64 h-80 transition-all duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
                     style={{
-                      transform: `translateX(${x.toFixed(2)}px) translateZ(${z.toFixed(2)}px) rotateY(${(-angle * (180 / Math.PI)).toFixed(2)}deg)`,
+                      transform: `translateX(${(x || 0).toFixed(2)}px) translateZ(${(z || 0).toFixed(2)}px) rotateY(${((-angle * (180 / Math.PI)) || 0).toFixed(2)}deg)`,
                       transformStyle: 'preserve-3d'
                     }}
                     onMouseEnter={() => setHoveredCard(index)}
