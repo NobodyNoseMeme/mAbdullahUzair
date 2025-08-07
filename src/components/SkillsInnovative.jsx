@@ -365,7 +365,7 @@ const SkillsInnovative = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-gray-600 dark:text-gray-100 leading-relaxed">
+                  <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed">
                     {skill.description}
                   </p>
 
