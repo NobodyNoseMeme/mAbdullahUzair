@@ -319,8 +319,8 @@ const Projects3D = () => {
               {projects.map((project, index) => {
                 const angle = (index * 60) * (Math.PI / 180); // 60 degrees between cards
                 const radius = 350; // Slightly reduced radius
-                const x = Math.sin(angle) * radius;
-                const z = Math.cos(angle) * radius;
+                const x = isNaN(Math.sin(angle)) ? 0 : Math.sin(angle) * radius;
+                const z = isNaN(Math.cos(angle)) ? 0 : Math.cos(angle) * radius;
                 const isActive = index === currentProject;
 
                 return (
