@@ -179,7 +179,7 @@ const SkillsInnovative = () => {
                       x2={500 + otherNode.x + (mousePosition.x || 0) * 20}
                       y2={500 + otherNode.y + (mousePosition.y || 0) * 20}
                       stroke="rgba(147, 51, 234, 0.2)"
-                      strokeWidth="1"
+                      strokeWidth={1}
                       className="animate-pulse"
                     />
                   );
