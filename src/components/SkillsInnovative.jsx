@@ -223,7 +223,7 @@ const SkillsInnovative = () => {
             </h2>
             <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full"></div>
           </div>
-          <p className="text-xl text-gray-600 dark:text-gray-200 max-w-3xl mx-auto mt-8">
+          <p className="text-xl text-gray-700 dark:text-gray-100 max-w-3xl mx-auto mt-8">
             A dynamic ecosystem of technologies and expertise, constantly evolving and interconnected
           </p>
         </div>
