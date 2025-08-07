@@ -384,8 +384,8 @@ const SkillsInnovative = () => {
         <div className={`mt-16 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { label: 'Years Experience', value: '4+', icon: '🗓️' },
-              { label: 'Projects Completed', value: '25+', icon: '🚀' },
+              { label: 'Years Experience', value: '1+', icon: '🗓️' },
+              { label: 'Projects Completed', value: '5+', icon: '🚀' },
               { label: 'Technologies', value: '20+', icon: '⚡' },
               { label: 'Lines of Code', value: '50K+', icon: '💻' }
             ].map((stat, index) => (
