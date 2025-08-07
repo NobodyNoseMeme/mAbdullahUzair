@@ -7,7 +7,11 @@ const Projects3D = () => {
   const [currentProject, setCurrentProject] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [rotation, setRotation] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState(null);
   const sectionRef = useRef(null);
+  const carouselRef = useRef(null);
   const autoPlayRef = useRef(null);
 
   useEffect(() => {
@@ -25,6 +29,23 @@ const Projects3D = () => {
     }
 
     return () => observer.disconnect();
+  }, []);
+
+  // Mouse tracking for 3D perspective effects
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (carouselRef.current) {
+        const rect = carouselRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const mouseX = ((e.clientX - centerX) / rect.width) * 30; // Reduced range
+        const mouseY = ((e.clientY - centerY) / rect.height) * 15; // Reduced range
+        setMousePosition({ x: mouseX, y: mouseY });
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   // Auto-play functionality
@@ -166,33 +187,38 @@ const Projects3D = () => {
   const nextProject = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+    setRotation(prev => prev - 60); // 360 / 6 projects = 60 degrees per project
     setTimeout(() => {
       setCurrentProject((prev) => (prev + 1) % projects.length);
       setIsTransitioning(false);
-    }, 300);
+    }, 600);
   };
 
   const prevProject = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+    setRotation(prev => prev + 60);
     setTimeout(() => {
       setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
       setIsTransitioning(false);
-    }, 300);
+    }, 600);
   };
 
   const goToProject = (index) => {
     if (index === currentProject || isTransitioning) return;
     setIsTransitioning(true);
+    const direction = index > currentProject ? -1 : 1;
+    const steps = Math.abs(index - currentProject);
+    setRotation(prev => prev + (direction * steps * 60));
     setTimeout(() => {
       setCurrentProject(index);
       setIsTransitioning(false);
-    }, 300);
+    }, 600);
     setIsAutoPlaying(false);
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="py-20 bg-gradient-to-br from-slate-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-slate-900 relative overflow-hidden">
+    <section ref={sectionRef} id="projects" className="py-20 bg-gradient-to-br from-slate-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-slate-900 relative overflow-hidden min-h-screen">
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Animated geometric shapes */}
@@ -230,229 +256,303 @@ const Projects3D = () => {
           </p>
         </div>
 
-        {/* Simple Card Grid with 3D Hover Effects - No Complex 3D Transforms */}
-        <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* Main Featured Project Display */}
-          <div className="relative max-w-6xl mx-auto mb-12">
-            <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50">
-              
-              {/* Project Content */}
-              <div className="relative">
-                {projects.map((project, index) => (
+        {/* 3D Cube Carousel Container */}
+        <div 
+          ref={carouselRef}
+          className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        >
+          {/* Main 3D Carousel */}
+          <div className="relative w-full h-[700px] mx-auto flex items-center justify-center perspective-1000">
+            <div 
+              className="relative w-80 h-80 transition-transform duration-700 ease-out"
+              style={{
+                transformStyle: 'preserve-3d',
+                transform: `rotateY(${rotation}deg) rotateX(${mousePosition.y * 0.5}deg) rotateZ(${mousePosition.x * 0.2}deg)`
+              }}
+            >
+              {projects.map((project, index) => {
+                const angle = (index * 60) * (Math.PI / 180); // 60 degrees between cards
+                const radius = 400;
+                const x = Math.sin(angle) * radius;
+                const z = Math.cos(angle) * radius;
+                const isActive = index === currentProject;
+                
+                return (
                   <div
                     key={index}
-                    className={`transition-all duration-500 ease-in-out ${
-                      index === currentProject 
-                        ? 'opacity-100 relative' 
-                        : 'opacity-0 absolute inset-0 pointer-events-none'
-                    }`}
+                    className={`absolute w-80 h-96 transition-all duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'}`}
+                    style={{
+                      transform: `translateX(${x}px) translateZ(${z}px) rotateY(${-angle * (180 / Math.PI)}deg)`,
+                      transformStyle: 'preserve-3d'
+                    }}
+                    onMouseEnter={() => setHoveredCard(index)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    onClick={() => goToProject(index)}
                   >
-                    <div className="flex flex-col lg:flex-row">
-                      {/* Project Preview */}
-                      <div className="lg:w-1/2 h-64 lg:h-80 relative overflow-hidden">
+                    {/* Project Card with proper face orientation */}
+                    <div 
+                      className={`w-full h-full bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border-2 transition-all duration-500 ${
+                        isActive ? 'border-purple-500 scale-110' : 'border-gray-200 dark:border-gray-700 scale-95'
+                      } ${hoveredCard === index ? 'scale-105' : ''}`}
+                      style={{
+                        boxShadow: isActive 
+                          ? '0 25px 50px rgba(147, 51, 234, 0.3), 0 0 0 1px rgba(147, 51, 234, 0.1)' 
+                          : '0 15px 30px rgba(0,0,0,0.2)',
+                        transform: 'rotateY(0deg)' // Keep content facing forward
+                      }}
+                    >
+                      {/* Project Image/Preview */}
+                      <div className="relative h-48 overflow-hidden">
                         <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-90`} />
                         
-                        {/* Animated background pattern */}
-                        <div className="absolute inset-0 opacity-20">
-                          <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:20px_20px] animate-pulse"/>
-                        </div>
-                        
                         {/* Content overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center text-white p-6">
+                        <div className="absolute inset-0 flex items-center justify-center text-white p-4">
                           <div className="text-center">
-                            <div className="w-20 h-20 mx-auto mb-4 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm transform transition-all duration-300 hover:scale-110 hover:rotate-12">
-                              <Eye size={40} />
+                            <div className="w-16 h-16 mx-auto mb-3 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12">
+                              <Eye size={32} />
                             </div>
-                            <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                            <p className="text-lg opacity-90">{project.category}</p>
+                            <h3 className="text-lg font-bold mb-1">{project.title}</h3>
+                            <p className="text-sm opacity-90">{project.category}</p>
                           </div>
                         </div>
 
                         {/* Status Badge */}
-                        <div className="absolute top-4 left-4">
-                          <span className={`px-4 py-2 text-sm font-bold rounded-full backdrop-blur-sm ${
+                        <div className="absolute top-3 left-3">
+                          <span className={`px-3 py-1 text-xs font-semibold rounded-full backdrop-blur-sm ${
                             project.status === 'Completed' 
-                              ? 'bg-green-500/90 text-white' 
-                              : 'bg-yellow-500/90 text-black'
+                              ? 'bg-green-500/80 text-white' 
+                              : 'bg-yellow-500/80 text-black'
                           }`}>
                             {project.status}
                           </span>
                         </div>
 
                         {/* Rating */}
-                        <div className="absolute top-4 right-4 flex items-center space-x-2 bg-black/40 backdrop-blur-sm rounded-full px-4 py-2">
-                          <Star size={16} className="text-yellow-400 fill-current" />
-                          <span className="text-white text-sm font-bold">{project.rating}</span>
+                        <div className="absolute top-3 right-3 flex items-center space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
+                          <Star size={14} className="text-yellow-400 fill-current" />
+                          <span className="text-white text-sm font-semibold">{project.rating}</span>
                         </div>
 
                         {/* Year */}
-                        <div className="absolute bottom-4 left-4 flex items-center space-x-2 bg-black/40 backdrop-blur-sm rounded-full px-4 py-2">
-                          <Calendar size={16} className="text-white" />
-                          <span className="text-white text-sm font-bold">{project.year}</span>
+                        <div className="absolute bottom-3 left-3 flex items-center space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
+                          <Calendar size={14} className="text-white" />
+                          <span className="text-white text-sm font-semibold">{project.year}</span>
                         </div>
                       </div>
 
                       {/* Project Details */}
-                      <div className="lg:w-1/2 p-8 flex flex-col justify-between">
+                      <div className="p-6 space-y-4">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white line-clamp-2">
+                          {project.title}
+                        </h3>
+                        
+                        <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+                          {project.description}
+                        </p>
+
+                        {/* Key Features */}
                         <div>
-                          <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                            {project.title}
-                          </h3>
-                          
-                          <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                            {project.description}
-                          </p>
-
-                          {/* Key Features */}
-                          <div className="mb-6">
-                            <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center">
-                              <Sparkles className="w-5 h-5 mr-2 text-purple-500"/>
-                              Key Features
-                            </h4>
-                            <ul className="space-y-2">
-                              {project.features.slice(0, 3).map((feature, idx) => (
-                                <li key={idx} className="text-gray-600 dark:text-gray-300 flex items-center">
-                                  <span className="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
-                                  {feature}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {/* Technologies */}
-                          <div className="mb-6">
-                            <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3 flex items-center">
-                              <Code className="w-5 h-5 mr-2 text-blue-500"/>
-                              Technologies
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                              {project.technologies.map((tech, idx) => (
-                                <span
-                                  key={idx}
-                                  className="px-3 py-1 text-sm bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-medium"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
+                          <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                            <Sparkles className="w-4 h-4 mr-2 text-purple-500"/>
+                            Key Features
+                          </h4>
+                          <ul className="space-y-1">
+                            {project.features.slice(0, 2).map((feature, idx) => (
+                              <li key={idx} className="text-xs text-gray-600 dark:text-gray-300 flex items-center">
+                                <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
 
-                        {/* Action Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4">
-                          <Button
-                            className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                            onClick={() => window.open(project.liveUrl, '_blank')}
-                          >
-                            <ExternalLink size={20} className="mr-2" />
-                            Live Demo
-                          </Button>
-                          
-                          <Button
-                            variant="outline"
-                            className="flex-1 border-2 border-purple-600 text-purple-600 dark:text-purple-400 hover:bg-purple-600 hover:text-white py-3 rounded-xl font-bold transition-all duration-300 transform hover:scale-105"
-                            onClick={() => window.open(project.githubUrl, '_blank')}
-                          >
-                            <Github size={20} className="mr-2" />
-                            View Code
-                          </Button>
+                        {/* Technologies */}
+                        <div>
+                          <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                            <Code className="w-4 h-4 mr-2 text-blue-500"/>
+                            Tech Stack
+                          </h4>
+                          <div className="flex flex-wrap gap-1">
+                            {project.technologies.slice(0, 3).map((tech, idx) => (
+                              <span
+                                key={idx}
+                                className="px-2 py-1 text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                            {project.technologies.length > 3 && (
+                              <span className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">
+                                +{project.technologies.length - 3}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
+
+                      {/* Glow effect for active card */}
+                      {isActive && (
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/20 to-blue-500/20 opacity-50 blur-xl transform scale-110 pointer-events-none"/>
+                      )}
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Navigation Arrows */}
-              <button
-                onClick={prevProject}
-                disabled={isTransitioning}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700 disabled:opacity-50"
-              >
-                <ChevronLeft size={20} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
-              </button>
-              
-              <button
-                onClick={nextProject}
-                disabled={isTransitioning}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700 disabled:opacity-50"
-              >
-                <ChevronRight size={20} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
-              </button>
-
-              {/* Auto-play Control */}
-              <button
-                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                className="absolute bottom-4 right-4 w-10 h-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700"
-              >
-                {isAutoPlaying ? (
-                  <Pause size={16} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
-                ) : (
-                  <Play size={16} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
-                )}
-              </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Project Thumbnails Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
-            {projects.map((project, index) => (
-              <button
-                key={index}
-                onClick={() => goToProject(index)}
-                className={`relative group transition-all duration-300 transform hover:scale-105 ${
-                  index === currentProject ? 'scale-110' : 'hover:scale-105'
-                }`}
-              >
-                <div className={`relative h-24 rounded-xl overflow-hidden border-2 transition-all duration-300 ${
-                  index === currentProject 
-                    ? 'border-purple-500 shadow-lg shadow-purple-500/25' 
-                    : 'border-gray-200 dark:border-gray-700 hover:border-purple-400'
-                }`}>
-                  <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-90`} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <h4 className="text-white text-xs font-bold text-center px-2">
-                      {project.title}
-                    </h4>
-                  </div>
-                  {index === currentProject && (
-                    <div className="absolute inset-0 bg-white/20 flex items-center justify-center">
-                      <div className="w-3 h-3 bg-white rounded-full"></div>
-                    </div>
-                  )}
-                </div>
-              </button>
-            ))}
+          {/* Navigation Controls */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-8">
+            <button
+              onClick={prevProject}
+              disabled={isTransitioning}
+              className="w-14 h-14 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700 disabled:opacity-50"
+            >
+              <ChevronLeft size={24} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
+            </button>
           </div>
 
-          {/* Project Indicators */}
-          <div className="flex justify-center mt-8 space-x-3">
-            {projects.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToProject(index)}
-                className={`relative transition-all duration-300 ${
-                  index === currentProject
-                    ? 'w-8 h-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full'
-                    : 'w-3 h-3 bg-gray-300 dark:bg-gray-600 hover:bg-purple-400 rounded-full hover:scale-125'
-                }`}
-              >
-                {index === currentProject && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full animate-pulse"/>
-                )}
-              </button>
-            ))}
+          <div className="absolute top-1/2 -translate-y-1/2 right-8">
+            <button
+              onClick={nextProject}
+              disabled={isTransitioning}
+              className="w-14 h-14 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700 disabled:opacity-50"
+            >
+              <ChevronRight size={24} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
+            </button>
           </div>
 
-          {/* Auto-playing indicator */}
-          <div className="text-center mt-4">
-            <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center">
-              <div className={`w-2 h-2 rounded-full mr-2 ${isAutoPlaying ? 'bg-green-400 animate-pulse' : 'bg-gray-400'}`}/>
-              {isAutoPlaying ? 'Auto-rotating every 4 seconds' : 'Auto-rotation paused'}
-            </span>
+          {/* Auto-play Control */}
+          <div className="absolute bottom-8 right-8">
+            <button
+              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+              className="w-12 h-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700"
+            >
+              {isAutoPlaying ? (
+                <Pause size={20} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
+              ) : (
+                <Play size={20} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Project Indicators */}
+        <div className="flex justify-center mt-12 space-x-3">
+          {projects.map((project, index) => (
+            <button
+              key={index}
+              onClick={() => goToProject(index)}
+              className={`relative transition-all duration-300 ${
+                index === currentProject
+                  ? 'w-12 h-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full'
+                  : 'w-3 h-3 bg-gray-300 dark:bg-gray-600 hover:bg-purple-400 rounded-full hover:scale-125'
+              }`}
+            >
+              {index === currentProject && (
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full animate-pulse"/>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Current Project Details Panel */}
+        <div className={`mt-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="max-w-4xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-gray-200/50 dark:border-gray-700/50">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="flex items-center mb-4">
+                  <h3 className="text-3xl font-bold text-gray-900 dark:text-white mr-3">
+                    {projects[currentProject].title}
+                  </h3>
+                  <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium">
+                    {projects[currentProject].category}
+                  </span>
+                </div>
+                
+                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                  {projects[currentProject].description}
+                </p>
+
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                    <Zap className="w-5 h-5 mr-2 text-yellow-500"/>
+                    All Features
+                  </h4>
+                  <div className="grid grid-cols-1 gap-2">
+                    {projects[currentProject].features.map((feature, idx) => (
+                      <div key={idx} className="flex items-center text-gray-600 dark:text-gray-300">
+                        <span className="w-2 h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mr-3"></span>
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {projects[currentProject].technologies.map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <Button
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  onClick={() => window.open(projects[currentProject].liveUrl, '_blank')}
+                >
+                  <ExternalLink size={20} className="mr-2" />
+                  View Live Project
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  className="w-full border-2 border-purple-600 text-purple-600 dark:text-purple-400 hover:bg-purple-600 hover:text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
+                  onClick={() => window.open(projects[currentProject].githubUrl, '_blank')}
+                >
+                  <Github size={20} className="mr-2" />
+                  View Source Code
+                </Button>
+
+                <div className="grid grid-cols-3 gap-4 pt-4">
+                  <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div className="text-2xl font-bold text-purple-600">{projects[currentProject].rating}</div>
+                    <div className="text-xs text-gray-500">Rating</div>
+                  </div>
+                  <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div className="text-2xl font-bold text-blue-600">{projects[currentProject].year}</div>
+                    <div className="text-xs text-gray-500">Year</div>
+                  </div>
+                  <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                    <div className="text-2xl font-bold text-green-600">{projects[currentProject].status === 'Completed' ? '✓' : '⚡'}</div>
+                    <div className="text-xs text-gray-500">{projects[currentProject].status}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Auto-playing indicator */}
+        <div className="text-center mt-6">
+          <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center">
+            <div className={`w-2 h-2 rounded-full mr-2 ${isAutoPlaying ? 'bg-green-400 animate-pulse' : 'bg-gray-400'}`}/>
+            {isAutoPlaying ? 'Auto-rotating every 4 seconds' : 'Auto-rotation paused'}
+          </span>
+        </div>
       </div>
+
+      {/* Custom CSS for 3D perspective */}
+      <style jsx>{`
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+      `}</style>
     </section>
   );
 };
