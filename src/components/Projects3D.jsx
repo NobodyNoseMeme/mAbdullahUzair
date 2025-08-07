@@ -593,17 +593,17 @@ const Projects3D = () => {
                   View Source Code
                 </Button>
 
-                <div className="grid grid-cols-3 gap-4 pt-4">
-                  <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                    <div className="text-2xl font-bold text-purple-600">{projects[currentProject].rating}</div>
+                <div className="grid grid-cols-3 gap-2 md:gap-4 pt-3 md:pt-4">
+                  <div className="text-center p-2 md:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg md:rounded-xl">
+                    <div className="text-lg md:text-2xl font-bold text-purple-600">{projects[currentProject].rating}</div>
                     <div className="text-xs text-gray-500">Rating</div>
                   </div>
-                  <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                    <div className="text-2xl font-bold text-blue-600">{projects[currentProject].year}</div>
+                  <div className="text-center p-2 md:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg md:rounded-xl">
+                    <div className="text-lg md:text-2xl font-bold text-blue-600">{projects[currentProject].year}</div>
                     <div className="text-xs text-gray-500">Year</div>
                   </div>
-                  <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                    <div className="text-2xl font-bold text-green-600">{projects[currentProject].status === 'Completed' ? '✓' : '⚡'}</div>
+                  <div className="text-center p-2 md:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg md:rounded-xl">
+                    <div className="text-lg md:text-2xl font-bold text-green-600">{projects[currentProject].status === 'Completed' ? '✓' : '⚡'}</div>
                     <div className="text-xs text-gray-500">{projects[currentProject].status}</div>
                   </div>
                 </div>
