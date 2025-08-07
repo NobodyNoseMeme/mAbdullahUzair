@@ -55,28 +55,30 @@ const SkillsInnovative = () => {
     setSkillNodes(nodes);
   };
 
-  // Auto-rotate active orb
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveOrb(prev => (prev + 1) % skillCategories.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  // Remove auto-rotation - now click-based only
 
-  // Mouse tracking
+  // Optimized mouse tracking with throttling
   useEffect(() => {
+    let animationFrame;
     const handleMouseMove = (e) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
-          y: ((e.clientY - rect.top) / rect.height - 0.5) * 2
-        });
-      }
+      if (animationFrame) return;
+      animationFrame = requestAnimationFrame(() => {
+        if (sectionRef.current) {
+          const rect = sectionRef.current.getBoundingClientRect();
+          setMousePosition({
+            x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
+            y: ((e.clientY - rect.top) / rect.height - 0.5) * 2
+          });
+        }
+        animationFrame = null;
+      });
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   const skillCategories = [
@@ -316,12 +318,13 @@ const SkillsInnovative = () => {
               {skillCategories[activeOrb].skills.map((skill, index) => (
                 <div
                   key={skill.name}
-                  className="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 cursor-pointer border border-gray-200 dark:border-gray-700"
+                  className="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 cursor-pointer border border-gray-200 dark:border-gray-700"
                   style={{
                     animationDelay: `${index * 100}ms`
                   }}
                   onMouseEnter={() => handleSkillHover(skill)}
                   onMouseLeave={handleSkillLeave}
+                  title={skill.description}
                 >
                   {/* Skill Icon */}
                   <div className="flex items-center mb-4">
@@ -369,8 +372,8 @@ const SkillsInnovative = () => {
         <div className={`mt-16 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { label: 'Years Experience', value: '2+', icon: '🗓️' },
-              { label: 'Projects Completed', value: '15+', icon: '🚀' },
+              { label: 'Years Experience', value: '3+', icon: '🗓️' },
+              { label: 'Projects Completed', value: '20+', icon: '🚀' },
               { label: 'Technologies', value: '20+', icon: '⚡' },
               { label: 'Lines of Code', value: '50K+', icon: '💻' }
             ].map((stat, index) => (
