@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, ArrowDown, Code, Database, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button.jsx';
+import TerminalBot from './TerminalBot.jsx';
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -45,6 +47,10 @@ const Hero = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const openTerminal = () => {
+    setIsTerminalOpen(true);
   };
 
 
