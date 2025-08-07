@@ -345,7 +345,7 @@ const SkillsInnovative = () => {
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-gray-900 dark:text-white">{skill.name}</h4>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{skill.level}% Proficiency</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{skill.level}% Proficiency</p>
                     </div>
                   </div>
 
