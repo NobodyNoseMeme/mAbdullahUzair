@@ -315,11 +315,11 @@ Type 'help' to see available commands.`;
 
   return (
     <div className={`fixed z-50 transition-all duration-300 ${
-      isMinimized 
-        ? 'bottom-4 right-4 w-72 h-12 sm:bottom-6 sm:right-6 sm:w-80' 
-        : propIsOpen 
+      isMinimized
+        ? 'bottom-4 right-20 w-72 h-12 sm:bottom-6 sm:right-20 sm:w-80'
+        : propIsOpen
           ? 'inset-0 flex items-center justify-center p-4'
-          : 'bottom-4 right-4 left-4 top-20 sm:bottom-6 sm:right-6 sm:left-auto sm:top-auto sm:w-full sm:max-w-2xl sm:h-96 md:w-[600px] md:h-[500px]'
+          : 'bottom-4 right-4 left-4 top-20 sm:bottom-6 sm:right-20 sm:left-auto sm:top-auto sm:w-full sm:max-w-2xl sm:h-96 md:w-[600px] md:h-[500px]'
     }`}>
       {propIsOpen && !isMinimized && (
         <div 
