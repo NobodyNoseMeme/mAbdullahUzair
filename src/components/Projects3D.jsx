@@ -34,7 +34,7 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'In Development',
       rating: 4.8,
-      year: '2024',
+      year: '2025',
       gradient: 'from-purple-500 via-pink-500 to-red-500',
       category: 'Full Stack AI'
     },
@@ -54,7 +54,7 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'Completed',
       rating: 4.6,
-      year: '2024',
+      year: '2025',
       gradient: 'from-blue-500 via-cyan-500 to-teal-500',
       category: 'Professional Web'
     },
@@ -74,7 +74,7 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'Completed',
       rating: 4.7,
-      year: '2024',
+      year: '2025',
       gradient: 'from-green-500 via-emerald-500 to-teal-500',
       category: 'Landing Page'
     },
@@ -94,7 +94,7 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'Completed',
       rating: 4.5,
-      year: '2024',
+      year: '2025',
       gradient: 'from-orange-500 via-red-500 to-pink-500',
       category: 'Corporate Web'
     },
@@ -114,9 +114,29 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'Completed',
       rating: 4.4,
-      year: '2024',
+      year: '2025',
       gradient: 'from-indigo-500 via-purple-500 to-pink-500',
       category: 'Sports Web'
+    },
+    {
+      title: 'SignalForge',
+      description: 'Automate SEO Signal Building with AI. Stop wasting time on manual submissions. SignalForge finds top directories, creates accounts, and submits listings for you. 100% free.',
+      image: '/api/placeholder/600/400',
+      technologies: ['React.js', 'Node.js', 'AI/ML', 'Automation', 'SEO', 'API Integration'],
+      features: [
+        'AI-powered directory discovery',
+        'Automated account creation',
+        'Smart listing submissions',
+        'SEO signal optimization',
+        'Free tier available'
+      ],
+      liveUrl: 'https://signalforge.floot.app/',
+      githubUrl: '#',
+      status: 'Completed',
+      rating: 4.7,
+      year: '2025',
+      gradient: 'from-green-500 via-blue-500 to-purple-500',
+      category: 'AI Automation'
     },
     {
       title: 'HackerFolio',
@@ -134,7 +154,7 @@ const Projects3D = () => {
       githubUrl: 'https://github.com/mabdullahuzair/HackerFolio',
       status: 'Completed',
       rating: 4.9,
-      year: '2024',
+      year: '2025',
       gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
       category: 'Portfolio'
     }
