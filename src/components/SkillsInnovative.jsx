@@ -237,7 +237,7 @@ const SkillsInnovative = () => {
 
             {/* Orbiting Skill Categories */}
             {skillCategories.map((category, index) => {
-              const angle = (index / skillCategories.length) * 2 * Math.PI + (Date.now() / 3000) * 0.5;
+              const angle = (index / skillCategories.length) * 2 * Math.PI;
               const radius = 150;
               const x = Math.cos(angle) * radius;
               const y = Math.sin(angle) * radius;
