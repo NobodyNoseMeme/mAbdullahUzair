@@ -150,6 +150,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <FloatingActionButton />
     </div>
   );
 }
