@@ -43,7 +43,7 @@ const SkillsInnovative = () => {
 
     skillData.forEach((skill, index) => {
       const angle = (index / skillData.length) * 2 * Math.PI;
-      const radius = 150 + Math.random() * 100;
+      const radius = 150 + Math.floor(Math.random() * 100);
       nodes.push({
         ...skill,
         x: Math.cos(angle) * radius,
