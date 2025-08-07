@@ -174,10 +174,10 @@ const SkillsInnovative = () => {
                   return (
                     <line
                       key={`${i}-${j}`}
-                      x1={500 + node.x + (mousePosition.x || 0) * 20}
-                      y1={500 + node.y + (mousePosition.y || 0) * 20}
-                      x2={500 + otherNode.x + (mousePosition.x || 0) * 20}
-                      y2={500 + otherNode.y + (mousePosition.y || 0) * 20}
+                      x1={Math.round(500 + (node.x || 0) + (mousePosition.x || 0) * 20)}
+                      y1={Math.round(500 + (node.y || 0) + (mousePosition.y || 0) * 20)}
+                      x2={Math.round(500 + (otherNode.x || 0) + (mousePosition.x || 0) * 20)}
+                      y2={Math.round(500 + (otherNode.y || 0) + (mousePosition.y || 0) * 20)}
                       stroke="rgba(147, 51, 234, 0.2)"
                       strokeWidth={1}
                       className="animate-pulse"
