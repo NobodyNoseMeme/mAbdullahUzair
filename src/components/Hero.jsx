@@ -204,9 +204,9 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-10 max-w-4xl mx-auto px-4 font-medium">
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-200 mb-8 sm:mb-10 max-w-4xl mx-auto px-4 font-medium">
             <span className="block">Software Engineering Student</span>
-            <span className="block mt-2 text-purple-600 dark:text-purple-400 font-bold">& Full-Stack Developer</span>
+            <span className="block mt-2 text-purple-700 dark:text-purple-300 font-bold">& Full-Stack Developer</span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mb-10 sm:mb-14 px-4">
