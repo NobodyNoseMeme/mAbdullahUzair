@@ -287,7 +287,7 @@ const Projects3D = () => {
                     key={index}
                     className={`absolute w-72 h-96 transition-all duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'}`}
                     style={{
-                      transform: `translateX(${x}px) translateZ(${z}px) rotateY(${-rotationY}deg)`,
+                      transform: `translateX(${x}px) translateZ(${z}px)`,
                       transformStyle: 'preserve-3d'
                     }}
                     onMouseEnter={() => setHoveredCard(index)}
