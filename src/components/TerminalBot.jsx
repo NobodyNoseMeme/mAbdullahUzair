@@ -295,7 +295,7 @@ Type 'help' to see available commands.`;
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-6 right-20 z-50">
         <button
           onClick={() => {
             if (propSetIsOpen) {
@@ -412,4 +412,3 @@ Type 'help' to see available commands.`;
 };
 
 export default TerminalBot;
-
