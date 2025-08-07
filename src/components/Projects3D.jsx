@@ -420,7 +420,7 @@ const Projects3D = () => {
                           {project.title}
                         </h3>
                         
-                        <p className="text-sm text-gray-600 dark:text-gray-200 line-clamp-2">
+                        <p className="text-sm text-gray-700 dark:text-gray-100 line-clamp-2">
                           {project.description}
                         </p>
 
