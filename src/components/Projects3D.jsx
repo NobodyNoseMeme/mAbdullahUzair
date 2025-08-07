@@ -297,7 +297,7 @@ const Projects3D = () => {
             </h2>
             <Box className="w-8 h-8 text-blue-600 ml-3 animate-spin" style={{animationDelay: '0.5s'}}/>
           </div>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-200 max-w-3xl mx-auto">
             Innovative solutions crafted with cutting-edge technologies and creative design
           </p>
         </div>
