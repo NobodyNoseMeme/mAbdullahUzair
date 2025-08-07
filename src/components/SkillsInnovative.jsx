@@ -83,57 +83,58 @@ const SkillsInnovative = () => {
     {
       title: 'Frontend Magic',
       icon: Monitor,
-      color: 'from-blue-500 to-cyan-500',
-      description: 'Crafting beautiful user interfaces',
+      color: 'from-blue-400 to-cyan-400',
+      description: 'Crafting beautiful user interfaces with modern frameworks',
       skills: [
-        { name: 'React.js', level: 90, icon: '⚛️', description: 'Building dynamic UIs with hooks and context' },
-        { name: 'Next.js', level: 85, icon: '🔺', description: 'Full-stack React framework with SSR' },
-        { name: 'Tailwind CSS', level: 95, icon: '💨', description: 'Utility-first CSS framework mastery' },
-        { name: 'HTML5', level: 98, icon: '🌐', description: 'Semantic markup and accessibility' },
-        { name: 'CSS3', level: 92, icon: '🎨', description: 'Advanced animations and responsive design' },
-        { name: 'TypeScript', level: 82, icon: '📘', description: 'Type-safe JavaScript development' }
+        { name: 'React.js', level: 88, icon: '⚛️', description: 'Building dynamic UIs with hooks and modern patterns' },
+        { name: 'HTML5', level: 98, icon: '🌐', description: 'Semantic markup and web standards mastery' },
+        { name: 'CSS3', level: 95, icon: '🎨', description: 'Advanced styling with animations and responsive design' },
+        { name: 'Bootstrap', level: 90, icon: '🅱️', description: 'Rapid prototyping with responsive framework' },
+        { name: 'Tailwind CSS', level: 92, icon: '💨', description: 'Utility-first CSS framework for modern design' },
+        { name: 'JavaScript', level: 90, icon: '🟨', description: 'ES6+ modern JavaScript with DOM manipulation' },
+        { name: 'Responsive Design', level: 95, icon: '📱', description: 'Mobile-first approach with cross-device compatibility' }
       ]
     },
     {
       title: 'Backend Power',
       icon: Server,
-      color: 'from-green-500 to-emerald-500',
-      description: 'Building robust server architectures',
+      color: 'from-green-400 to-emerald-400',
+      description: 'Building robust server architectures and APIs',
       skills: [
-        { name: 'Node.js', level: 88, icon: '🟢', description: 'Server-side JavaScript runtime' },
-        { name: 'Express.js', level: 85, icon: '🚀', description: 'Fast, unopinionated web framework' },
-        { name: 'MongoDB', level: 80, icon: '🍃', description: 'NoSQL database management' },
-        { name: 'PostgreSQL', level: 75, icon: '🐘', description: 'Relational database design' },
-        { name: 'REST APIs', level: 90, icon: '🔗', description: 'RESTful service architecture' },
-        { name: 'GraphQL', level: 70, icon: '📊', description: 'Query language for APIs' }
+        { name: 'Node.js', level: 85, icon: '🟢', description: 'Server-side JavaScript runtime and development' },
+        { name: 'Express.js', level: 82, icon: '🚀', description: 'Fast web framework for Node.js applications' },
+        { name: 'PHP', level: 80, icon: '🐘', description: 'Server-side scripting and web development' },
+        { name: 'RESTful APIs', level: 88, icon: '🔗', description: 'API design and development best practices' },
+        { name: 'MongoDB', level: 78, icon: '🍃', description: 'NoSQL database management and optimization' },
+        { name: 'MySQL', level: 85, icon: '🐬', description: 'Relational database design and queries' }
       ]
     },
     {
-      title: 'Programming Arsenal',
+      title: 'Programming & AI',
       icon: Code,
-      color: 'from-purple-500 to-pink-500',
-      description: 'Languages and paradigms mastery',
+      color: 'from-purple-400 to-pink-400',
+      description: 'Core programming languages and emerging technologies',
       skills: [
-        { name: 'JavaScript', level: 95, icon: '🟨', description: 'ES6+ modern JavaScript features' },
-        { name: 'Python', level: 82, icon: '🐍', description: 'Data science and web development' },
-        { name: 'C++', level: 78, icon: '⚙️', description: 'System programming and algorithms' },
-        { name: 'Java', level: 75, icon: '☕', description: 'Object-oriented programming' },
-        { name: 'PHP', level: 70, icon: '🐘', description: 'Server-side web development' },
-        { name: 'Rust', level: 65, icon: '🦀', description: 'Systems programming language' }
+        { name: 'JavaScript', level: 90, icon: '🟨', description: 'Full-stack JavaScript development expertise' },
+        { name: 'Python', level: 82, icon: '🐍', description: 'Machine learning and backend development' },
+        { name: 'C++', level: 85, icon: '⚙️', description: 'System programming and algorithm implementation' },
+        { name: 'C', level: 88, icon: '🔧', description: 'Low-level programming and performance optimization' },
+        { name: 'Machine Learning', level: 75, icon: '🤖', description: 'ML algorithms and data analysis with Python' },
+        { name: 'Vibe Coding', level: 95, icon: '✨', description: 'Intuitive problem-solving with creative flow' }
       ]
     },
     {
       title: 'DevOps & Tools',
       icon: Cpu,
-      color: 'from-orange-500 to-red-500',
-      description: 'Development workflow optimization',
+      color: 'from-orange-400 to-red-400',
+      description: 'Development workflow and optimization tools',
       skills: [
-        { name: 'Git & GitHub', level: 95, icon: '🔧', description: 'Version control and collaboration' },
-        { name: 'Docker', level: 78, icon: '🐳', description: 'Containerization and deployment' },
-        { name: 'AWS', level: 72, icon: '☁️', description: 'Cloud infrastructure management' },
-        { name: 'Linux', level: 85, icon: '🐧', description: 'Unix systems administration' },
-        { name: 'CI/CD', level: 75, icon: '🔄', description: 'Continuous integration pipelines' },
-        { name: 'Webpack', level: 80, icon: '📦', description: 'Module bundling and optimization' }
+        { name: 'Git & GitHub', level: 95, icon: '🔧', description: 'Version control and collaborative development' },
+        { name: 'VS Code', level: 98, icon: '💻', description: 'Primary development environment mastery' },
+        { name: 'Postman', level: 85, icon: '📮', description: 'API testing and development workflows' },
+        { name: 'SEO & Optimization', level: 88, icon: '🔍', description: 'Search engine optimization and performance' },
+        { name: 'Agile Methodology', level: 80, icon: '🏃', description: 'Project management and team collaboration' },
+        { name: 'Debugging & Testing', level: 90, icon: '🐛', description: 'Code quality assurance and problem solving' }
       ]
     }
   ];
