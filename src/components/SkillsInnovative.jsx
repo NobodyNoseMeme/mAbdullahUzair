@@ -169,7 +169,7 @@ const SkillsInnovative = () => {
                 className="animate-pulse"
                 style={{animationDelay: `${i * 0.2}s`}}
               />
-              {skillNodes.map((otherNode, j) => {
+              {skillNodes.filter(n => n && typeof n.x === 'number').map((otherNode, j) => {
                 if (i < j && Math.hypot(node.x - otherNode.x, node.y - otherNode.y) < 200) {
                   return (
                     <line
