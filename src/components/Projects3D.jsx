@@ -308,9 +308,9 @@ const Projects3D = () => {
           className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
         >
           {/* Main 3D Carousel */}
-          <div className="relative w-full h-[700px] mx-auto flex items-center justify-center perspective-1000">
-            <div 
-              className="relative w-80 h-80 transition-transform duration-700 ease-out"
+          <div className="relative w-full h-[600px] mx-auto flex items-center justify-center perspective-1000">
+            <div
+              className={`relative w-64 h-64 transition-transform duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
               style={{
                 transformStyle: 'preserve-3d',
                 transform: `rotateY(${rotation}deg) rotateX(${(mousePosition.y || 0) * 0.5}deg) rotateZ(${(mousePosition.x || 0) * 0.2}deg)`
@@ -318,15 +318,15 @@ const Projects3D = () => {
             >
               {projects.map((project, index) => {
                 const angle = (index * 60) * (Math.PI / 180); // 60 degrees between cards
-                const radius = 400;
+                const radius = 350; // Slightly reduced radius
                 const x = Math.sin(angle) * radius;
                 const z = Math.cos(angle) * radius;
                 const isActive = index === currentProject;
-                
+
                 return (
                   <div
                     key={index}
-                    className={`absolute w-80 h-96 transition-all duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'}`}
+                    className={`absolute w-64 h-80 transition-all duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
                     style={{
                       transform: `translateX(${x.toFixed(2)}px) translateZ(${z.toFixed(2)}px) rotateY(${(-angle * (180 / Math.PI)).toFixed(2)}deg)`,
                       transformStyle: 'preserve-3d'
