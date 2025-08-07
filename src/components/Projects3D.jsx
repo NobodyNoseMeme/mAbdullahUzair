@@ -94,19 +94,6 @@ const Projects3D = () => {
     };
   }, [isDragging, dragStart, rotation, lastRotation, projects.length]);
 
-  // Auto-play functionality
-  useEffect(() => {
-    if (isAutoPlaying) {
-      autoPlayRef.current = setInterval(() => {
-        nextProject();
-      }, 4000);
-    } else {
-      clearInterval(autoPlayRef.current);
-    }
-
-    return () => clearInterval(autoPlayRef.current);
-  }, [isAutoPlaying]);
-
   const projects = [
     {
       title: 'MacroMate',
