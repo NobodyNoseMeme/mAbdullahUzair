@@ -162,8 +162,8 @@ const SkillsInnovative = () => {
           {skillNodes.filter(node => node && typeof node.x === 'number').map((node, i) => (
             <g key={i}>
               <circle
-                cx={500 + node.x + (mousePosition.x || 0) * 20}
-                cy={500 + node.y + (mousePosition.y || 0) * 20}
+                cx={Math.round(500 + (node.x || 0) + (mousePosition.x || 0) * 20)}
+                cy={Math.round(500 + (node.y || 0) + (mousePosition.y || 0) * 20)}
                 r={Math.max(1, (node.size || 60) / 10)}
                 fill="url(#nodeGradient)"
                 className="animate-pulse"
