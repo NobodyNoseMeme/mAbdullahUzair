@@ -394,7 +394,7 @@ const SkillsEnhanced = () => {
                 </div>
 
                 {/* Enhanced skill name with text effects */}
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transform group-hover:translateZ-10 transition-transform duration-300 relative"
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transform transition-transform duration-300 relative"
                     style={{
                       textShadow: '0 2px 4px rgba(0,0,0,0.1)'
                     }}>
