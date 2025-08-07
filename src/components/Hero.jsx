@@ -196,8 +196,9 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-4xl mx-auto px-4">
-            Software Engineering Student & Full-Stack Developer
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-10 max-w-4xl mx-auto px-4 font-medium">
+            <span className="block">Software Engineering Student</span>
+            <span className="block mt-2 text-purple-600 dark:text-purple-400 font-bold">& Full-Stack Developer</span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 px-4">
