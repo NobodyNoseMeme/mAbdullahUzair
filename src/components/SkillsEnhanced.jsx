@@ -474,7 +474,7 @@ const SkillsEnhanced = () => {
                 opacity: 0.1 + Math.random() * 0.3,
                 animationDelay: `${Math.random() * 3}s`,
                 animationDuration: `${3 + Math.random() * 4}s`,
-                transform: `translateZ(${Math.random() * 50}px) rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg)`
+                transform: `rotate(${Math.random() * 360}deg)`
               }}
             />
           ))}
