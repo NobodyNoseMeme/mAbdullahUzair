@@ -177,7 +177,7 @@ const Contact = () => {
               </div>
 
               {/* Fun Quote */}
-              <div className="bg-gradient-to-br from-purple-500 to-blue-600 rounded-3xl p-6 text-white transform hover:scale-105 transition-transform duration-300">
+              <div className="bg-gradient-to-br from-purple-500 to-blue-600 rounded-3xl p-4 lg:p-6 text-white transform hover:scale-105 transition-transform duration-300">
                 <div className="flex items-center mb-4">
                   <Heart className="mr-3 text-pink-200" size={24} />
                   <h4 className="text-lg font-bold">Let's Create Magic!</h4>
