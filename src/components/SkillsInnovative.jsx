@@ -307,7 +307,7 @@ const SkillsInnovative = () => {
               <h3 className={`text-3xl font-bold bg-gradient-to-r ${skillCategories[activeOrb].color} bg-clip-text text-transparent mb-2`}>
                 {skillCategories[activeOrb].title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-600 dark:text-gray-200">
                 {skillCategories[activeOrb].description}
               </p>
             </div>
