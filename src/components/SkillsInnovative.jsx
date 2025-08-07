@@ -276,7 +276,7 @@ const SkillsInnovative = () => {
             {/* Connection Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
               {skillCategories.map((_, index) => {
-                const angle = (index / skillCategories.length) * 2 * Math.PI + (Date.now() / 3000) * 0.5;
+                const angle = (index / skillCategories.length) * 2 * Math.PI;
                 const radius = 150;
                 const x = Math.cos(angle) * radius + 192; // Center offset
                 const y = Math.sin(angle) * radius + 192; // Center offset
