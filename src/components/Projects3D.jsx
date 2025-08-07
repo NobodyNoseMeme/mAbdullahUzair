@@ -310,7 +310,7 @@ const Projects3D = () => {
           {/* Main 3D Carousel */}
           <div className="relative w-full h-[600px] mx-auto flex items-center justify-center perspective-1000">
             <div
-              className={`relative w-64 h-64 transition-transform duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+              className={`relative w-56 h-56 transition-transform duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
               style={{
                 transformStyle: 'preserve-3d',
                 transform: `rotateY(${rotation || 0}deg) rotateX(${(mousePosition.y || 0) * 0.5}deg) rotateZ(${(mousePosition.x || 0) * 0.2}deg)`
@@ -318,7 +318,7 @@ const Projects3D = () => {
             >
               {projects.map((project, index) => {
                 const angle = (index * 60) * (Math.PI / 180); // 60 degrees between cards
-                const radius = 350; // Slightly reduced radius
+                const radius = 280; // Further reduced radius for smaller cards
                 const x = isNaN(Math.sin(angle)) ? 0 : Math.sin(angle) * radius;
                 const z = isNaN(Math.cos(angle)) ? 0 : Math.cos(angle) * radius;
                 const isActive = index === currentProject;
@@ -326,9 +326,9 @@ const Projects3D = () => {
                 return (
                   <div
                     key={index}
-                    className={`absolute w-64 h-80 transition-all duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+                    className={`absolute w-56 h-72 transition-all duration-700 cursor-pointer group ${isActive ? 'z-30' : 'z-10'} ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
                     style={{
-                      transform: `translateX(${(x || 0).toFixed(2)}px) translateZ(${(z || 0).toFixed(2)}px) rotateY(${((-angle * (180 / Math.PI)) || 0).toFixed(2)}deg)`,
+                      transform: `translateX(${(x || 0).toFixed(2)}px) translateZ(${(z || 0).toFixed(2)}px)`,
                       transformStyle: 'preserve-3d'
                     }}
                     onMouseEnter={() => setHoveredCard(index)}
@@ -344,11 +344,11 @@ const Projects3D = () => {
                         boxShadow: isActive 
                           ? '0 25px 50px rgba(147, 51, 234, 0.3), 0 0 0 1px rgba(147, 51, 234, 0.1)' 
                           : '0 15px 30px rgba(0,0,0,0.2)',
-                        transform: 'rotateY(0deg)' // Keep content facing forward
+                        transform: `rotateY(${((angle * (180 / Math.PI)) || 0).toFixed(2)}deg)` // Always face forward
                       }}
                     >
                       {/* Project Image/Preview */}
-                      <div className="relative h-48 overflow-hidden">
+                      <div className="relative h-40 overflow-hidden">
                         <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-90`} />
                         
                         {/* Content overlay */}
