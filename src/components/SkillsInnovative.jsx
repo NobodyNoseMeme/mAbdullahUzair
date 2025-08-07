@@ -161,8 +161,8 @@ const SkillsInnovative = () => {
           {skillNodes.map((node, i) => (
             <g key={i}>
               <circle
-                cx={500 + node.x + mousePosition.x * 20}
-                cy={500 + node.y + mousePosition.y * 20}
+                cx={500 + node.x + (mousePosition.x || 0) * 20}
+                cy={500 + node.y + (mousePosition.y || 0) * 20}
                 r={node.size / 10}
                 fill="url(#nodeGradient)"
                 className="animate-pulse"
