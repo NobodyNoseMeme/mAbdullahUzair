@@ -1,7 +1,16 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Crimson+Text:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
+
+/* 3D Transform Support */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
 
 /* Custom responsive breakpoints */
 @media (min-width: 475px) {
@@ -1461,4 +1470,3 @@ h1, h2, h3, h4, h5, h6 {
 .dark ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1);
 }
-

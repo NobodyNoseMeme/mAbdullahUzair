@@ -3,12 +3,13 @@ import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import Skills from './components/Skills';
+import SkillsInnovative from './components/SkillsInnovative';
 import Experience from './components/Experience';
-import Projects from './components/Projects';
+import Projects3D from './components/Projects3D';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import FloatingActionButton from './components/FloatingActionButton';
 import './App.css';
 
 function App() {
@@ -142,16 +143,16 @@ function App() {
       <main>
         <Hero />
         <About />
-        <Skills />
+        <SkillsInnovative />
         <Experience />
-        <Projects />
+        <Projects3D />
         <Education />
         <Contact />
       </main>
       <Footer />
+      <FloatingActionButton />
     </div>
   );
 }
 
 export default App;
-

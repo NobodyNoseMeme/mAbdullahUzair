@@ -135,7 +135,7 @@ const Footer = () => {
       {/* Back to Top Button */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 w-12 h-12 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110 z-50"
+        className="fixed bottom-8 right-8 w-12 h-12 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110 z-40"
         aria-label="Back to top"
       >
         <ChevronUp size={24} />
@@ -145,4 +145,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

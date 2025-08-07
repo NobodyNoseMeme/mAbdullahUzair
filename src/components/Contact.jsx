@@ -22,7 +22,7 @@ const Contact = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
@@ -118,20 +118,31 @@ const Contact = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            Let's Work Together
+        <div className="text-center mb-16 px-4">
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
+              Let's Work Together
+            </span>
           </h2>
-          <p className={`text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            Ready to bring your ideas to life? Let's create something amazing together!
+          <p className={`text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            Ready to bring your ideas to life?
+            <br className="hidden sm:block" />
+            <span className="text-purple-600 dark:text-purple-400 font-semibold">Let's create something amazing together!</span>
           </p>
+          <div className={`mt-8 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="flex justify-center space-x-2">
+              <div className="w-3 h-3 bg-purple-500 rounded-full animate-bounce"></div>
+              <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+              <div className="w-3 h-3 bg-cyan-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+            </div>
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start px-4 lg:px-0">
           {/* Contact Information */}
           <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="space-y-8">
-              <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
+            <div className="space-y-6 lg:space-y-8">
+              <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 lg:p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
                   <Sparkles className="mr-3 text-purple-500" size={24} />
                   Get In Touch
@@ -166,7 +177,7 @@ const Contact = () => {
               </div>
 
               {/* Fun Quote */}
-              <div className="bg-gradient-to-br from-purple-500 to-blue-600 rounded-3xl p-6 text-white transform hover:scale-105 transition-transform duration-300">
+              <div className="bg-gradient-to-br from-purple-500 to-blue-600 rounded-3xl p-4 lg:p-6 text-white transform hover:scale-105 transition-transform duration-300">
                 <div className="flex items-center mb-4">
                   <Heart className="mr-3 text-pink-200" size={24} />
                   <h4 className="text-lg font-bold">Let's Create Magic!</h4>
@@ -180,7 +191,7 @@ const Contact = () => {
 
           {/* Unique Contact Form */}
           <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700 relative overflow-hidden">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 lg:p-8 shadow-2xl border border-gray-200 dark:border-gray-700 relative overflow-hidden">
               {/* Form Background Effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/10 dark:to-blue-900/10 opacity-50" />
               
@@ -190,7 +201,7 @@ const Contact = () => {
                   Send Message
                 </h3>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6">
                   {/* Name Field */}
                   <div className="relative group">
                     <div className={`absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 ${focusedField === 'name' ? 'opacity-30' : ''}`} />
@@ -307,4 +318,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
