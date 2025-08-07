@@ -164,7 +164,7 @@ const SkillsInnovative = () => {
               <circle
                 cx={500 + node.x + (mousePosition.x || 0) * 20}
                 cy={500 + node.y + (mousePosition.y || 0) * 20}
-                r={node.size / 10}
+                r={Math.max(1, (node.size || 60) / 10)}
                 fill="url(#nodeGradient)"
                 className="animate-pulse"
                 style={{animationDelay: `${i * 0.2}s`}}
