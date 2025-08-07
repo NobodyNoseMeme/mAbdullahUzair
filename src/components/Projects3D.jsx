@@ -76,8 +76,8 @@ const Projects3D = () => {
       if (isDragging) {
         setIsDragging(false);
         // Snap to nearest project
-        const snapAngle = Math.round(rotation / 60) * 60;
-        const targetProject = Math.abs(Math.round(rotation / 60)) % projects.length;
+        const snapAngle = Math.round((rotation || 0) / 60) * 60;
+        const targetProject = Math.abs(Math.round((rotation || 0) / 60)) % projects.length;
         setRotation(snapAngle);
         setCurrentProject(targetProject);
       }
