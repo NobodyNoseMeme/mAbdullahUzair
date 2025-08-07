@@ -38,12 +38,15 @@ function App() {
     }
   }, [darkMode]);
 
-  // Enhanced cursor trail effect with better performance
+  // Enhanced cursor trail effect with better performance - disabled on mobile
   useEffect(() => {
+    // Disable cursor effects on mobile for better performance
+    if (window.innerWidth <= 768) return;
+
     let lastTime = 0;
-    const throttleDelay = 8; // ~120fps for ultra-smooth experience
+    const throttleDelay = 16; // ~60fps for better mobile performance
     let trailPool = [];
-    const maxTrails = 15;
+    const maxTrails = 8; // Reduced for mobile performance
 
     const createTrail = (e) => {
       const now = performance.now();
