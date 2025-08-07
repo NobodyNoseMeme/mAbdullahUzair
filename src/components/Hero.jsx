@@ -49,6 +49,10 @@ const Hero = () => {
     }
   };
 
+  const openTerminal = () => {
+    setIsTerminalOpen(true);
+  };
+
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-purple-900 dark:to-slate-900 pt-24 md:pt-32 lg:pt-20">
