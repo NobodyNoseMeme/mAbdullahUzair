@@ -21,7 +21,7 @@ const Projects3D = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
@@ -537,7 +537,7 @@ const Projects3D = () => {
                     <div className="text-xs text-gray-500">Year</div>
                   </div>
                   <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                    <div className="text-2xl font-bold text-green-600">{projects[currentProject].status === 'Completed' ? '✓' : '⚡'}</div>
+                    <div className="text-2xl font-bold text-green-600">{projects[currentProject].status === 'Completed' ? '���' : '⚡'}</div>
                     <div className="text-xs text-gray-500">{projects[currentProject].status}</div>
                   </div>
                 </div>
