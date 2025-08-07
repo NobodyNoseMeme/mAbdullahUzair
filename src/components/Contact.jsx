@@ -141,8 +141,8 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start px-4 lg:px-0">
           {/* Contact Information */}
           <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="space-y-8">
-              <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
+            <div className="space-y-6 lg:space-y-8">
+              <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 lg:p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
                   <Sparkles className="mr-3 text-purple-500" size={24} />
                   Get In Touch
