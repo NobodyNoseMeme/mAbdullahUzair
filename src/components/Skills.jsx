@@ -26,20 +26,28 @@ const Skills = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Custom cursor tracking
+  // Optimized cursor tracking with throttling for mobile performance
   useEffect(() => {
+    let animationFrame;
     const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (animationFrame) return;
+      animationFrame = requestAnimationFrame(() => {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+        animationFrame = null;
+      });
     };
 
-    if (hoveredSkill) {
-      document.addEventListener("mousemove", handleMouseMove);
+    // Only enable hover effects on desktop
+    const isMobile = window.innerWidth <= 768;
+    if (hoveredSkill && !isMobile) {
+      document.addEventListener("mousemove", handleMouseMove, { passive: true });
     } else {
       document.body.style.cursor = "auto";
     }
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
       document.body.style.cursor = "auto";
     };
   }, [hoveredSkill]);
@@ -140,51 +148,51 @@ const Skills = () => {
 
   return (
     <section id="skills" ref={sectionRef} className="py-20 bg-white dark:bg-gray-900 relative overflow-hidden">
-      {/* Custom Cursor */}
-      {hoveredSkill && (
+      {/* Custom Cursor - Only show on desktop */}
+      {hoveredSkill && window.innerWidth > 768 && (
         <div
-          className="fixed pointer-events-none z-50 transition-all duration-200"
+          className="fixed pointer-events-none z-50 transition-all duration-200 hidden md:block"
           style={{
             left: mousePosition.x + 20,
             top: mousePosition.y - 10,
             transform: 'translate(-50%, -50%)'
           }}
         >
-          <div className="bg-black/90 text-white px-4 py-2 rounded-lg text-sm font-medium backdrop-blur-md border border-white/20">
+          <div className="bg-black/90 text-white px-3 py-1 rounded-lg text-sm font-medium backdrop-blur-md border border-white/20">
             {hoveredSkill.level}% Proficiency
           </div>
         </div>
       )}
 
-      {/* Skill Details Modal */}
-      {showDetails && hoveredSkill && (
+      {/* Skill Details Modal - Only show on desktop */}
+      {showDetails && hoveredSkill && window.innerWidth > 768 && (
         <div
-          className="fixed pointer-events-none z-40 transition-all duration-300"
+          className="fixed pointer-events-none z-40 transition-all duration-300 hidden md:block"
           style={{
             left: mousePosition.x + 50,
             top: mousePosition.y - 50,
             transform: 'translate(0, -50%)'
           }}
         >
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 max-w-sm transform scale-95 hover:scale-100 transition-transform duration-300"
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 max-w-xs transform transition-transform duration-300"
                style={{
-                 boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1)'
+                 boxShadow: '0 10px 25px rgba(0,0,0,0.15)'
                }}>
-            <div className="flex items-center mb-3">
-              <span className="text-2xl mr-3">{getSkillIcon(hoveredSkill.name)}</span>
-              <h4 className="font-bold text-lg text-gray-900 dark:text-white">{hoveredSkill.name}</h4>
+            <div className="flex items-center mb-2">
+              <span className="text-xl mr-2">{getSkillIcon(hoveredSkill.name)}</span>
+              <h4 className="font-bold text-base text-gray-900 dark:text-white">{hoveredSkill.name}</h4>
             </div>
-            <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{hoveredSkill.description}</p>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
+            <p className="text-gray-600 dark:text-gray-300 text-xs mb-3">{hoveredSkill.description}</p>
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs">
                 <span className="text-gray-500">Experience:</span>
                 <span className="font-semibold text-purple-600">1 year</span>
               </div>
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between text-xs">
                 <span className="text-gray-500">Projects:</span>
                 <span className="font-semibold text-blue-600">5 projects</span>
               </div>
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between text-xs">
                 <span className="text-gray-500">Proficiency:</span>
                 <span className="font-semibold text-green-600">{hoveredSkill.level}%</span>
               </div>
@@ -234,27 +242,36 @@ const Skills = () => {
             {skillCategories[activeTab].skills.map((skill, index) => (
               <div
                 key={skill.name}
-                className="group relative bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:translateY-4 hover:rotate-1 cursor-pointer border border-gray-200 dark:border-gray-700"
+                className="group relative bg-white dark:bg-gray-800 rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-lg md:hover:shadow-2xl transition-all duration-300 md:duration-500 transform md:hover:scale-105 md:hover:translateY-4 md:hover:rotate-1 cursor-pointer border border-gray-200 dark:border-gray-700"
                 style={{
                   animationDelay: `${index * 100}ms`,
                   transformStyle: 'preserve-3d',
                   perspective: '1000px'
                 }}
-                onMouseEnter={(e) => handleSkillHover(skill, e)}
-                onMouseLeave={handleSkillLeave}
+                onMouseEnter={(e) => {
+                  // Only enable hover effects on desktop for performance
+                  if (window.innerWidth > 768) {
+                    handleSkillHover(skill, e);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (window.innerWidth > 768) {
+                    handleSkillLeave();
+                  }
+                }}
               >
-                {/* 3D Background Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 via-blue-500/10 to-cyan-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* 3D Background Effect - Disabled on mobile */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 via-blue-500/10 to-cyan-500/10 rounded-2xl md:rounded-3xl opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:duration-500" />
                 
                 {/* Skill Icon with 3D effect */}
                 <div className="relative z-10 mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-lg group-hover:shadow-2xl">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl md:rounded-2xl flex items-center justify-center text-white text-lg md:text-2xl font-bold transform md:group-hover:scale-110 md:group-hover:rotate-12 transition-all duration-300 shadow-lg md:group-hover:shadow-2xl">
                     {getSkillIcon(skill.name)}
                   </div>
                 </div>
 
                 {/* Skill Name with 3D text effect */}
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 transform group-hover:translateZ-10 transition-transform duration-300"
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2 md:mb-3 transform md:group-hover:translateZ-10 transition-transform duration-300"
                     style={{
                       textShadow: '0 2px 4px rgba(0,0,0,0.1)'
                     }}>
@@ -262,7 +279,7 @@ const Skills = () => {
                 </h3>
 
                 {/* Enhanced Progress Bar with 3D effect */}
-                <div className="mb-4">
+                <div className="mb-3 md:mb-4">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Proficiency</span>
                     <span className="text-sm font-bold text-purple-600 dark:text-purple-400">{skill.level}%</span>
@@ -281,30 +298,30 @@ const Skills = () => {
 
                 {/* Experience Badge with 3D hover */}
                 <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium transform group-hover:scale-105 transition-transform duration-300">
+                  <span className="px-2 md:px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium transform md:group-hover:scale-105 transition-transform duration-300">
                     {skill.experience}
                   </span>
-                  <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium transform group-hover:scale-105 transition-transform duration-300">
+                  <span className="px-2 md:px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium transform md:group-hover:scale-105 transition-transform duration-300">
                     {skill.projects} projects
                   </span>
                 </div>
 
-                {/* 3D Hover Glow Effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl transform scale-110" />
+                {/* 3D Hover Glow Effect - Disabled on mobile */}
+                <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-r from-purple-500/20 to-blue-500/20 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:duration-500 blur-xl transform scale-110" />
                 
                 {/* Interactive Corner Accent */}
-                <div className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full opacity-50 group-hover:opacity-100 group-hover:scale-150 transition-all duration-300" />
+                <div className="absolute top-3 right-3 md:top-4 md:right-4 w-2 h-2 md:w-3 md:h-3 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full opacity-50 md:group-hover:opacity-100 md:group-hover:scale-150 transition-all duration-300" />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Floating 3D Elements */}
+        {/* Floating 3D Elements - Reduced count on mobile */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(15)].map((_, i) => (
+          {[...Array(window.innerWidth > 768 ? 15 : 5)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-4 h-4 bg-purple-400 rounded-full opacity-10 animate-pulse"
+              className="absolute w-2 h-2 md:w-4 md:h-4 bg-purple-400 rounded-full opacity-10 animate-pulse"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -321,4 +338,3 @@ const Skills = () => {
 };
 
 export default Skills;
-
