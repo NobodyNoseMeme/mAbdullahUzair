@@ -267,7 +267,7 @@ const Projects3D = () => {
               className="relative w-80 h-80 transition-transform duration-700 ease-out"
               style={{
                 transformStyle: 'preserve-3d',
-                transform: `rotateY(${rotation}deg) rotateX(${mousePosition.y * 0.5}deg) rotateZ(${mousePosition.x * 0.2}deg)`
+                transform: `rotateY(${rotation}deg) rotateX(${(mousePosition.y || 0) * 0.5}deg) rotateZ(${(mousePosition.x || 0) * 0.2}deg)`
               }}
             >
               {projects.map((project, index) => {
