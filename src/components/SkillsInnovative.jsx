@@ -121,7 +121,7 @@ const SkillsInnovative = () => {
         { name: 'Python', level: 82, icon: '🐍', description: 'Machine learning and backend development' },
         { name: 'C++', level: 85, icon: '⚙️', description: 'System programming and algorithm implementation' },
         { name: 'C', level: 88, icon: '🔧', description: 'Low-level programming and performance optimization' },
-        { name: 'Machine Learning', level: 75, icon: '����', description: 'ML algorithms and data analysis with Python' },
+        { name: 'Machine Learning', level: 75, icon: '🤖', description: 'ML algorithms and data analysis with Python' },
         { name: 'Vibe Coding', level: 95, icon: '✨', description: 'Intuitive problem-solving with creative flow' }
       ]
     },
@@ -259,8 +259,8 @@ const SkillsInnovative = () => {
                   onClick={() => setActiveOrb(index)}
                 >
                   <div className={`w-20 h-20 bg-gradient-to-br ${category.color} rounded-full flex items-center justify-center shadow-lg border-4 ${
-                    isActive ? 'border-white' : 'border-transparent'
-                  } transition-all duration-300`}>
+                    isActive ? 'border-white shadow-2xl' : 'border-transparent'
+                  } transition-all duration-300 ${isActive ? 'animate-pulse' : ''}`}>
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
                   <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
