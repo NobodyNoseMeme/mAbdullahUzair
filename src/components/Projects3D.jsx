@@ -544,7 +544,7 @@ const Projects3D = () => {
                   </span>
                 </div>
                 
-                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-200 mb-6 leading-relaxed">
                   {projects[currentProject].description}
                 </p>
 
