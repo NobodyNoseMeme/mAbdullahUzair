@@ -98,7 +98,7 @@ const About = () => {
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
               animationDuration: `${2 + Math.random() * 2}s`,
-              transform: `translate(${(mousePosition.x - (typeof window !== 'undefined' ? window.innerWidth : 1024) / 2) * 0.01}px, ${(mousePosition.y - (typeof window !== 'undefined' ? window.innerHeight : 768) / 2) * 0.01}px)`
+              transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
             }}
           />
         ))}
