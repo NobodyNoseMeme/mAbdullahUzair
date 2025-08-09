@@ -111,6 +111,12 @@ function App() {
     return () => {
       document.removeEventListener('mousemove', updateCursor);
 
+      if (isTouchDevice) {
+        document.removeEventListener('touchstart', updateCursor);
+        document.removeEventListener('touchmove', updateCursor);
+        document.removeEventListener('touchend', updateCursor);
+      }
+
       // Remove the cursor style
       if (document.head.contains(cursorStyle)) {
         document.head.removeChild(cursorStyle);
