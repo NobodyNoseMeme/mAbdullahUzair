@@ -249,7 +249,6 @@ const Skills = () => {
 
       // Find skill for this key
       const keyData = keyboardLayout.flat().find(k => k.key === key && k.skill);
-      console.log('Key pressed:', key, 'Found keyData:', keyData); // Debug log
       if (keyData && keyData.skill) {
         setSelectedSkill(keyData.skill);
         setTypedText(prev => prev + key);
