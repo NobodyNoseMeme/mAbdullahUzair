@@ -48,6 +48,7 @@ const Skills = () => {
   const [menuViewMode, setMenuViewMode] = useState('grid');
   const [selectedMenuSkill, setSelectedMenuSkill] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [flippedCard, setFlippedCard] = useState(null);
   const sectionRef = useRef(null);
   const keyboardRef = useRef(null);
 
@@ -545,199 +546,93 @@ const Skills = () => {
           </div>
         )}
 
-        {/* Skills Overview Section */}
+        {/* Simple Skills Cards Section */}
         <div className={`mt-16 sm:mt-20 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <div className="text-center mb-8 sm:mb-12">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
-                Skills Overview
+                Skills Cards
               </span>
             </h3>
-            <p className="text-gray-400 text-sm sm:text-lg">Explore my technical expertise by category</p>
+            <p className="text-gray-400 text-sm sm:text-lg">Click on any card to see details - only one card rotates at a time</p>
           </div>
 
-          {/* View Mode Toggle */}
-          <div className="flex justify-center mb-6 sm:mb-8">
-            <div className="flex items-center space-x-2 bg-gray-800/80 backdrop-blur-md rounded-xl px-4 py-3 border border-gray-600">
-              <button
-                onClick={() => setMenuViewMode('grid')}
-                className={`px-3 py-1 rounded text-sm flex items-center space-x-2 ${
-                  menuViewMode === 'grid' ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300'
-                }`}
-              >
-                <Grid3X3 size={16} />
-                <span className="hidden sm:inline">Grid</span>
-              </button>
-              <button
-                onClick={() => setMenuViewMode('list')}
-                className={`px-3 py-1 rounded text-sm flex items-center space-x-2 ${
-                  menuViewMode === 'list' ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300'
-                }`}
-              >
-                <List size={16} />
-                <span className="hidden sm:inline">List</span>
-              </button>
-            </div>
-          </div>
+          {/* Skills Cards Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+            {Object.entries(skillsData).map(([categoryKey, category]) =>
+              category.skills.map((skill, index) => {
+                const skillId = `${categoryKey}-${index}`;
+                const isFlipped = flippedCard === skillId;
+                const SkillIcon = skill.icon;
 
-          {/* Skills Categories */}
-          {menuViewMode === 'grid' ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              {Object.entries(skillsData).map(([key, category]) => {
-                const IconComponent = category.icon;
-                const avgLevel = Math.round(category.skills.reduce((acc, skill) => acc + skill.level, 0) / category.skills.length);
-                
                 return (
                   <div
-                    key={key}
-                    className="bg-gray-800/80 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-700 hover:border-gray-600 transition-all duration-300 transform hover:scale-105 cursor-pointer group"
-                    onClick={() => setExpandedCategory(expandedCategory === key ? null : key)}
+                    key={skillId}
+                    className="relative h-32 sm:h-40 lg:h-48 cursor-pointer"
+                    style={{ perspective: '1000px' }}
+                    onClick={() => setFlippedCard(isFlipped ? null : skillId)}
                   >
-                    <div className="flex items-center mb-4">
-                      <div 
-                        className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300"
-                        style={{ backgroundColor: `${category.color}20` }}
-                      >
-                        <IconComponent size={isMobile ? 20 : 24} style={{ color: category.color }} />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-bold text-sm sm:text-base">{category.name}</h4>
-                        <p className="text-gray-400 text-xs sm:text-sm">{category.skills.length} skills</p>
-                      </div>
-                    </div>
-                    
-                    <p className="text-gray-300 text-xs sm:text-sm mb-4">{category.description}</p>
-                    
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-gray-400 text-xs sm:text-sm">Average:</span>
-                      <span className="font-bold text-sm sm:text-base" style={{ color: category.color }}>{avgLevel}%</span>
-                    </div>
-                    
-                    <div className="w-full bg-gray-700 rounded-full h-2 mb-4">
-                      <div
-                        className="h-full rounded-full transition-all duration-1000"
-                        style={{
-                          width: `${avgLevel}%`,
-                          backgroundColor: category.color
-                        }}
-                      />
-                    </div>
-
-                    {expandedCategory === key && (
-                      <div className="mt-4 space-y-2 border-t border-gray-700 pt-4">
-                        {category.skills.map((skill, index) => {
-                          const SkillIcon = skill.icon;
-                          return (
-                            <div 
-                              key={index} 
-                              className="flex items-center justify-between p-2 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setSelectedMenuSkill(skill);
-                              }}
-                            >
-                              <div className="flex items-center">
-                                <SkillIcon size={16} style={{ color: skill.color }} className="mr-2" />
-                                <span className="text-white text-xs sm:text-sm">{skill.name}</span>
-                              </div>
-                              <span className="text-gray-400 text-xs">{skill.level}%</span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                    
-                    <div className="flex items-center justify-center mt-4">
-                      <ChevronDown 
-                        size={20} 
-                        className={`text-gray-400 transition-transform duration-300 ${
-                          expandedCategory === key ? 'rotate-180' : ''
-                        }`} 
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {Object.entries(skillsData).map(([key, category]) => {
-                const IconComponent = category.icon;
-                const isExpanded = expandedCategory === key;
-                
-                return (
-                  <div key={key} className="bg-gray-800/80 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-700 overflow-hidden">
-                    <div 
-                      className="p-4 sm:p-6 cursor-pointer hover:bg-gray-700/50 transition-colors duration-200"
-                      onClick={() => setExpandedCategory(isExpanded ? null : key)}
+                    <div
+                      className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+                        isFlipped ? 'rotate-y-180' : ''
+                      }`}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                          <div 
-                            className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center mr-3 sm:mr-4"
-                            style={{ backgroundColor: `${category.color}20` }}
-                          >
-                            <IconComponent size={isMobile ? 20 : 24} style={{ color: category.color }} />
-                          </div>
-                          <div>
-                            <h4 className="text-white font-bold text-sm sm:text-lg">{category.name}</h4>
-                            <p className="text-gray-400 text-xs sm:text-base">{category.description}</p>
-                          </div>
+                      {/* Front Side */}
+                      <div className="absolute inset-0 w-full h-full backface-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 p-4 sm:p-6 flex flex-col items-center justify-center hover:border-gray-600 transition-colors duration-300">
+                        <div
+                          className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-2 sm:mb-3"
+                          style={{ backgroundColor: `${skill.color}20` }}
+                        >
+                          <SkillIcon size={isMobile ? 20 : 28} style={{ color: skill.color }} />
                         </div>
-                        <div className="flex items-center space-x-4">
-                          <div className="text-right">
-                            <div className="text-white font-bold text-sm sm:text-base">{category.skills.length}</div>
-                            <div className="text-gray-400 text-xs sm:text-sm">skills</div>
+                        <h4 className="text-white font-bold text-xs sm:text-sm lg:text-base text-center">{skill.name}</h4>
+                        <div
+                          className="w-12 sm:w-16 h-1 rounded-full mt-2"
+                          style={{ backgroundColor: skill.color }}
+                        />
+                      </div>
+
+                      {/* Back Side */}
+                      <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-xl sm:rounded-2xl border border-gray-700 p-3 sm:p-4 flex flex-col justify-center" style={{ background: `linear-gradient(135deg, ${skill.color}10, ${skill.color}05)` }}>
+                        <div className="text-center">
+                          <div
+                            className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center mx-auto mb-2"
+                            style={{ backgroundColor: `${skill.color}30` }}
+                          >
+                            <SkillIcon size={isMobile ? 16 : 20} style={{ color: skill.color }} />
                           </div>
-                          <ChevronRight 
-                            size={20} 
-                            className={`text-gray-400 transition-transform duration-300 ${
-                              isExpanded ? 'rotate-90' : ''
-                            }`} 
-                          />
+                          <h4 className="text-white font-bold text-xs sm:text-sm mb-2">{skill.name}</h4>
+                          <div className="space-y-1 text-xs text-gray-300">
+                            <div className="flex justify-between">
+                              <span>Level:</span>
+                              <span className="font-bold" style={{ color: skill.color }}>{skill.level}%</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Years:</span>
+                              <span className="text-white">{skill.years}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Projects:</span>
+                              <span className="text-white">{skill.projects}</span>
+                            </div>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-1 mt-2">
+                            <div
+                              className="h-full rounded-full transition-all duration-1000"
+                              style={{
+                                width: `${skill.level}%`,
+                                backgroundColor: skill.color
+                              }}
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                    
-                    {isExpanded && (
-                      <div className="px-4 sm:px-6 pb-4 sm:pb-6">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                          {category.skills.map((skill, index) => {
-                            const SkillIcon = skill.icon;
-                            return (
-                              <div 
-                                key={index}
-                                className="bg-gray-700/50 rounded-lg sm:rounded-xl p-3 sm:p-4 hover:bg-gray-700 transition-colors duration-200 cursor-pointer border border-gray-600"
-                                onClick={() => setSelectedMenuSkill(skill)}
-                              >
-                                <div className="flex items-center mb-3">
-                                  <div 
-                                    className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center mr-2 sm:mr-3"
-                                    style={{ backgroundColor: `${skill.color}20` }}
-                                  >
-                                    <SkillIcon size={isMobile ? 14 : 16} style={{ color: skill.color }} />
-                                  </div>
-                                  <div>
-                                    <h5 className="text-white font-semibold text-sm sm:text-base">{skill.name}</h5>
-                                    <p className="text-gray-400 text-xs">{skill.level}% proficiency</p>
-                                  </div>
-                                </div>
-                                <p className="text-gray-300 text-xs sm:text-sm">{skill.description}</p>
-                                <div className="flex justify-between mt-3 text-xs text-gray-400">
-                                  <span>{skill.years} year{skill.years !== 1 ? 's' : ''}</span>
-                                  <span>{skill.projects} projects</span>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 );
-              })}
-            </div>
-          )}
+              })
+            )}
+          </div>
         </div>
 
         {/* Selected Menu Skill Modal */}
@@ -823,6 +718,15 @@ const Skills = () => {
         }
         .transform-3d {
           transform-style: preserve-3d;
+        }
+        .transform-style-preserve-3d {
+          transform-style: preserve-3d;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+          transform: rotateY(180deg);
         }
         kbd {
           font-family: monospace;
