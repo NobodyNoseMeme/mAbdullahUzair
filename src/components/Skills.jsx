@@ -474,8 +474,8 @@ const Skills = () => {
               <div className="relative bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
                 {/* Keyboard Header */}
                 <div className="text-center mb-4 sm:mb-6">
-                  <div className="text-gray-400 font-mono text-xs">SKILLS KEYBOARD v3.0</div>
-                  <div className="text-sm font-bold text-blue-400">Clean & User-Friendly Layout</div>
+                  <div className="text-gray-500 dark:text-gray-400 font-mono text-xs">SKILLS KEYBOARD v3.0</div>
+                  <div className="text-sm font-bold text-blue-600 dark:text-blue-400">Clean & User-Friendly Layout</div>
                 </div>
 
                 {/* Category Labels */}
