@@ -282,7 +282,7 @@ const About = () => {
         <div className={`text-center mt-16 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4 flex items-center justify-center">
-              <Rocket className="mr-3" size={28} />
+              <TrendingUp className="mr-3" size={28} />
               Ready to Build Something Amazing Together?
             </h3>
             <p className="text-lg mb-6 opacity-90">
