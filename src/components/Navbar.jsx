@@ -162,8 +162,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
       {/* Mobile menu overlay */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+        <div
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
