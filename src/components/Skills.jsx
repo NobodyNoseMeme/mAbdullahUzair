@@ -1,316 +1,187 @@
 import { useState, useEffect, useRef } from 'react';
 import { 
-  Beaker, 
-  Zap, 
+  Monitor, 
   Cpu, 
-  Database, 
-  Palette, 
+  HardDrive, 
+  Wifi, 
+  Power, 
+  Settings, 
+  Terminal, 
   Code, 
+  Database, 
   Globe, 
+  Palette, 
+  Layers, 
+  Zap, 
   Wrench, 
   Brain, 
-  Layers, 
-  Target, 
-  Activity,
-  FlaskConical,
-  Microscope,
-  TestTube,
+  Target,
+  RotateCcw,
+  Volume2,
+  VolumeX,
   Play,
   Pause,
-  RotateCcw,
-  Sparkles,
-  TrendingUp,
-  Settings,
-  Monitor
+  MousePointer,
+  Keyboard
 } from 'lucide-react';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeExperiment, setActiveExperiment] = useState(null);
-  const [hoveredBeaker, setHoveredBeaker] = useState(null);
-  const [isLabRunning, setIsLabRunning] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [labTemperature, setLabTemperature] = useState(75);
-  const [bubbleAnimation, setBubbleAnimation] = useState(true);
+  const [keyboardLayout, setKeyboardLayout] = useState('qwerty');
+  const [rotationX, setRotationX] = useState(-10);
+  const [rotationY, setRotationY] = useState(0);
+  const [rotationZ, setRotationZ] = useState(0);
+  const [selectedKey, setSelectedKey] = useState(null);
+  const [typedSequence, setTypedSequence] = useState('');
+  const [isTypingMode, setIsTypingMode] = useState(true);
+  const [keyboardTheme, setKeyboardTheme] = useState('mechanical');
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [autoRotate, setAutoRotate] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [pressedKeys, setPressedKeys] = useState(new Set());
   const sectionRef = useRef(null);
+  const keyboardRef = useRef(null);
 
-  const skillLaboratory = {
-    frontend: {
-      name: 'Frontend Chemistry Lab',
-      color: '#3B82F6',
-      glowColor: '#60A5FA',
-      icon: FlaskConical,
-      description: 'Where beautiful interfaces are crafted',
-      equipment: 'Beaker Set A',
-      experiments: [
-        {
-          name: 'HTML5',
-          type: 'Base Solution',
-          level: 95,
-          years: 1,
-          projects: 5,
-          icon: Code,
-          color: '#FF6B35',
-          reaction: 'Stable foundation reaction',
-          formula: 'C₁₂H₁₅N₃O₃',
-          bubbleSpeed: 2,
-          glowIntensity: 95,
-          description: 'The fundamental building blocks of web structure'
-        },
-        {
-          name: 'CSS3',
-          type: 'Styling Compound',
-          level: 92,
-          years: 1,
-          projects: 5,
-          icon: Palette,
-          color: '#4285F4',
-          reaction: 'Visual transformation',
-          formula: 'C₈H₁₁NO₂',
-          bubbleSpeed: 1.8,
-          glowIntensity: 92,
-          description: 'Creates beautiful visual transformations'
-        },
-        {
-          name: 'JavaScript',
-          type: 'Dynamic Catalyst',
-          level: 85,
-          years: 1,
-          projects: 5,
-          icon: Zap,
-          color: '#F7DF1E',
-          reaction: 'Interactive synthesis',
-          formula: 'C₁₀H₁₃N₂O',
-          bubbleSpeed: 2.5,
-          glowIntensity: 85,
-          description: 'Brings life and interactivity to static elements'
-        },
-        {
-          name: 'React.js',
-          type: 'Component Matrix',
-          level: 82,
-          years: 1,
-          projects: 5,
-          icon: Layers,
-          color: '#61DAFB',
-          reaction: 'Modular assembly',
-          formula: 'C₁₄H₁₈N₂O₅',
-          bubbleSpeed: 2.2,
-          glowIntensity: 82,
-          description: 'Assembles complex interfaces from simple components'
-        },
-        {
-          name: 'Tailwind CSS',
-          type: 'Utility Essence',
-          level: 90,
-          years: 1,
-          projects: 5,
-          icon: Sparkles,
-          color: '#06B6D4',
-          reaction: 'Rapid styling',
-          formula: 'C₉H₁₂N₂O₃',
-          bubbleSpeed: 1.9,
-          glowIntensity: 90,
-          description: 'Ultra-fast styling reactions'
-        }
+  // Skills mapped to keyboard keys
+  const skillKeyboard = {
+    qwerty: {
+      name: 'Full Stack QWERTY',
+      theme: '#3B82F6',
+      rows: [
+        [
+          { key: '`', skill: null, label: '~', type: 'function' },
+          { key: '1', skill: 'HTML5', level: 95, years: 1, projects: 5, color: '#E34F26', icon: Code },
+          { key: '2', skill: 'CSS3', level: 92, years: 1, projects: 5, color: '#1572B6', icon: Palette },
+          { key: '3', skill: 'JavaScript', level: 85, years: 1, projects: 5, color: '#F7DF1E', icon: Zap },
+          { key: '4', skill: 'React.js', level: 82, years: 1, projects: 5, color: '#61DAFB', icon: Layers },
+          { key: '5', skill: 'Node.js', level: 75, years: 1, projects: 5, color: '#339933', icon: Cpu },
+          { key: '6', skill: 'PHP', level: 80, years: 1, projects: 5, color: '#777BB4', icon: Code },
+          { key: '7', skill: 'Python', level: 75, years: 1, projects: 5, color: '#3776AB', icon: Brain },
+          { key: '8', skill: 'MySQL', level: 78, years: 1, projects: 5, color: '#4479A1', icon: Database },
+          { key: '9', skill: 'MongoDB', level: 70, years: 1, projects: 5, color: '#47A248', icon: Database },
+          { key: '0', skill: 'Git', level: 88, years: 1, projects: 5, color: '#F05032', icon: Code },
+          { key: '-', skill: null, label: '_', type: 'function' },
+          { key: '=', skill: null, label: '+', type: 'function' },
+          { key: 'Backspace', skill: null, label: '⌫', type: 'function', width: 'w-24' }
+        ],
+        [
+          { key: 'Tab', skill: null, label: '⇥', type: 'function', width: 'w-16' },
+          { key: 'Q', skill: 'Express.js', level: 75, years: 1, projects: 5, color: '#000000', icon: Globe },
+          { key: 'W', skill: 'RESTful APIs', level: 72, years: 1, projects: 5, color: '#FF4500', icon: Wifi },
+          { key: 'E', skill: 'Bootstrap', level: 88, years: 1, projects: 5, color: '#7952B3', icon: Wrench },
+          { key: 'R', skill: 'Tailwind CSS', level: 90, years: 1, projects: 5, color: '#06B6D4', icon: Palette },
+          { key: 'T', skill: 'VS Code', level: 95, years: 1, projects: 5, color: '#007ACC', icon: Monitor },
+          { key: 'Y', skill: 'Postman', level: 80, years: 1, projects: 5, color: '#FF6C37', icon: Target },
+          { key: 'U', skill: 'C', level: 85, years: 1, projects: 5, color: '#A8B9CC', icon: Cpu },
+          { key: 'I', skill: 'C++', level: 82, years: 1, projects: 5, color: '#00599C', icon: Layers },
+          { key: 'O', skill: 'Machine Learning', level: 65, years: 1, projects: 5, color: '#FF6B6B', icon: Brain },
+          { key: 'P', skill: null, label: 'P', type: 'normal' },
+          { key: '[', skill: null, label: '{', type: 'function' },
+          { key: ']', skill: null, label: '}', type: 'function' },
+          { key: '\\', skill: null, label: '|', type: 'function' }
+        ],
+        [
+          { key: 'CapsLock', skill: null, label: '⇪', type: 'function', width: 'w-20' },
+          { key: 'A', skill: null, label: 'A', type: 'normal' },
+          { key: 'S', skill: null, label: 'S', type: 'normal' },
+          { key: 'D', skill: null, label: 'D', type: 'normal' },
+          { key: 'F', skill: null, label: 'F', type: 'normal' },
+          { key: 'G', skill: null, label: 'G', type: 'normal' },
+          { key: 'H', skill: null, label: 'H', type: 'normal' },
+          { key: 'J', skill: null, label: 'J', type: 'normal' },
+          { key: 'K', skill: null, label: 'K', type: 'normal' },
+          { key: 'L', skill: null, label: 'L', type: 'normal' },
+          { key: ';', skill: null, label: ':', type: 'function' },
+          { key: "'", skill: null, label: '"', type: 'function' },
+          { key: 'Enter', skill: null, label: '⏎', type: 'function', width: 'w-24' }
+        ],
+        [
+          { key: 'Shift', skill: null, label: '⇧', type: 'function', width: 'w-28' },
+          { key: 'Z', skill: null, label: 'Z', type: 'normal' },
+          { key: 'X', skill: null, label: 'X', type: 'normal' },
+          { key: 'C', skill: null, label: 'C', type: 'normal' },
+          { key: 'V', skill: null, label: 'V', type: 'normal' },
+          { key: 'B', skill: null, label: 'B', type: 'normal' },
+          { key: 'N', skill: null, label: 'N', type: 'normal' },
+          { key: 'M', skill: null, label: 'M', type: 'normal' },
+          { key: ',', skill: null, label: '<', type: 'function' },
+          { key: '.', skill: null, label: '>', type: 'function' },
+          { key: '/', skill: null, label: '?', type: 'function' },
+          { key: 'Shift', skill: null, label: '⇧', type: 'function', width: 'w-28' }
+        ],
+        [
+          { key: 'Ctrl', skill: null, label: 'Ctrl', type: 'function', width: 'w-16' },
+          { key: 'Fn', skill: null, label: 'Fn', type: 'function', width: 'w-14' },
+          { key: 'Alt', skill: null, label: 'Alt', type: 'function', width: 'w-16' },
+          { key: 'Space', skill: 'Full Stack Development', level: 85, years: 1, projects: 5, color: '#6366F1', icon: Code, width: 'w-64', type: 'space' },
+          { key: 'Alt', skill: null, label: 'Alt', type: 'function', width: 'w-16' },
+          { key: 'Fn', skill: null, label: 'Fn', type: 'function', width: 'w-14' },
+          { key: 'Menu', skill: null, label: '☰', type: 'function', width: 'w-14' },
+          { key: 'Ctrl', skill: null, label: 'Ctrl', type: 'function', width: 'w-16' }
+        ]
       ]
     },
-    backend: {
-      name: 'Backend Processing Unit',
-      color: '#10B981',
-      glowColor: '#34D399',
-      icon: TestTube,
-      description: 'Server-side molecular reactions',
-      equipment: 'Test Tube Array',
-      experiments: [
-        {
-          name: 'PHP',
-          type: 'Server Enzyme',
-          level: 80,
-          years: 1,
-          projects: 5,
-          icon: Code,
-          color: '#777BB4',
-          reaction: 'Backend processing',
-          formula: 'C₁₁H₁₄N₂O₄',
-          bubbleSpeed: 1.6,
-          glowIntensity: 80,
-          description: 'Processes server-side logic efficiently'
-        },
-        {
-          name: 'Node.js',
-          type: 'Runtime Solution',
-          level: 75,
-          years: 1,
-          projects: 5,
-          icon: Cpu,
-          color: '#339933',
-          reaction: 'Async execution',
-          formula: 'C₁₃H₁₆N₃O₂',
-          bubbleSpeed: 2.1,
-          glowIntensity: 75,
-          description: 'Enables JavaScript to run on servers'
-        },
-        {
-          name: 'Express.js',
-          type: 'Framework Polymer',
-          level: 75,
-          years: 1,
-          projects: 5,
-          icon: Globe,
-          color: '#000000',
-          reaction: 'Route synthesis',
-          formula: 'C₇H₉NO₃',
-          bubbleSpeed: 1.7,
-          glowIntensity: 75,
-          description: 'Creates efficient web application routes'
-        },
-        {
-          name: 'RESTful APIs',
-          type: 'Communication Protocol',
-          level: 72,
-          years: 1,
-          projects: 5,
-          icon: Activity,
-          color: '#FF4500',
-          reaction: 'Data exchange',
-          formula: 'C₆H₈N₂O₂',
-          bubbleSpeed: 1.8,
-          glowIntensity: 72,
-          description: 'Facilitates seamless data communication'
-        }
+    gaming: {
+      name: 'Gaming Layout',
+      theme: '#10B981',
+      rows: [
+        [
+          { key: 'Esc', skill: null, label: 'Esc', type: 'function' },
+          { key: 'F1', skill: 'HTML5', level: 95, years: 1, projects: 5, color: '#E34F26', icon: Code },
+          { key: 'F2', skill: 'CSS3', level: 92, years: 1, projects: 5, color: '#1572B6', icon: Palette },
+          { key: 'F3', skill: 'JavaScript', level: 85, years: 1, projects: 5, color: '#F7DF1E', icon: Zap },
+          { key: 'F4', skill: 'React.js', level: 82, years: 1, projects: 5, color: '#61DAFB', icon: Layers },
+          { key: 'F5', skill: 'Node.js', level: 75, years: 1, projects: 5, color: '#339933', icon: Cpu },
+          { key: 'F6', skill: 'PHP', level: 80, years: 1, projects: 5, color: '#777BB4', icon: Code },
+          { key: 'F7', skill: 'Python', level: 75, years: 1, projects: 5, color: '#3776AB', icon: Brain },
+          { key: 'F8', skill: 'MySQL', level: 78, years: 1, projects: 5, color: '#4479A1', icon: Database },
+          { key: 'F9', skill: 'MongoDB', level: 70, years: 1, projects: 5, color: '#47A248', icon: Database },
+          { key: 'F10', skill: 'Git', level: 88, years: 1, projects: 5, color: '#F05032', icon: Code },
+          { key: 'F11', skill: null, label: 'F11', type: 'function' },
+          { key: 'F12', skill: null, label: 'F12', type: 'function' }
+        ],
+        [
+          { key: '~', skill: null, label: '~', type: 'function' },
+          { key: '1', skill: null, label: '1', type: 'normal' },
+          { key: '2', skill: null, label: '2', type: 'normal' },
+          { key: '3', skill: null, label: '3', type: 'normal' },
+          { key: '4', skill: null, label: '4', type: 'normal' },
+          { key: '5', skill: null, label: '5', type: 'normal' },
+          { key: '6', skill: null, label: '6', type: 'normal' },
+          { key: '7', skill: null, label: '7', type: 'normal' },
+          { key: '8', skill: null, label: '8', type: 'normal' },
+          { key: '9', skill: null, label: '9', type: 'normal' },
+          { key: '0', skill: null, label: '0', type: 'normal' },
+          { key: '-', skill: null, label: '-', type: 'function' },
+          { key: '=', skill: null, label: '=', type: 'function' }
+        ]
       ]
     },
-    database: {
-      name: 'Data Analysis Chamber',
-      color: '#8B5CF6',
-      glowColor: '#A78BFA',
-      icon: Microscope,
-      description: 'Data storage and tool synthesis',
-      equipment: 'Microscope Station',
-      experiments: [
-        {
-          name: 'MySQL',
-          type: 'Relational Compound',
-          level: 78,
-          years: 1,
-          projects: 5,
-          icon: Database,
-          color: '#4479A1',
-          reaction: 'Structured storage',
-          formula: 'C₁₂H₁₇N₃O₄',
-          bubbleSpeed: 1.5,
-          glowIntensity: 78,
-          description: 'Organizes data in structured relationships'
-        },
-        {
-          name: 'MongoDB',
-          type: 'Document Solution',
-          level: 70,
-          years: 1,
-          projects: 5,
-          icon: Layers,
-          color: '#47A248',
-          reaction: 'Flexible storage',
-          formula: 'C₉H₁₁N₂O₃',
-          bubbleSpeed: 1.8,
-          glowIntensity: 70,
-          description: 'Stores data in flexible document format'
-        },
-        {
-          name: 'Git & GitHub',
-          type: 'Version Tracker',
-          level: 88,
-          years: 1,
-          projects: 5,
-          icon: Code,
-          color: '#F05032',
-          reaction: 'Change tracking',
-          formula: 'C₁₀H₁₂N₂O₃',
-          bubbleSpeed: 2.0,
-          glowIntensity: 88,
-          description: 'Tracks and manages code evolution'
-        },
-        {
-          name: 'VS Code',
-          type: 'Development Medium',
-          level: 95,
-          years: 1,
-          projects: 5,
-          icon: Monitor,
-          color: '#007ACC',
-          reaction: 'Code synthesis',
-          formula: 'C₁₅H₂₀N₄O₅',
-          bubbleSpeed: 2.3,
-          glowIntensity: 95,
-          description: 'Advanced development environment catalyst'
-        }
-      ]
-    },
-    programming: {
-      name: 'Algorithm Research Lab',
-      color: '#F59E0B',
-      glowColor: '#FBBF24',
-      icon: Brain,
-      description: 'Core programming research facility',
-      equipment: 'Neural Network Array',
-      experiments: [
-        {
-          name: 'C',
-          type: 'System Base',
-          level: 85,
-          years: 1,
-          projects: 5,
-          icon: Cpu,
-          color: '#A8B9CC',
-          reaction: 'Low-level control',
-          formula: 'C₈H₁₀N₂O₂',
-          bubbleSpeed: 1.4,
-          glowIntensity: 85,
-          description: 'Provides direct system-level control'
-        },
-        {
-          name: 'C++',
-          type: 'Object Polymer',
-          level: 82,
-          years: 1,
-          projects: 5,
-          icon: Layers,
-          color: '#00599C',
-          reaction: 'Object synthesis',
-          formula: 'C₁₁H₁₅N₃O₄',
-          bubbleSpeed: 1.6,
-          glowIntensity: 82,
-          description: 'Builds complex object structures'
-        },
-        {
-          name: 'Python',
-          type: 'Versatile Agent',
-          level: 75,
-          years: 1,
-          projects: 5,
-          icon: Brain,
-          color: '#3776AB',
-          reaction: 'Multi-purpose synthesis',
-          formula: 'C₉H₁₃N₂O₃',
-          bubbleSpeed: 1.9,
-          glowIntensity: 75,
-          description: 'Adapts to various computational needs'
-        },
-        {
-          name: 'Machine Learning',
-          type: 'AI Catalyst',
-          level: 65,
-          years: 1,
-          projects: 5,
-          icon: Brain,
-          color: '#FF6B6B',
-          reaction: 'Intelligence synthesis',
-          formula: 'C₂₀H₂₅N₅O₆',
-          bubbleSpeed: 2.4,
-          glowIntensity: 65,
-          description: 'Creates artificial intelligence reactions'
-        }
+    minimal: {
+      name: 'Minimal Grid',
+      theme: '#8B5CF6',
+      rows: [
+        [
+          { key: 'HTML', skill: 'HTML5', level: 95, years: 1, projects: 5, color: '#E34F26', icon: Code, width: 'w-24' },
+          { key: 'CSS', skill: 'CSS3', level: 92, years: 1, projects: 5, color: '#1572B6', icon: Palette, width: 'w-24' },
+          { key: 'JS', skill: 'JavaScript', level: 85, years: 1, projects: 5, color: '#F7DF1E', icon: Zap, width: 'w-24' },
+          { key: 'React', skill: 'React.js', level: 82, years: 1, projects: 5, color: '#61DAFB', icon: Layers, width: 'w-24' },
+          { key: 'Node', skill: 'Node.js', level: 75, years: 1, projects: 5, color: '#339933', icon: Cpu, width: 'w-24' }
+        ],
+        [
+          { key: 'PHP', skill: 'PHP', level: 80, years: 1, projects: 5, color: '#777BB4', icon: Code, width: 'w-24' },
+          { key: 'Python', skill: 'Python', level: 75, years: 1, projects: 5, color: '#3776AB', icon: Brain, width: 'w-24' },
+          { key: 'MySQL', skill: 'MySQL', level: 78, years: 1, projects: 5, color: '#4479A1', icon: Database, width: 'w-24' },
+          { key: 'Mongo', skill: 'MongoDB', level: 70, years: 1, projects: 5, color: '#47A248', icon: Database, width: 'w-24' },
+          { key: 'Git', skill: 'Git', level: 88, years: 1, projects: 5, color: '#F05032', icon: Code, width: 'w-24' }
+        ],
+        [
+          { key: 'C', skill: 'C', level: 85, years: 1, projects: 5, color: '#A8B9CC', icon: Cpu, width: 'w-24' },
+          { key: 'C++', skill: 'C++', level: 82, years: 1, projects: 5, color: '#00599C', icon: Layers, width: 'w-24' },
+          { key: 'ML', skill: 'Machine Learning', level: 65, years: 1, projects: 5, color: '#FF6B6B', icon: Brain, width: 'w-24' },
+          { key: 'API', skill: 'RESTful APIs', level: 72, years: 1, projects: 5, color: '#FF4500', icon: Wifi, width: 'w-24' },
+          { key: 'Tools', skill: 'VS Code', level: 95, years: 1, projects: 5, color: '#007ACC', icon: Monitor, width: 'w-24' }
+        ]
       ]
     }
   };
@@ -332,363 +203,449 @@ const Skills = () => {
     return () => observer.disconnect();
   }, []);
 
-  const getFilteredLabs = () => {
-    if (selectedCategory === 'all') {
-      return Object.entries(skillLaboratory);
-    }
-    return Object.entries(skillLaboratory).filter(([key]) => key === selectedCategory);
+  // Auto rotation effect
+  useEffect(() => {
+    if (!autoRotate) return;
+    
+    const interval = setInterval(() => {
+      setRotationY(prev => (prev + 1) % 360);
+    }, 50);
+    
+    return () => clearInterval(interval);
+  }, [autoRotate]);
+
+  // Mouse tracking for 3D rotation
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (keyboardRef.current) {
+        const rect = keyboardRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const mouseX = ((e.clientX - centerX) / rect.width) * 30;
+        const mouseY = ((e.clientY - centerY) / rect.height) * 20;
+        
+        if (!autoRotate) {
+          setMousePosition({ x: mouseX, y: mouseY });
+          setRotationY(mouseX);
+          setRotationX(-10 + mouseY);
+        }
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
+  }, [autoRotate]);
+
+  // Keyboard input handling
+  useEffect(() => {
+    if (!isTypingMode) return;
+
+    const handleKeyDown = (e) => {
+      const key = e.key.toUpperCase();
+      setPressedKeys(prev => new Set(prev).add(key));
+      
+      // Find skill for this key
+      const currentLayout = skillKeyboard[keyboardLayout];
+      const foundKey = currentLayout.rows.flat().find(k => 
+        k.key.toUpperCase() === key && k.skill
+      );
+      
+      if (foundKey) {
+        setSelectedKey(foundKey);
+        setTypedSequence(prev => prev + key);
+        
+        // Play sound effect
+        if (soundEnabled) {
+          // Create audio feedback
+          const audio = new AudioContext();
+          const oscillator = audio.createOscillator();
+          const gainNode = audio.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(audio.destination);
+          
+          oscillator.frequency.setValueAtTime(800 + Math.random() * 400, audio.currentTime);
+          oscillator.type = 'square';
+          
+          gainNode.gain.setValueAtTime(0.1, audio.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.1);
+          
+          oscillator.start(audio.currentTime);
+          oscillator.stop(audio.currentTime + 0.1);
+        }
+      }
+    };
+
+    const handleKeyUp = (e) => {
+      const key = e.key.toUpperCase();
+      setPressedKeys(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(key);
+        return newSet;
+      });
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [isTypingMode, keyboardLayout, soundEnabled]);
+
+  const resetRotation = () => {
+    setRotationX(-10);
+    setRotationY(0);
+    setRotationZ(0);
   };
 
-  const getBubbleCount = (level) => Math.floor(level / 20) + 2;
-  const getTemperatureColor = (temp) => {
-    if (temp > 80) return '#FF4444';
-    if (temp > 60) return '#FFA500';
-    if (temp > 40) return '#FFFF00';
-    return '#44FF44';
+  const getKeyStyle = (keyData) => {
+    const isPressed = pressedKeys.has(keyData.key.toUpperCase());
+    const isSelected = selectedKey?.key === keyData.key;
+    const hasSkill = keyData.skill;
+    
+    let baseClasses = `
+      h-12 rounded-lg font-mono font-bold text-sm transition-all duration-150 transform
+      ${keyData.width || 'w-12'} 
+      ${isPressed ? 'scale-95 shadow-inner' : 'shadow-lg hover:shadow-xl'} 
+      ${isSelected ? 'ring-2 ring-blue-400 ring-opacity-75' : ''}
+      ${hasSkill ? 'cursor-pointer hover:scale-105' : 'cursor-default'}
+    `;
+
+    if (keyData.type === 'function') {
+      return `${baseClasses} bg-gray-700 hover:bg-gray-600 text-gray-300 border-2 border-gray-600`;
+    } else if (keyData.type === 'space') {
+      return `${baseClasses} bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-2 border-purple-500`;
+    } else if (hasSkill) {
+      return `${baseClasses} bg-gray-800 hover:bg-gray-700 text-white border-2 border-gray-600 hover:border-gray-500`;
+    } else {
+      return `${baseClasses} bg-gray-800 hover:bg-gray-700 text-gray-300 border-2 border-gray-600`;
+    }
   };
+
+  const getKeyContent = (keyData) => {
+    if (keyData.skill) {
+      const IconComponent = keyData.icon;
+      return (
+        <div className="flex flex-col items-center justify-center h-full relative">
+          <IconComponent size={16} style={{ color: keyData.color }} />
+          <div className="text-xs text-gray-300 mt-1 truncate w-full text-center">
+            {keyData.skill.length > 8 ? keyData.skill.substring(0, 6) + '..' : keyData.skill}
+          </div>
+          {/* Skill level indicator */}
+          <div 
+            className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-green-400 to-blue-500 rounded"
+            style={{ width: `${keyData.level}%` }}
+          />
+        </div>
+      );
+    }
+    
+    return (
+      <div className="flex items-center justify-center h-full">
+        <span>{keyData.label || keyData.key}</span>
+      </div>
+    );
+  };
+
+  const currentLayout = skillKeyboard[keyboardLayout];
 
   return (
     <section 
       id="skills" 
       ref={sectionRef} 
-      className="py-20 bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 relative overflow-hidden min-h-screen"
+      className="py-20 bg-gradient-to-br from-gray-900 via-slate-900 to-black relative overflow-hidden min-h-screen"
     >
-      {/* Laboratory Environment */}
+      {/* Computer Environment Background */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Steam Effects */}
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-8 bg-gradient-to-t from-gray-400/40 to-transparent rounded-full animate-pulse opacity-60"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          />
-        ))}
+        {/* Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}
+        />
         
-        {/* Laboratory Lighting */}
-        <div className="absolute top-0 left-1/4 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-green-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        {/* Floating Code Snippets */}
+        <div className="absolute top-1/4 left-1/4 text-green-400 font-mono text-xs opacity-20 animate-pulse">
+          console.log('Hello World');
+        </div>
+        <div className="absolute bottom-1/3 right-1/4 text-blue-400 font-mono text-xs opacity-20 animate-pulse" style={{ animationDelay: '1s' }}>
+          function() { return true; }
+        </div>
+        <div className="absolute top-1/2 right-1/3 text-purple-400 font-mono text-xs opacity-20 animate-pulse" style={{ animationDelay: '2s' }}>
+          &lt;div className="awesome"&gt;
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Laboratory Header */}
+        {/* Header */}
         <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <div className="flex items-center justify-center mb-6">
-            <Beaker className="w-12 h-12 text-blue-400 mr-4 animate-pulse" />
-            <h2 className="text-4xl md:text-6xl font-bold">
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent">
-                Skill Laboratory
+            <Terminal className="w-12 h-12 text-green-400 mr-4 animate-pulse" />
+            <h2 className="text-4xl md:text-6xl font-bold font-mono">
+              <span className="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Interactive Keyboard
               </span>
             </h2>
-            <Microscope className="w-12 h-12 text-purple-400 ml-4 animate-bounce" />
+            <Keyboard className="w-12 h-12 text-blue-400 ml-4 animate-bounce" />
           </div>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Welcome to my interactive skill laboratory where technology meets science
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8 font-mono">
+            Type to explore my skills • Each key represents a technology
           </p>
-        </div>
-
-        {/* Laboratory Control Panel */}
-        <div className={`flex flex-wrap justify-center gap-4 mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* Lab Status */}
-          <div className="flex items-center space-x-4 bg-gray-800/80 backdrop-blur-md rounded-xl px-6 py-3 border border-gray-600">
+          
+          {/* System Status */}
+          <div className="flex items-center justify-center space-x-4 text-sm font-mono">
             <div className="flex items-center space-x-2">
-              <div className={`w-3 h-3 rounded-full ${isLabRunning ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`} />
-              <span className="text-gray-300 text-sm">Lab Status: {isLabRunning ? 'Active' : 'Paused'}</span>
+              <Power className={`w-4 h-4 ${isTypingMode ? 'text-green-400' : 'text-red-400'}`} />
+              <span className="text-gray-400">SYSTEM: {isTypingMode ? 'ONLINE' : 'OFFLINE'}</span>
             </div>
-            <button
-              onClick={() => setIsLabRunning(!isLabRunning)}
-              className="p-1 rounded-lg hover:bg-gray-700 transition-colors duration-200"
-            >
-              {isLabRunning ? <Pause size={16} className="text-gray-300" /> : <Play size={16} className="text-gray-300" />}
-            </button>
-          </div>
-
-          {/* Temperature Control */}
-          <div className="flex items-center space-x-3 bg-gray-800/80 backdrop-blur-md rounded-xl px-6 py-3 border border-gray-600">
-            <Activity className="w-5 h-5 text-orange-400" />
-            <span className="text-gray-300 text-sm">Temp:</span>
-            <input
-              type="range"
-              min="20"
-              max="100"
-              value={labTemperature}
-              onChange={(e) => setLabTemperature(parseInt(e.target.value))}
-              className="w-20"
-            />
-            <span className="text-sm font-bold" style={{ color: getTemperatureColor(labTemperature) }}>
-              {labTemperature}°C
-            </span>
-          </div>
-
-          {/* Lab Sections */}
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
-                selectedCategory === 'all'
-                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
-                  : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700/80'
-              }`}
-            >
-              All Labs
-            </button>
-            {Object.entries(skillLaboratory).map(([key, lab]) => {
-              const IconComponent = lab.icon;
-              return (
-                <button
-                  key={key}
-                  onClick={() => setSelectedCategory(key)}
-                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center ${
-                    selectedCategory === key
-                      ? 'text-white shadow-lg'
-                      : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700/80'
-                  }`}
-                  style={selectedCategory === key ? { 
-                    background: `linear-gradient(135deg, ${lab.color}, ${lab.glowColor})`
-                  } : {}}
-                >
-                  <IconComponent size={16} className="mr-2" />
-                  {lab.name.split(' ')[0]}
-                </button>
-              );
-            })}
+            <div className="text-gray-600">|</div>
+            <div className="flex items-center space-x-2">
+              <HardDrive className="w-4 h-4 text-blue-400" />
+              <span className="text-gray-400">LAYOUT: {currentLayout.name.toUpperCase()}</span>
+            </div>
+            <div className="text-gray-600">|</div>
+            <div className="flex items-center space-x-2">
+              {soundEnabled ? <Volume2 className="w-4 h-4 text-purple-400" /> : <VolumeX className="w-4 h-4 text-gray-400" />}
+              <span className="text-gray-400">AUDIO: {soundEnabled ? 'ON' : 'OFF'}</span>
+            </div>
           </div>
         </div>
 
-        {/* Laboratory Workstations */}
-        <div className={`space-y-16 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-          {getFilteredLabs().map(([categoryKey, lab], labIndex) => {
-            const LabIcon = lab.icon;
-            
-            return (
-              <div key={categoryKey} className="relative">
-                {/* Lab Station Header */}
-                <div className="text-center mb-8">
-                  <div className="flex items-center justify-center mb-4">
-                    <div 
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center mr-4 shadow-lg animate-pulse"
-                      style={{ 
-                        background: `linear-gradient(135deg, ${lab.color}, ${lab.glowColor})`,
-                        boxShadow: `0 0 30px ${lab.color}40`
-                      }}
-                    >
-                      <LabIcon size={32} className="text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-white">{lab.name}</h3>
-                      <p className="text-gray-300">{lab.description}</p>
-                      <p className="text-gray-400 text-sm">Equipment: {lab.equipment}</p>
-                    </div>
+        {/* Control Panel */}
+        <div className={`flex flex-wrap justify-center gap-4 mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {/* Layout Selector */}
+          <div className="flex items-center space-x-2 bg-gray-800/80 backdrop-blur-md rounded-xl px-4 py-3 border border-gray-600">
+            <Monitor className="w-5 h-5 text-blue-400" />
+            <span className="text-gray-300 text-sm">Layout:</span>
+            <select
+              value={keyboardLayout}
+              onChange={(e) => setKeyboardLayout(e.target.value)}
+              className="bg-gray-700 text-white rounded px-3 py-1 text-sm border border-gray-600 focus:border-blue-400"
+            >
+              {Object.entries(skillKeyboard).map(([key, layout]) => (
+                <option key={key} value={key}>{layout.name}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Rotation Controls */}
+          <div className="flex items-center space-x-2 bg-gray-800/80 backdrop-blur-md rounded-xl px-4 py-3 border border-gray-600">
+            <MousePointer className="w-5 h-5 text-purple-400" />
+            <span className="text-gray-300 text-sm">3D:</span>
+            <button
+              onClick={() => setAutoRotate(!autoRotate)}
+              className={`px-3 py-1 rounded text-sm ${autoRotate ? 'bg-green-600 text-white' : 'bg-gray-700 text-gray-300'}`}
+            >
+              {autoRotate ? <Play size={14} /> : <Pause size={14} />}
+            </button>
+            <button
+              onClick={resetRotation}
+              className="p-1 rounded hover:bg-gray-700 transition-colors duration-200"
+            >
+              <RotateCcw size={16} className="text-gray-300" />
+            </button>
+          </div>
+
+          {/* Sound Toggle */}
+          <div className="flex items-center space-x-2 bg-gray-800/80 backdrop-blur-md rounded-xl px-4 py-3 border border-gray-600">
+            <button
+              onClick={() => setSoundEnabled(!soundEnabled)}
+              className="flex items-center space-x-2"
+            >
+              {soundEnabled ? <Volume2 className="w-5 h-5 text-purple-400" /> : <VolumeX className="w-5 h-5 text-gray-400" />}
+              <span className="text-gray-300 text-sm">{soundEnabled ? 'Sound On' : 'Sound Off'}</span>
+            </button>
+          </div>
+
+          {/* Typing Mode Toggle */}
+          <div className="flex items-center space-x-2 bg-gray-800/80 backdrop-blur-md rounded-xl px-4 py-3 border border-gray-600">
+            <Keyboard className="w-5 h-5 text-green-400" />
+            <button
+              onClick={() => setIsTypingMode(!isTypingMode)}
+              className={`px-3 py-1 rounded text-sm ${isTypingMode ? 'bg-green-600 text-white' : 'bg-gray-700 text-gray-300'}`}
+            >
+              {isTypingMode ? 'Typing Enabled' : 'Click Only'}
+            </button>
+          </div>
+        </div>
+
+        {/* Typed Sequence Display */}
+        {typedSequence && (
+          <div className="text-center mb-8">
+            <div className="inline-block bg-black/50 backdrop-blur-md rounded-lg px-6 py-3 border border-green-400/30">
+              <div className="text-green-400 font-mono text-sm mb-1">TYPED SEQUENCE:</div>
+              <div className="text-white font-mono text-lg">
+                {typedSequence}
+                <span className="animate-pulse">|</span>
+              </div>
+              <button
+                onClick={() => setTypedSequence('')}
+                className="text-gray-400 hover:text-white text-xs mt-2"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 3D Keyboard */}
+        <div className={`flex justify-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          <div 
+            ref={keyboardRef}
+            className="relative perspective-1000"
+            style={{ perspective: '1200px' }}
+          >
+            <div 
+              className="transform-3d transition-transform duration-300 ease-out"
+              style={{
+                transform: `rotateX(${rotationX}deg) rotateY(${rotationY}deg) rotateZ(${rotationZ}deg)`,
+                transformStyle: 'preserve-3d'
+              }}
+            >
+              {/* Keyboard Base */}
+              <div className="relative bg-gray-900 rounded-2xl p-6 shadow-2xl border border-gray-700">
+                {/* Keyboard Brand */}
+                <div className="text-center mb-4">
+                  <div className="text-gray-400 font-mono text-xs">SKILLS KEYBOARD v2.0</div>
+                  <div 
+                    className="text-sm font-bold"
+                    style={{ color: currentLayout.theme }}
+                  >
+                    {currentLayout.name}
                   </div>
                 </div>
 
-                {/* Experiment Containers */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-                  {lab.experiments.map((experiment, index) => {
-                    const isHovered = hoveredBeaker === `${categoryKey}-${experiment.name}`;
-                    const isActive = activeExperiment === `${categoryKey}-${experiment.name}`;
-                    const ExperimentIcon = experiment.icon;
-                    const bubbleCount = getBubbleCount(experiment.level);
-                    
-                    return (
-                      <div
-                        key={experiment.name}
-                        className="relative cursor-pointer group"
-                        onMouseEnter={() => setHoveredBeaker(`${categoryKey}-${experiment.name}`)}
-                        onMouseLeave={() => setHoveredBeaker(null)}
-                        onClick={() => setActiveExperiment(isActive ? null : `${categoryKey}-${experiment.name}`)}
-                      >
-                        {/* Experiment Container */}
-                        <div className="relative">
-                          {/* Glow Effect */}
-                          <div 
-                            className={`absolute inset-0 rounded-3xl transition-all duration-500 ${
-                              isHovered || isActive ? 'scale-110 opacity-60' : 'scale-100 opacity-0'
-                            }`}
-                            style={{
-                              background: `radial-gradient(circle, ${experiment.color}40, transparent)`,
-                              filter: 'blur(15px)'
-                            }}
-                          />
-                          
-                          {/* Main Beaker */}
-                          <div 
-                            className={`relative bg-gray-800/90 backdrop-blur-md rounded-3xl p-6 border-2 transition-all duration-500 transform ${
-                              isHovered ? 'scale-105 -translate-y-2' : 'scale-100'
-                            } ${isActive ? 'ring-4 ring-white/30' : ''}`}
-                            style={{
-                              borderColor: isHovered || isActive ? experiment.color : '#374151',
-                              boxShadow: isHovered || isActive 
-                                ? `0 20px 40px ${experiment.color}30, inset 0 0 20px ${experiment.color}20`
-                                : '0 10px 30px rgba(0,0,0,0.3)'
-                            }}
-                          >
-                            {/* Experiment Label */}
-                            <div className="text-center mb-4">
-                              <div 
-                                className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2"
-                                style={{ backgroundColor: `${experiment.color}20` }}
-                              >
-                                <ExperimentIcon size={24} style={{ color: experiment.color }} />
-                              </div>
-                              <h4 className="text-lg font-bold text-white">{experiment.name}</h4>
-                              <p className="text-xs text-gray-400">{experiment.type}</p>
-                            </div>
+                {/* Keyboard Rows */}
+                <div className="space-y-2">
+                  {currentLayout.rows.map((row, rowIndex) => (
+                    <div key={rowIndex} className="flex justify-center space-x-1">
+                      {row.map((keyData, keyIndex) => (
+                        <button
+                          key={`${rowIndex}-${keyIndex}`}
+                          className={getKeyStyle(keyData)}
+                          onClick={() => {
+                            if (keyData.skill) {
+                              setSelectedKey(keyData);
+                              setTypedSequence(prev => prev + keyData.key);
+                            }
+                          }}
+                          onMouseEnter={() => {
+                            if (keyData.skill) {
+                              // Slight key highlight on hover
+                            }
+                          }}
+                        >
+                          {getKeyContent(keyData)}
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+                </div>
 
-                            {/* Liquid Level Indicator */}
-                            <div className="relative h-32 bg-gray-700 rounded-2xl overflow-hidden mb-4">
-                              <div 
-                                className="absolute bottom-0 left-0 w-full transition-all duration-1000 ease-out"
-                                style={{
-                                  height: `${experiment.level}%`,
-                                  background: `linear-gradient(0deg, ${experiment.color}, ${experiment.color}80)`,
-                                  opacity: 0.8
-                                }}
-                              />
-                              
-                              {/* Bubbles */}
-                              {isLabRunning && bubbleAnimation && [...Array(bubbleCount)].map((_, i) => (
-                                <div
-                                  key={i}
-                                  className="absolute rounded-full opacity-60"
-                                  style={{
-                                    width: `${4 + Math.random() * 8}px`,
-                                    height: `${4 + Math.random() * 8}px`,
-                                    backgroundColor: experiment.color,
-                                    left: `${10 + Math.random() * 80}%`,
-                                    bottom: `${Math.random() * experiment.level}%`,
-                                    animation: `bubble-float ${1 + Math.random() * 2}s ease-in-out infinite`,
-                                    animationDelay: `${Math.random() * 2}s`
-                                  }}
-                                />
-                              ))}
-
-                              {/* Level Indicator */}
-                              <div className="absolute top-2 right-2 text-xs text-white font-bold">
-                                {experiment.level}%
-                              </div>
-                            </div>
-
-                            {/* Chemical Formula */}
-                            <div className="text-center mb-3">
-                              <p className="text-xs text-gray-300 font-mono">{experiment.formula}</p>
-                              <p className="text-xs text-gray-400">{experiment.reaction}</p>
-                            </div>
-
-                            {/* Stats */}
-                            <div className="grid grid-cols-2 gap-2 text-center">
-                              <div className="bg-gray-700/50 rounded-lg p-2">
-                                <div className="text-sm font-bold text-white">{experiment.years}</div>
-                                <div className="text-xs text-gray-400">Years</div>
-                              </div>
-                              <div className="bg-gray-700/50 rounded-lg p-2">
-                                <div className="text-sm font-bold text-white">{experiment.projects}</div>
-                                <div className="text-xs text-gray-400">Projects</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Detailed Information Panel */}
-                        {isActive && (
-                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 z-50">
-                            <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-gray-600 min-w-max max-w-sm">
-                              <div className="flex items-center mb-4">
-                                <ExperimentIcon size={24} style={{ color: experiment.color }} className="mr-3" />
-                                <div>
-                                  <h5 className="text-lg font-bold text-white">{experiment.name}</h5>
-                                  <p className="text-sm text-gray-300">{experiment.type}</p>
-                                </div>
-                              </div>
-                              
-                              <p className="text-gray-300 text-sm mb-4">{experiment.description}</p>
-                              
-                              <div className="space-y-2">
-                                <div className="flex justify-between">
-                                  <span className="text-gray-400 text-sm">Formula:</span>
-                                  <span className="text-white text-sm font-mono">{experiment.formula}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span className="text-gray-400 text-sm">Reaction:</span>
-                                  <span className="text-white text-sm">{experiment.reaction}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span className="text-gray-400 text-sm">Stability:</span>
-                                  <span className="text-white text-sm">{experiment.level}%</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+                {/* Keyboard Status LEDs */}
+                <div className="flex justify-end space-x-2 mt-4">
+                  <div className={`w-2 h-2 rounded-full ${isTypingMode ? 'bg-green-400' : 'bg-gray-600'}`} />
+                  <div className={`w-2 h-2 rounded-full ${soundEnabled ? 'bg-blue-400' : 'bg-gray-600'}`} />
+                  <div className={`w-2 h-2 rounded-full ${autoRotate ? 'bg-purple-400' : 'bg-gray-600'}`} />
                 </div>
               </div>
-            );
-          })}
-        </div>
-
-        {/* Laboratory Summary */}
-        <div className={`mt-16 text-center transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="bg-gray-800/80 backdrop-blur-md rounded-3xl p-8 border border-gray-600">
-            <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center">
-              <Settings className="mr-3" size={28} />
-              Laboratory Analysis Complete
-            </h3>
-            <p className="text-gray-300 mb-6">
-              All experiments are stable and ready for production deployment
-            </p>
-            <div className="grid md:grid-cols-4 gap-6">
-              {Object.entries(skillLaboratory).map(([key, lab]) => {
-                const avgLevel = Math.round(lab.experiments.reduce((acc, exp) => acc + exp.level, 0) / lab.experiments.length);
-                const LabIcon = lab.icon;
-                
-                return (
-                  <div key={key} className="text-center">
-                    <div 
-                      className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3"
-                      style={{ backgroundColor: `${lab.color}20` }}
-                    >
-                      <LabIcon size={32} style={{ color: lab.color }} />
-                    </div>
-                    <h4 className="text-lg font-bold text-white">{lab.name.split(' ')[0]}</h4>
-                    <p className="text-sm text-gray-400 mb-2">{lab.experiments.length} experiments</p>
-                    <div className="text-2xl font-bold" style={{ color: lab.color }}>
-                      {avgLevel}%
-                    </div>
-                    <div className="text-xs text-gray-400">Avg Stability</div>
-                  </div>
-                );
-              })}
             </div>
           </div>
         </div>
 
+        {/* Selected Skill Details */}
+        {selectedKey && selectedKey.skill && (
+          <div className={`mt-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="max-w-4xl mx-auto bg-gray-900/90 backdrop-blur-md rounded-3xl p-8 border border-gray-700/50 shadow-2xl">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center">
+                  <div 
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center mr-4 shadow-lg"
+                    style={{ backgroundColor: `${selectedKey.color}20` }}
+                  >
+                    <selectedKey.icon size={32} style={{ color: selectedKey.color }} />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-white font-mono">{selectedKey.skill}</h3>
+                    <p className="text-gray-300">Mapped to key: <span className="font-mono bg-gray-800 px-2 py-1 rounded">{selectedKey.key}</span></p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setSelectedKey(null)}
+                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                  <span className="text-2xl">×</span>
+                </button>
+              </div>
+
+              <div className="grid md:grid-cols-4 gap-6">
+                <div className="bg-white/5 rounded-2xl p-6 text-center">
+                  <Target className="w-8 h-8 mx-auto mb-3 text-green-400" />
+                  <div className="text-2xl font-bold text-white mb-1">{selectedKey.level}%</div>
+                  <div className="text-gray-400 text-sm">Proficiency</div>
+                </div>
+                
+                <div className="bg-white/5 rounded-2xl p-6 text-center">
+                  <HardDrive className="w-8 h-8 mx-auto mb-3 text-blue-400" />
+                  <div className="text-2xl font-bold text-white mb-1">{selectedKey.years}</div>
+                  <div className="text-gray-400 text-sm">Year{selectedKey.years !== 1 ? 's' : ''}</div>
+                </div>
+                
+                <div className="bg-white/5 rounded-2xl p-6 text-center">
+                  <Monitor className="w-8 h-8 mx-auto mb-3 text-purple-400" />
+                  <div className="text-2xl font-bold text-white mb-1">{selectedKey.projects}</div>
+                  <div className="text-gray-400 text-sm">Projects</div>
+                </div>
+                
+                <div className="bg-white/5 rounded-2xl p-6 text-center">
+                  <Keyboard className="w-8 h-8 mx-auto mb-3 text-orange-400" />
+                  <div className="text-lg font-bold text-white mb-1">{selectedKey.key}</div>
+                  <div className="text-gray-400 text-sm">Key Binding</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Instructions */}
-        <div className="text-center mt-8">
-          <p className="text-gray-400">
-            🧪 Hover over experiments to see reactions • 🔬 Click for detailed analysis • ⚗️ Adjust lab conditions
-          </p>
+        <div className="text-center mt-12">
+          <div className="bg-black/30 backdrop-blur-md rounded-2xl p-6 border border-gray-700/50">
+            <h4 className="text-lg font-bold text-white mb-4 font-mono">INSTRUCTIONS</h4>
+            <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-300 font-mono">
+              <div>
+                <kbd className="bg-gray-800 px-2 py-1 rounded">WASD</kbd> - Navigate
+              </div>
+              <div>
+                <kbd className="bg-gray-800 px-2 py-1 rounded">1-0</kbd> - Select Skills  
+              </div>
+              <div>
+                <kbd className="bg-gray-800 px-2 py-1 rounded">Mouse</kbd> - 3D Rotation
+              </div>
+            </div>
+            <p className="text-gray-400 text-xs mt-4">
+              Start typing to interact with skills • Each key press creates audio feedback • Move mouse to rotate keyboard in 3D space
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* CSS Animations */}
+      {/* CSS for 3D effects */}
       <style jsx>{`
-        @keyframes bubble-float {
-          0%, 100% {
-            transform: translateY(0px) scale(1);
-            opacity: 0.6;
-          }
-          50% {
-            transform: translateY(-20px) scale(1.2);
-            opacity: 0.8;
-          }
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        .transform-3d {
+          transform-style: preserve-3d;
+        }
+        kbd {
+          font-family: monospace;
         }
       `}</style>
     </section>
