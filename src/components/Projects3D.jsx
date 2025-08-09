@@ -362,7 +362,7 @@ const Projects3D = () => {
             >
               {projects.map((project, index) => {
                 const angle = (index * 60) * (Math.PI / 180); // 60 degrees between cards
-                const radius = 280; // Further reduced radius for smaller cards
+                const radius = window.innerWidth > 768 ? 280 : 140; // Much smaller radius on mobile
                 const x = isNaN(Math.sin(angle)) ? 0 : Math.sin(angle) * radius;
                 const z = isNaN(Math.cos(angle)) ? 0 : Math.cos(angle) * radius;
                 const isActive = index === currentProject;
