@@ -232,7 +232,7 @@ const About = () => {
         {/* Interactive Stats */}
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            <div className="text-3xl font-bold text-purple-600 mb-2">{countingStats.projects}+</div>
+            <div className="text-3xl font-bold text-purple-600 mb-2">{countingStats.projects}</div>
             <div className="text-sm text-gray-600 dark:text-gray-400">Projects Built</div>
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
