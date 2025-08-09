@@ -250,9 +250,9 @@ const Projects3D = () => {
     const handleEnd = () => {
       if (isDragging) {
         setIsDragging(false);
-        // Snap to nearest project
-        const snapAngle = Math.round((rotation || 0) / 60) * 60;
-        const targetProject = Math.abs(Math.round((rotation || 0) / 60)) % projects.length;
+        // Snap to nearest project (45 degrees per project for 8 projects)
+        const snapAngle = Math.round((rotation || 0) / 45) * 45;
+        const targetProject = Math.abs(Math.round((rotation || 0) / 45)) % projects.length;
         setRotation(snapAngle);
         setCurrentProject(targetProject);
       }
