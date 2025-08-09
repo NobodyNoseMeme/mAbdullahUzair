@@ -618,7 +618,7 @@ const Skills = () => {
                         <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{category.description}</p>
 
                         <div className="flex items-center justify-between mb-3">
-                          <span className="text-gray-400 text-sm">Average Level:</span>
+                          <span className="text-gray-500 dark:text-gray-400 text-sm">Average Level:</span>
                           <span className="font-bold text-lg" style={{ color: category.color }}>{avgLevel}%</span>
                         </div>
 
