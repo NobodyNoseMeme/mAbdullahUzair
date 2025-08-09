@@ -296,19 +296,6 @@ Type 'help' to see available commands.`;
   if (!isOpen) {
     return (
       <div className="fixed bottom-6 right-20 z-50">
-        <button
-          onClick={() => {
-            if (propSetIsOpen) {
-              propSetIsOpen(true);
-            } else {
-              setIsOpen(true);
-            }
-          }}
-          className="group bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white p-4 rounded-2xl shadow-2xl transform hover:scale-110 transition-all duration-300 flex items-center space-x-3"
-        >
-          <Terminal size={24} className="group-hover:rotate-12 transition-transform duration-300" />
-          <span className="hidden sm:block font-semibold">AbdullahBot</span>
-        </button>
       </div>
     );
   }
