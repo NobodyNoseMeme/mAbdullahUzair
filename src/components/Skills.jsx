@@ -322,9 +322,9 @@ const Skills = () => {
       w-16 sm:w-20 lg:w-24 h-12 sm:h-14 lg:h-16 rounded-xl font-bold text-xs sm:text-sm lg:text-base
       transition-all duration-200 transform cursor-pointer
       ${isPressed ? 'scale-95 shadow-inner' : 'shadow-lg hover:shadow-xl'} 
-      ${isSelected ? 'ring-2 ring-white ring-opacity-75 scale-105' : ''}
-      bg-gray-800 hover:bg-gray-700 text-white border-2 hover:scale-105
-      border-gray-600 hover:border-opacity-75
+      ${isSelected ? 'ring-2 ring-blue-500 dark:ring-white ring-opacity-75 scale-105' : ''}
+      bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-white border-2 hover:scale-105
+      border-gray-400 dark:border-gray-600 hover:border-opacity-75
     `;
   };
 
