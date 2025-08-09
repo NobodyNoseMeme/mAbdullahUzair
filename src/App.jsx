@@ -54,16 +54,23 @@ function App() {
       border: 2px solid rgba(147, 51, 234, 0.4);
       border-radius: 50%;
       pointer-events: none;
-      z-index: 99999;
+      z-index: 999999;
       transition: transform 0.1s ease-out;
       transform: translate(-50%, -50%);
       mix-blend-mode: difference;
+      display: block !important;
+      visibility: visible !important;
     `;
     document.body.appendChild(cursor);
 
-    // Set cursor to none on all elements
-    document.documentElement.style.cursor = 'none';
-    document.body.style.cursor = 'none';
+    // Set cursor to none on all elements with higher specificity
+    const cursorStyle = document.createElement('style');
+    cursorStyle.textContent = `
+      *, *:before, *:after {
+        cursor: none !important;
+      }
+    `;
+    document.head.appendChild(cursorStyle);
 
     const updateCursor = (e) => {
       cursor.style.left = e.clientX + 'px';
@@ -74,8 +81,11 @@ function App() {
 
     return () => {
       document.removeEventListener('mousemove', updateCursor);
-      document.documentElement.style.cursor = 'auto';
-      document.body.style.cursor = 'auto';
+
+      // Remove the cursor style
+      if (document.head.contains(cursorStyle)) {
+        document.head.removeChild(cursorStyle);
+      }
 
       if (document.body.contains(cursor)) {
         document.body.removeChild(cursor);
