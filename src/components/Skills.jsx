@@ -634,7 +634,7 @@ const Skills = () => {
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-400 text-sm">{category.skills.length} Skills</span>
+                        <span className="text-gray-500 dark:text-gray-400 text-sm">{category.skills.length} Skills</span>
                         <div
                           className="px-3 py-1 rounded-full text-xs font-semibold"
                           style={{
