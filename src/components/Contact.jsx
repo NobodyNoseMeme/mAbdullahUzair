@@ -101,24 +101,21 @@ const Contact = () => {
       {/* Interactive Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Floating Elements */}
-        {[...Array(20)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <div
             key={i}
-            className={`absolute animate-float ${
-              i % 5 === 0 ? 'text-purple-400' : 
-              i % 5 === 1 ? 'text-blue-400' : 
-              i % 5 === 2 ? 'text-pink-400' : 
-              i % 5 === 3 ? 'text-green-400' : 'text-orange-400'
-            } opacity-20`}
+            className={`absolute w-2 h-2 rounded-full opacity-20 animate-pulse ${
+              i % 4 === 0 ? 'bg-purple-400' :
+              i % 4 === 1 ? 'bg-blue-400' :
+              i % 4 === 2 ? 'bg-indigo-400' : 'bg-cyan-400'
+            }`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`
             }}
-          >
-            {i % 4 === 0 ? '💬' : i % 4 === 1 ? '✨' : i % 4 === 2 ? '🚀' : '💡'}
-          </div>
+          />
         ))}
         
         {/* Gradient Orbs */}
