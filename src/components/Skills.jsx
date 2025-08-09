@@ -1,25 +1,42 @@
 import { useState, useEffect, useRef } from 'react';
-import { ChevronRight, Play, Pause, RotateCcw, Zap, Star, Trophy, Target, Code, Database, Palette, Cpu, Globe, Wrench, Brain, Layers, Sparkles, Eye, ArrowRight } from 'lucide-react';
+import { 
+  ChevronRight, 
+  RotateCcw, 
+  Zap, 
+  Star, 
+  Trophy, 
+  Target, 
+  Code, 
+  Database, 
+  Palette, 
+  Cpu, 
+  Globe, 
+  Wrench, 
+  Brain, 
+  Layers, 
+  Sparkles, 
+  Eye, 
+  ArrowRight, 
+  ToggleLeft,
+  ToggleRight,
+  Circle,
+  Square
+} from 'lucide-react';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [viewMode, setViewMode] = useState('complex'); // 'complex' or 'simple'
   const [selectedSkill, setSelectedSkill] = useState(null);
-  const [hoveredSkill, setHoveredSkill] = useState(null);
-  const [activeConstellation, setActiveConstellation] = useState('all');
-  const [animationSpeed, setAnimationSpeed] = useState(1);
-  const [isAnimating, setIsAnimating] = useState(true);
-  const [viewMode, setViewMode] = useState('constellation'); // constellation, grid, timeline
-  const [particles, setParticles] = useState([]);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [flippedCards, setFlippedCards] = useState(new Set());
   const sectionRef = useRef(null);
-  const canvasRef = useRef(null);
-  const animationRef = useRef(null);
 
-  const skillConstellations = {
+  const skillsData = {
     frontend: {
-      name: 'Frontend Galaxy',
+      name: 'Frontend Development',
       color: '#3B82F6',
       icon: Palette,
-      center: { x: 200, y: 150 },
+      description: 'Creating beautiful and interactive user interfaces',
       skills: [
         { 
           name: 'HTML5', 
@@ -27,9 +44,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Code,
-          position: { x: 200, y: 100 },
-          connections: ['CSS3', 'JavaScript'],
-          description: 'Semantic markup and accessibility'
+          description: 'Semantic markup, accessibility, and modern web standards',
+          tags: ['Semantic', 'Accessibility', 'SEO'],
+          gradient: 'from-orange-400 to-red-500'
         },
         { 
           name: 'CSS3', 
@@ -37,9 +54,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Palette,
-          position: { x: 150, y: 180 },
-          connections: ['HTML5', 'Tailwind CSS', 'Bootstrap'],
-          description: 'Advanced styling and animations'
+          description: 'Advanced styling, animations, and responsive design',
+          tags: ['Animation', 'Flexbox', 'Grid'],
+          gradient: 'from-blue-400 to-blue-600'
         },
         { 
           name: 'JavaScript', 
@@ -47,9 +64,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Zap,
-          position: { x: 280, y: 120 },
-          connections: ['HTML5', 'React.js'],
-          description: 'Modern ES6+ and DOM manipulation'
+          description: 'Modern ES6+, DOM manipulation, and asynchronous programming',
+          tags: ['ES6+', 'Async/Await', 'DOM'],
+          gradient: 'from-yellow-400 to-orange-500'
         },
         { 
           name: 'React.js', 
@@ -57,9 +74,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Layers,
-          position: { x: 320, y: 200 },
-          connections: ['JavaScript'],
-          description: 'Component-based architecture'
+          description: 'Component-based architecture and state management',
+          tags: ['Hooks', 'Context', 'JSX'],
+          gradient: 'from-cyan-400 to-blue-500'
         },
         { 
           name: 'Tailwind CSS', 
@@ -67,9 +84,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Sparkles,
-          position: { x: 120, y: 240 },
-          connections: ['CSS3'],
-          description: 'Utility-first CSS framework'
+          description: 'Utility-first CSS framework for rapid development',
+          tags: ['Utility-First', 'Responsive', 'Dark Mode'],
+          gradient: 'from-teal-400 to-cyan-500'
         },
         { 
           name: 'Bootstrap', 
@@ -77,17 +94,17 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Wrench,
-          position: { x: 240, y: 260 },
-          connections: ['CSS3'],
-          description: 'Responsive component library'
+          description: 'Responsive component library and grid system',
+          tags: ['Components', 'Grid', 'Responsive'],
+          gradient: 'from-purple-400 to-purple-600'
         }
       ]
     },
     backend: {
-      name: 'Backend Universe',
+      name: 'Backend Development',
       color: '#10B981',
       icon: Database,
-      center: { x: 600, y: 150 },
+      description: 'Building robust server-side applications and APIs',
       skills: [
         { 
           name: 'PHP', 
@@ -95,9 +112,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Code,
-          position: { x: 550, y: 100 },
-          connections: ['MySQL', 'RESTful APIs'],
-          description: 'Server-side scripting'
+          description: 'Server-side scripting and web application development',
+          tags: ['OOP', 'MVC', 'Laravel'],
+          gradient: 'from-indigo-400 to-purple-500'
         },
         { 
           name: 'Node.js', 
@@ -105,9 +122,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Cpu,
-          position: { x: 650, y: 120 },
-          connections: ['Express.js', 'MongoDB'],
-          description: 'JavaScript runtime environment'
+          description: 'JavaScript runtime for scalable server applications',
+          tags: ['Express', 'Async', 'NPM'],
+          gradient: 'from-green-400 to-emerald-500'
         },
         { 
           name: 'Express.js', 
@@ -115,9 +132,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Globe,
-          position: { x: 700, y: 180 },
-          connections: ['Node.js', 'RESTful APIs'],
-          description: 'Web framework for Node.js'
+          description: 'Fast and minimalist web framework for Node.js',
+          tags: ['Middleware', 'Routes', 'REST'],
+          gradient: 'from-gray-400 to-gray-600'
         },
         { 
           name: 'RESTful APIs', 
@@ -125,17 +142,17 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: ArrowRight,
-          position: { x: 580, y: 220 },
-          connections: ['PHP', 'Express.js'],
-          description: 'API design and development'
+          description: 'Designing and building scalable web APIs',
+          tags: ['REST', 'JSON', 'HTTP'],
+          gradient: 'from-orange-400 to-red-500'
         }
       ]
     },
     database: {
-      name: 'Data Nebula',
+      name: 'Database & Tools',
       color: '#8B5CF6',
       icon: Database,
-      center: { x: 200, y: 400 },
+      description: 'Data management and development tools expertise',
       skills: [
         { 
           name: 'MySQL', 
@@ -143,9 +160,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Database,
-          position: { x: 150, y: 350 },
-          connections: ['MongoDB', 'Git & GitHub'],
-          description: 'Relational database management'
+          description: 'Relational database design and optimization',
+          tags: ['SQL', 'Indexing', 'Joins'],
+          gradient: 'from-blue-400 to-indigo-500'
         },
         { 
           name: 'MongoDB', 
@@ -153,9 +170,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Layers,
-          position: { x: 280, y: 380 },
-          connections: ['MySQL', 'Postman'],
-          description: 'NoSQL document database'
+          description: 'NoSQL document database for flexible data storage',
+          tags: ['NoSQL', 'Documents', 'Aggregation'],
+          gradient: 'from-green-400 to-teal-500'
         },
         { 
           name: 'Git & GitHub', 
@@ -163,9 +180,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Code,
-          position: { x: 120, y: 450 },
-          connections: ['MySQL', 'VS Code'],
-          description: 'Version control system'
+          description: 'Version control and collaborative development',
+          tags: ['Branching', 'Merging', 'CI/CD'],
+          gradient: 'from-gray-700 to-gray-900'
         },
         { 
           name: 'VS Code', 
@@ -173,9 +190,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Wrench,
-          position: { x: 220, y: 480 },
-          connections: ['Git & GitHub', 'Postman'],
-          description: 'Advanced IDE usage'
+          description: 'Advanced IDE usage with extensions and shortcuts',
+          tags: ['Extensions', 'Debugging', 'Shortcuts'],
+          gradient: 'from-blue-500 to-blue-700'
         },
         { 
           name: 'Postman', 
@@ -183,17 +200,17 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Target,
-          position: { x: 320, y: 450 },
-          connections: ['MongoDB', 'VS Code'],
-          description: 'API testing and documentation'
+          description: 'API testing, documentation, and collaboration',
+          tags: ['Testing', 'Collections', 'Documentation'],
+          gradient: 'from-orange-400 to-red-500'
         }
       ]
     },
     programming: {
-      name: 'Code Solar System',
+      name: 'Programming Languages',
       color: '#F59E0B',
       icon: Brain,
-      center: { x: 600, y: 400 },
+      description: 'Core programming languages and paradigms',
       skills: [
         { 
           name: 'C', 
@@ -201,9 +218,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Cpu,
-          position: { x: 550, y: 350 },
-          connections: ['C++'],
-          description: 'System programming language'
+          description: 'System programming and memory management',
+          tags: ['Pointers', 'Memory', 'Performance'],
+          gradient: 'from-gray-500 to-gray-700'
         },
         { 
           name: 'C++', 
@@ -211,9 +228,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Layers,
-          position: { x: 650, y: 380 },
-          connections: ['C', 'Python'],
-          description: 'Object-oriented programming'
+          description: 'Object-oriented programming and data structures',
+          tags: ['OOP', 'STL', 'Templates'],
+          gradient: 'from-blue-500 to-purple-600'
         },
         { 
           name: 'Python', 
@@ -221,9 +238,9 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Brain,
-          position: { x: 580, y: 480 },
-          connections: ['C++', 'Machine Learning'],
-          description: 'Versatile programming language'
+          description: 'Versatile language for scripting and data science',
+          tags: ['Scripting', 'Libraries', 'Data Science'],
+          gradient: 'from-green-400 to-blue-500'
         },
         { 
           name: 'Machine Learning', 
@@ -231,46 +248,13 @@ const Skills = () => {
           years: 1, 
           projects: 5, 
           icon: Star,
-          position: { x: 700, y: 450 },
-          connections: ['Python'],
-          description: 'AI and data science'
+          description: 'AI algorithms, model training, and data analysis',
+          tags: ['Algorithms', 'Models', 'Data Analysis'],
+          gradient: 'from-purple-400 to-pink-500'
         }
       ]
     }
   };
-
-  // Create particles for background animation
-  useEffect(() => {
-    const newParticles = Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 800,
-      y: Math.random() * 600,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      size: Math.random() * 3 + 1,
-      opacity: Math.random() * 0.5 + 0.2,
-      color: ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B'][Math.floor(Math.random() * 4)]
-    }));
-    setParticles(newParticles);
-  }, []);
-
-  // Animate particles
-  useEffect(() => {
-    if (!isAnimating) return;
-
-    const animate = () => {
-      setParticles(prev => prev.map(particle => ({
-        ...particle,
-        x: particle.x + particle.vx * animationSpeed,
-        y: particle.y + particle.vy * animationSpeed,
-        x: particle.x < 0 ? 800 : particle.x > 800 ? 0 : particle.x,
-        y: particle.y < 0 ? 600 : particle.y > 600 ? 0 : particle.y
-      })));
-    };
-
-    animationRef.current = setInterval(animate, 16);
-    return () => clearInterval(animationRef.current);
-  }, [isAnimating, animationSpeed]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -289,336 +273,410 @@ const Skills = () => {
     return () => observer.disconnect();
   }, []);
 
+  const toggleCardFlip = (skillName) => {
+    setFlippedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(skillName)) {
+        newSet.delete(skillName);
+      } else {
+        newSet.add(skillName);
+      }
+      return newSet;
+    });
+  };
+
   const getAllSkills = () => {
-    return Object.values(skillConstellations).flatMap(constellation => 
-      constellation.skills.map(skill => ({
+    return Object.values(skillsData).flatMap(category => 
+      category.skills.map(skill => ({
         ...skill,
-        constellation: constellation.name,
-        constellationColor: constellation.color
+        category: category.name,
+        categoryColor: category.color
       }))
     );
   };
 
-  const getSkillsToDisplay = () => {
-    if (activeConstellation === 'all') {
-      return getAllSkills();
-    }
-    return skillConstellations[activeConstellation]?.skills.map(skill => ({
-      ...skill,
-      constellation: skillConstellations[activeConstellation].name,
-      constellationColor: skillConstellations[activeConstellation].color
-    })) || [];
+  const getSkillLevelLabel = (level) => {
+    if (level >= 90) return { label: 'Expert', color: 'text-emerald-600 bg-emerald-100' };
+    if (level >= 80) return { label: 'Advanced', color: 'text-blue-600 bg-blue-100' };
+    if (level >= 70) return { label: 'Proficient', color: 'text-orange-600 bg-orange-100' };
+    return { label: 'Learning', color: 'text-red-600 bg-red-100' };
   };
 
-  const getConnectionOpacity = (skill, connectedSkillName) => {
-    if (hoveredSkill === skill.name || hoveredSkill === connectedSkillName) {
-      return 0.8;
-    }
-    return 0.2;
-  };
+  // Complex View: Circular Revolving Skills
+  const ComplexView = () => (
+    <div className="space-y-16">
+      {Object.entries(skillsData).map(([categoryKey, category], categoryIndex) => {
+        const isHovered = hoveredCategory === categoryKey;
+        const IconComponent = category.icon;
+        
+        return (
+          <div 
+            key={categoryKey}
+            className="relative"
+            onMouseEnter={() => setHoveredCategory(categoryKey)}
+            onMouseLeave={() => setHoveredCategory(null)}
+          >
+            {/* Category Center */}
+            <div className="flex flex-col items-center mb-8">
+              <div 
+                className={`w-24 h-24 rounded-full flex items-center justify-center mb-4 transition-all duration-500 transform ${
+                  isHovered ? 'scale-110 shadow-2xl' : 'scale-100'
+                }`}
+                style={{ 
+                  background: `linear-gradient(135deg, ${category.color}, ${category.color}CC)`,
+                  boxShadow: isHovered ? `0 20px 40px ${category.color}40` : '0 10px 30px rgba(0,0,0,0.2)'
+                }}
+              >
+                <IconComponent size={32} className="text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{category.name}</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-center max-w-md">{category.description}</p>
+            </div>
 
-  const getSkillLevelColor = (level) => {
-    if (level >= 90) return '#10B981'; // green
-    if (level >= 80) return '#3B82F6'; // blue
-    if (level >= 70) return '#F59E0B'; // orange
-    return '#EF4444'; // red
-  };
+            {/* Revolving Skills Circle */}
+            <div className="relative w-full h-96 flex items-center justify-center">
+              <div 
+                className="relative w-80 h-80 transition-all duration-1000 ease-out"
+                style={{
+                  transform: isHovered ? 'scale(1.1)' : 'scale(1)'
+                }}
+              >
+                {category.skills.map((skill, index) => {
+                  const angle = (index / category.skills.length) * 2 * Math.PI;
+                  const radius = isHovered ? 140 : 120;
+                  const x = Math.cos(angle - Math.PI/2) * radius;
+                  const y = Math.sin(angle - Math.PI/2) * radius;
+                  const SkillIcon = skill.icon;
+                  
+                  return (
+                    <div
+                      key={skill.name}
+                      className={`absolute w-20 h-20 transition-all duration-700 cursor-pointer group`}
+                      style={{
+                        transform: `translate(${x}px, ${y}px) ${isHovered ? `rotate(${(index * 360) / category.skills.length}deg)` : 'rotate(0deg)'}`,
+                        transitionDelay: `${index * 100}ms`
+                      }}
+                      onClick={() => setSelectedSkill(selectedSkill?.name === skill.name ? null : skill)}
+                    >
+                      <div 
+                        className={`w-full h-full rounded-2xl bg-gradient-to-br ${skill.gradient} shadow-lg flex items-center justify-center transform transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl`}
+                        style={{
+                          boxShadow: selectedSkill?.name === skill.name 
+                            ? `0 0 30px ${category.color}80` 
+                            : '0 10px 30px rgba(0,0,0,0.2)'
+                        }}
+                      >
+                        <SkillIcon size={24} className="text-white" />
+                      </div>
+                      
+                      {/* Skill Name */}
+                      <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 transition-all duration-300 ${
+                        isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+                      }`}>
+                        <div className="bg-white dark:bg-gray-800 rounded-lg px-3 py-1 shadow-lg border border-gray-200 dark:border-gray-700 whitespace-nowrap">
+                          <div className="text-sm font-semibold text-gray-900 dark:text-white">{skill.name}</div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400">{skill.level}%</div>
+                        </div>
+                      </div>
 
-  const resetView = () => {
-    setSelectedSkill(null);
-    setHoveredSkill(null);
-    setActiveConstellation('all');
-  };
+                      {/* Proficiency Ring */}
+                      <div 
+                        className="absolute inset-0 rounded-2xl border-4 border-white/30"
+                        style={{
+                          background: `conic-gradient(${category.color} ${skill.level * 3.6}deg, transparent ${skill.level * 3.6}deg)`
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Connection Lines */}
+            {isHovered && (
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ top: '120px' }}>
+                {category.skills.map((skill, index) => {
+                  const angle = (index / category.skills.length) * 2 * Math.PI;
+                  const radius = 140;
+                  const x = Math.cos(angle - Math.PI/2) * radius + 160;
+                  const y = Math.sin(angle - Math.PI/2) * radius + 160;
+                  
+                  return (
+                    <line
+                      key={index}
+                      x1="160"
+                      y1="160"
+                      x2={x}
+                      y2={y}
+                      stroke={category.color}
+                      strokeWidth="2"
+                      opacity="0.3"
+                      className="animate-pulse"
+                    />
+                  );
+                })}
+              </svg>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  // Simple View: Flip Cards
+  const SimpleView = () => (
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {getAllSkills().map((skill, index) => {
+        const isFlipped = flippedCards.has(skill.name);
+        const SkillIcon = skill.icon;
+        const levelInfo = getSkillLevelLabel(skill.level);
+        
+        return (
+          <div
+            key={skill.name}
+            className="relative h-64 cursor-pointer group perspective-1000"
+            onClick={() => toggleCardFlip(skill.name)}
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
+            <div 
+              className={`relative w-full h-full transition-transform duration-700 transform-3d ${
+                isFlipped ? 'rotate-y-180' : ''
+              }`}
+            >
+              {/* Front of Card */}
+              <div className="absolute inset-0 w-full h-full rounded-2xl backface-hidden bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div 
+                  className={`h-32 bg-gradient-to-br ${skill.gradient} relative overflow-hidden`}
+                >
+                  {/* Background Pattern */}
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="absolute top-4 right-4 w-16 h-16 border-2 border-white rounded-full"></div>
+                    <div className="absolute bottom-4 left-4 w-8 h-8 border-2 border-white rounded-lg rotate-45"></div>
+                  </div>
+                  
+                  {/* Icon */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                      <SkillIcon size={32} className="text-white" />
+                    </div>
+                  </div>
+                  
+                  {/* Level Badge */}
+                  <div className="absolute top-4 left-4">
+                    <span className={`px-3 py-1 text-xs font-bold rounded-full ${levelInfo.color}`}>
+                      {levelInfo.label}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{skill.name}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{skill.description}</p>
+                  
+                  <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+                    <span>{skill.years} year{skill.years !== 1 ? 's' : ''}</span>
+                    <span>{skill.projects} projects</span>
+                  </div>
+                  
+                  <div className="mt-3 text-center text-xs text-gray-400">
+                    Click to flip
+                  </div>
+                </div>
+              </div>
+
+              {/* Back of Card */}
+              <div className="absolute inset-0 w-full h-full rounded-2xl backface-hidden rotate-y-180 bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 p-6">
+                <div className="h-full flex flex-col">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">{skill.name}</h3>
+                    <div 
+                      className="w-10 h-10 rounded-lg flex items-center justify-center"
+                      style={{ backgroundColor: skill.categoryColor + '20' }}
+                    >
+                      <SkillIcon size={20} style={{ color: skill.categoryColor }} />
+                    </div>
+                  </div>
+                  
+                  {/* Proficiency Circle */}
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="relative w-20 h-20">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          stroke="currentColor"
+                          strokeWidth="8"
+                          fill="transparent"
+                          className="text-gray-200 dark:text-gray-700"
+                        />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          stroke={skill.categoryColor}
+                          strokeWidth="8"
+                          fill="transparent"
+                          strokeDasharray={`${(skill.level / 100) * 251.2} 251.2`}
+                          className="transition-all duration-1000 ease-out"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold" style={{ color: skill.categoryColor }}>
+                          {skill.level}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Tags */}
+                  <div className="mb-4">
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Technologies</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {skill.tags.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Stats */}
+                  <div className="mt-auto">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div className="text-lg font-bold" style={{ color: skill.categoryColor }}>
+                          {skill.years}
+                        </div>
+                        <div className="text-xs text-gray-500">Year{skill.years !== 1 ? 's' : ''}</div>
+                      </div>
+                      <div className="text-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div className="text-lg font-bold" style={{ color: skill.categoryColor }}>
+                          {skill.projects}
+                        </div>
+                        <div className="text-xs text-gray-500">Projects</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 
   return (
     <section 
       id="skills" 
       ref={sectionRef} 
-      className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden min-h-screen"
+      className="py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900 relative overflow-hidden"
     >
-      {/* Animated Background */}
+      {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Gradient Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        
-        {/* Floating Particles */}
-        {particles.map(particle => (
-          <div
-            key={particle.id}
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              left: `${particle.x}px`,
-              top: `${particle.y}px`,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-              backgroundColor: particle.color,
-              opacity: particle.opacity,
-              transform: 'translate(-50%, -50%)'
-            }}
-          />
-        ))}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-purple-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className={`text-center mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Skill Constellations
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
+              Technical Skills
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Navigate through my technical universe and discover interconnected skills
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
+            Explore my technical expertise through interactive experiences
+          </p>
+          
+          {/* View Mode Toggle */}
+          <div className="flex items-center justify-center space-x-4">
+            <span className="text-gray-600 dark:text-gray-400">Simple</span>
+            <button
+              onClick={() => setViewMode(viewMode === 'complex' ? 'simple' : 'complex')}
+              className="relative inline-flex h-8 w-16 items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-colors duration-300"
+            >
+              <span
+                className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-300 ${
+                  viewMode === 'complex' ? 'translate-x-9' : 'translate-x-1'
+                }`}
+              />
+            </button>
+            <span className="text-gray-600 dark:text-gray-400">Complex</span>
+          </div>
+          
+          <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
+            {viewMode === 'complex' 
+              ? '🌀 Hover over categories to see skills revolve in circles'
+              : '🔄 Click on cards to flip and see detailed information'
+            }
           </p>
         </div>
 
-        {/* Controls */}
-        <div className={`flex flex-wrap justify-center gap-4 mb-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* Constellation Selector */}
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => setActiveConstellation('all')}
-              className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
-                activeConstellation === 'all'
-                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
-                  : 'bg-white/10 text-gray-300 hover:bg-white/20'
-              }`}
-            >
-              🌌 All Constellations
-            </button>
-            {Object.entries(skillConstellations).map(([key, constellation]) => {
-              const IconComponent = constellation.icon;
-              return (
-                <button
-                  key={key}
-                  onClick={() => setActiveConstellation(key)}
-                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center ${
-                    activeConstellation === key
-                      ? 'text-white shadow-lg'
-                      : 'bg-white/10 text-gray-300 hover:bg-white/20'
-                  }`}
-                  style={activeConstellation === key ? { 
-                    background: `linear-gradient(135deg, ${constellation.color}, ${constellation.color}CC)`
-                  } : {}}
-                >
-                  <IconComponent size={16} className="mr-2" />
-                  {constellation.name}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Animation Controls */}
-          <div className="flex items-center gap-2 bg-white/10 rounded-xl px-4 py-2">
-            <button
-              onClick={() => setIsAnimating(!isAnimating)}
-              className="p-1 rounded-lg hover:bg-white/20 transition-colors duration-200"
-            >
-              {isAnimating ? <Pause size={16} className="text-gray-300" /> : <Play size={16} className="text-gray-300" />}
-            </button>
-            <span className="text-gray-300 text-sm mx-2">Speed:</span>
-            <input
-              type="range"
-              min="0.1"
-              max="3"
-              step="0.1"
-              value={animationSpeed}
-              onChange={(e) => setAnimationSpeed(parseFloat(e.target.value))}
-              className="w-20"
-            />
-            <button
-              onClick={resetView}
-              className="p-1 rounded-lg hover:bg-white/20 transition-colors duration-200 ml-2"
-            >
-              <RotateCcw size={16} className="text-gray-300" />
-            </button>
-          </div>
+        {/* Skills Content */}
+        <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          {viewMode === 'complex' ? <ComplexView /> : <SimpleView />}
         </div>
 
-        {/* Constellation Canvas */}
-        <div className={`relative w-full h-[600px] transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-          <div className="relative w-full h-full bg-black/20 backdrop-blur-sm rounded-3xl border border-white/10 overflow-hidden">
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 800 600">
-              {/* Constellation Connections */}
-              {getSkillsToDisplay().map(skill => 
-                skill.connections?.map(connectionName => {
-                  const connectedSkill = getSkillsToDisplay().find(s => s.name === connectionName);
-                  if (!connectedSkill) return null;
-                  
-                  return (
-                    <line
-                      key={`${skill.name}-${connectionName}`}
-                      x1={skill.position.x}
-                      y1={skill.position.y}
-                      x2={connectedSkill.position.x}
-                      y2={connectedSkill.position.y}
-                      stroke={skill.constellationColor || '#3B82F6'}
-                      strokeWidth={hoveredSkill === skill.name || hoveredSkill === connectionName ? 3 : 1}
-                      opacity={getConnectionOpacity(skill, connectionName)}
-                      className="transition-all duration-300"
-                    />
-                  );
-                })
-              )}
-
-              {/* Skill Nodes */}
-              {getSkillsToDisplay().map(skill => {
-                const IconComponent = skill.icon;
-                const isHovered = hoveredSkill === skill.name;
-                const isSelected = selectedSkill?.name === skill.name;
-                const nodeSize = isHovered || isSelected ? 60 : 40;
-                
-                return (
-                  <g key={skill.name}>
-                    {/* Glow Effect */}
-                    {(isHovered || isSelected) && (
-                      <circle
-                        cx={skill.position.x}
-                        cy={skill.position.y}
-                        r={nodeSize + 10}
-                        fill={skill.constellationColor || getSkillLevelColor(skill.level)}
-                        opacity="0.3"
-                        className="animate-pulse"
-                      />
-                    )}
-                    
-                    {/* Main Node */}
-                    <circle
-                      cx={skill.position.x}
-                      cy={skill.position.y}
-                      r={nodeSize / 2}
-                      fill="url(#gradient)"
-                      stroke={skill.constellationColor || getSkillLevelColor(skill.level)}
-                      strokeWidth={isHovered || isSelected ? 4 : 2}
-                      className="cursor-pointer transition-all duration-300 hover:scale-110"
-                      onMouseEnter={() => setHoveredSkill(skill.name)}
-                      onMouseLeave={() => setHoveredSkill(null)}
-                      onClick={() => setSelectedSkill(selectedSkill?.name === skill.name ? null : skill)}
-                    />
-                    
-                    {/* Skill Level Ring */}
-                    <circle
-                      cx={skill.position.x}
-                      cy={skill.position.y}
-                      r={nodeSize / 2 + 8}
-                      fill="none"
-                      stroke={skill.constellationColor || getSkillLevelColor(skill.level)}
-                      strokeWidth="3"
-                      strokeDasharray={`${(skill.level / 100) * 2 * Math.PI * (nodeSize / 2 + 8)} ${2 * Math.PI * (nodeSize / 2 + 8)}`}
-                      opacity="0.7"
-                      transform={`rotate(-90 ${skill.position.x} ${skill.position.y})`}
-                    />
-                    
-                    {/* Skill Name */}
-                    <text
-                      x={skill.position.x}
-                      y={skill.position.y + nodeSize/2 + 20}
-                      textAnchor="middle"
-                      fill="white"
-                      fontSize={isHovered || isSelected ? "14" : "12"}
-                      fontWeight={isHovered || isSelected ? "bold" : "normal"}
-                      className="pointer-events-none transition-all duration-300"
-                    >
-                      {skill.name}
-                    </text>
-                    
-                    {/* Proficiency Badge */}
-                    {(isHovered || isSelected) && (
-                      <text
-                        x={skill.position.x}
-                        y={skill.position.y + nodeSize/2 + 35}
-                        textAnchor="middle"
-                        fill={skill.constellationColor || getSkillLevelColor(skill.level)}
-                        fontSize="11"
-                        fontWeight="bold"
-                        className="pointer-events-none"
-                      >
-                        {skill.level}%
-                      </text>
-                    )}
-                  </g>
-                );
-              })}
-              
-              {/* Gradient Definitions */}
-              <defs>
-                <radialGradient id="gradient" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="rgba(255,255,255,0.9)" />
-                  <stop offset="100%" stopColor="rgba(255,255,255,0.3)" />
-                </radialGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-
-        {/* Selected Skill Details */}
-        {selectedSkill && (
-          <div className={`mt-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+        {/* Selected Skill Details (Complex View) */}
+        {selectedSkill && viewMode === 'complex' && (
+          <div className={`mt-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="max-w-4xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-3xl p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-2xl">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
                   <div 
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center mr-4 shadow-lg"
-                    style={{ 
-                      background: `linear-gradient(135deg, ${selectedSkill.constellationColor || getSkillLevelColor(selectedSkill.level)}, ${selectedSkill.constellationColor || getSkillLevelColor(selectedSkill.level)}80)`
-                    }}
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${selectedSkill.gradient} flex items-center justify-center mr-4 shadow-lg`}
                   >
                     <selectedSkill.icon size={32} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="text-3xl font-bold text-white">{selectedSkill.name}</h3>
-                    <p className="text-gray-300">{selectedSkill.description}</p>
-                    <p className="text-gray-400 text-sm mt-1">From {selectedSkill.constellation}</p>
+                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white">{selectedSkill.name}</h3>
+                    <p className="text-gray-600 dark:text-gray-400">{selectedSkill.description}</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setSelectedSkill(null)}
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
                 >
                   <span className="text-2xl">×</span>
                 </button>
               </div>
 
-              <div className="grid md:grid-cols-4 gap-6">
-                <div className="bg-white/5 rounded-2xl p-6 text-center">
-                  <Trophy className="w-8 h-8 mx-auto mb-3 text-yellow-400" />
-                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.level}%</div>
-                  <div className="text-gray-400 text-sm">Proficiency</div>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-2xl p-6 text-center">
+                  <Trophy className="w-8 h-8 mx-auto mb-3 text-yellow-500" />
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{selectedSkill.level}%</div>
+                  <div className="text-gray-600 dark:text-gray-400">Proficiency</div>
                 </div>
                 
-                <div className="bg-white/5 rounded-2xl p-6 text-center">
-                  <Target className="w-8 h-8 mx-auto mb-3 text-blue-400" />
-                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.years}</div>
-                  <div className="text-gray-400 text-sm">Year{selectedSkill.years !== 1 ? 's' : ''}</div>
+                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-2xl p-6 text-center">
+                  <Target className="w-8 h-8 mx-auto mb-3 text-blue-500" />
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{selectedSkill.years}</div>
+                  <div className="text-gray-600 dark:text-gray-400">Year{selectedSkill.years !== 1 ? 's' : ''}</div>
                 </div>
                 
-                <div className="bg-white/5 rounded-2xl p-6 text-center">
-                  <Eye className="w-8 h-8 mx-auto mb-3 text-green-400" />
-                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.projects}</div>
-                  <div className="text-gray-400 text-sm">Projects</div>
-                </div>
-                
-                <div className="bg-white/5 rounded-2xl p-6 text-center">
-                  <Sparkles className="w-8 h-8 mx-auto mb-3 text-purple-400" />
-                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.connections?.length || 0}</div>
-                  <div className="text-gray-400 text-sm">Connections</div>
+                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-2xl p-6 text-center">
+                  <Eye className="w-8 h-8 mx-auto mb-3 text-green-500" />
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{selectedSkill.projects}</div>
+                  <div className="text-gray-600 dark:text-gray-400">Projects</div>
                 </div>
               </div>
 
-              {selectedSkill.connections && selectedSkill.connections.length > 0 && (
+              {selectedSkill.tags && (
                 <div className="mt-6">
-                  <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
-                    <ArrowRight className="w-5 h-5 mr-2 text-purple-400" />
-                    Connected Skills
-                  </h4>
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Technologies & Features</h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedSkill.connections.map(connection => (
+                    {selectedSkill.tags.map((tag, index) => (
                       <span
-                        key={connection}
-                        className="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm border border-white/20"
+                        key={index}
+                        className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
                       >
-                        {connection}
+                        {tag}
                       </span>
                     ))}
                   </div>
@@ -627,60 +685,23 @@ const Skills = () => {
             </div>
           </div>
         )}
-
-        {/* Constellation Stats */}
-        <div className={`mt-8 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {Object.entries(skillConstellations).map(([key, constellation]) => {
-              const avgLevel = Math.round(constellation.skills.reduce((acc, skill) => acc + skill.level, 0) / constellation.skills.length);
-              const IconComponent = constellation.icon;
-              
-              return (
-                <div
-                  key={key}
-                  className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105 cursor-pointer"
-                  onClick={() => setActiveConstellation(key)}
-                >
-                  <div className="flex items-center mb-4">
-                    <div 
-                      className="w-12 h-12 rounded-xl flex items-center justify-center mr-3"
-                      style={{ backgroundColor: `${constellation.color}40` }}
-                    >
-                      <IconComponent size={24} style={{ color: constellation.color }} />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white">{constellation.name}</h3>
-                      <p className="text-sm text-gray-400">{constellation.skills.length} skills</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-400">Average Level:</span>
-                    <span className="font-bold" style={{ color: constellation.color }}>{avgLevel}%</span>
-                  </div>
-                  
-                  <div className="w-full bg-white/20 rounded-full h-2">
-                    <div
-                      className="h-full rounded-full transition-all duration-1000"
-                      style={{
-                        width: `${avgLevel}%`,
-                        backgroundColor: constellation.color
-                      }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Instructions */}
-        <div className="text-center mt-8">
-          <p className="text-gray-400">
-            🖱️ Hover over stars to see connections • 🎯 Click to explore details • 🌌 Select constellations to focus
-          </p>
-        </div>
       </div>
+
+      {/* Custom CSS for 3D effects */}
+      <style jsx>{`
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        .transform-3d {
+          transform-style: preserve-3d;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+          transform: rotateY(180deg);
+        }
+      `}</style>
     </section>
   );
 };
