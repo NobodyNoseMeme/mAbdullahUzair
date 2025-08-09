@@ -34,7 +34,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      <nav className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${
         scrolled 
           ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-2xl border-b border-gray-200/50 dark:border-gray-700/50' 
           : 'bg-transparent'
