@@ -281,34 +281,36 @@ const Projects3D = () => {
   const nextProject = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setRotation(prev => (prev || 0) - 60); // 360 / 6 projects = 60 degrees per project
+    const newIndex = (currentProject + 1) % projects.length;
+    setCurrentProject(newIndex);
+    setRotation(prev => (prev || 0) - 60); // 360 / 8 projects = 45 degrees per project
     setTimeout(() => {
-      setCurrentProject((prev) => (prev + 1) % projects.length);
       setIsTransitioning(false);
-    }, 600);
+    }, 500);
   };
 
   const prevProject = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+    const newIndex = (currentProject - 1 + projects.length) % projects.length;
+    setCurrentProject(newIndex);
     setRotation(prev => (prev || 0) + 60);
     setTimeout(() => {
-      setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
       setIsTransitioning(false);
-    }, 600);
+    }, 500);
   };
 
   const goToProject = (index) => {
     if (index === currentProject || isTransitioning) return;
     setIsTransitioning(true);
+    setCurrentProject(index);
     const direction = index > currentProject ? -1 : 1;
     const steps = Math.abs(index - currentProject);
     setRotation(prev => prev + (direction * steps * 60));
-    setTimeout(() => {
-      setCurrentProject(index);
-      setIsTransitioning(false);
-    }, 600);
     setIsAutoPlaying(false);
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 500);
   };
 
   // Auto-play functionality - slower on mobile for better performance
