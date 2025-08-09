@@ -40,7 +40,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-3 sm:py-4">
+          <div className="flex justify-between items-center py-3 sm:py-4 min-h-[60px] lg:min-h-[70px]">
             {/* Logo - Enhanced for all screen sizes */}
             <div 
               onClick={() => scrollToSection('#hero')}
