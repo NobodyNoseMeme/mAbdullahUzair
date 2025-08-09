@@ -90,23 +90,13 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             <div className="hidden sm:flex md:hidden items-center space-x-1">
               {navItems.slice(0, 4).map((item) => {
                 const IconComponent = item.icon;
-                const isActive = activeSection === item.id;
                 return (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(`#${item.id}`)}
-                    className={`group relative p-2 rounded-lg transition-all duration-300 transform hover:scale-105 ${
-                      isActive
-                        ? 'text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    }`}
+                    className="group relative p-2 rounded-lg transition-all duration-300 transform hover:scale-105 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <IconComponent size={18} className={`transform group-hover:scale-110 transition-transform duration-300 ${isActive ? 'text-white' : ''}`} />
-                    
-                    {/* Active indicator */}
-                    {isActive && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-                    )}
+                    <IconComponent size={18} className="transform group-hover:scale-110 transition-transform duration-300" />
                   </button>
                 );
               })}
