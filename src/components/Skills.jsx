@@ -7,7 +7,7 @@ const Skills = () => {
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [filterCategory, setFilterCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
-  const [viewMode, setViewMode] = useState('network'); // network, grid, radar
+  const [viewMode, setViewMode] = useState('grid'); // network, grid, radar
   const sectionRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -16,43 +16,43 @@ const Skills = () => {
       name: 'Frontend Development',
       color: '#3B82F6',
       skills: [
-        { name: 'HTML5', level: 95, years: 2, projects: 15, connections: ['CSS3', 'JavaScript', 'Bootstrap'] },
-        { name: 'CSS3', level: 92, years: 2, projects: 15, connections: ['HTML5', 'Bootstrap', 'Tailwind CSS'] },
-        { name: 'JavaScript', level: 85, years: 1.5, projects: 12, connections: ['HTML5', 'Node.js', 'React.js'] },
-        { name: 'Bootstrap', level: 88, years: 1, projects: 10, connections: ['HTML5', 'CSS3', 'Responsive Design'] },
-        { name: 'Tailwind CSS', level: 90, years: 1, projects: 8, connections: ['CSS3', 'Responsive Design'] },
-        { name: 'Responsive Design', level: 93, years: 2, projects: 15, connections: ['CSS3', 'Bootstrap', 'Tailwind CSS'] }
+        { name: 'HTML5', level: 95, years: 1, projects: 5, connections: ['CSS3', 'JavaScript', 'Bootstrap'] },
+        { name: 'CSS3', level: 92, years: 1, projects: 5, connections: ['HTML5', 'Bootstrap', 'Tailwind CSS'] },
+        { name: 'JavaScript', level: 85, years: 1, projects: 5, connections: ['HTML5', 'Node.js', 'React.js'] },
+        { name: 'Bootstrap', level: 88, years: 1, projects: 5, connections: ['HTML5', 'CSS3', 'Responsive Design'] },
+        { name: 'Tailwind CSS', level: 90, years: 1, projects: 5, connections: ['CSS3', 'Responsive Design'] },
+        { name: 'Responsive Design', level: 93, years: 1, projects: 5, connections: ['CSS3', 'Bootstrap', 'Tailwind CSS'] }
       ]
     },
     backend: {
       name: 'Backend Development',
       color: '#10B981',
       skills: [
-        { name: 'PHP', level: 80, years: 1, projects: 8, connections: ['MySQL', 'RESTful APIs'] },
-        { name: 'Node.js', level: 75, years: 1, projects: 6, connections: ['JavaScript', 'Express.js', 'MongoDB'] },
-        { name: 'Express.js', level: 75, years: 1, projects: 6, connections: ['Node.js', 'RESTful APIs'] },
-        { name: 'RESTful APIs', level: 72, years: 1, projects: 8, connections: ['PHP', 'Express.js', 'Postman'] }
+        { name: 'PHP', level: 80, years: 1, projects: 5, connections: ['MySQL', 'RESTful APIs'] },
+        { name: 'Node.js', level: 75, years: 1, projects: 5, connections: ['JavaScript', 'Express.js', 'MongoDB'] },
+        { name: 'Express.js', level: 75, years: 1, projects: 5, connections: ['Node.js', 'RESTful APIs'] },
+        { name: 'RESTful APIs', level: 72, years: 1, projects: 5, connections: ['PHP', 'Express.js', 'Postman'] }
       ]
     },
     database: {
       name: 'Database & Tools',
       color: '#8B5CF6',
       skills: [
-        { name: 'MySQL', level: 78, years: 1, projects: 6, connections: ['PHP', 'Database Design'] },
-        { name: 'MongoDB', level: 70, years: 0.8, projects: 4, connections: ['Node.js', 'Database Design'] },
-        { name: 'Git & GitHub', level: 88, years: 1.5, projects: 15, connections: ['VS Code', 'Version Control'] },
-        { name: 'VS Code', level: 95, years: 2, projects: 15, connections: ['Git & GitHub', 'Development Tools'] },
-        { name: 'Postman', level: 80, years: 1, projects: 8, connections: ['RESTful APIs', 'Testing'] }
+        { name: 'MySQL', level: 78, years: 1, projects: 5, connections: ['PHP', 'Database Design'] },
+        { name: 'MongoDB', level: 70, years: 1, projects: 5, connections: ['Node.js', 'Database Design'] },
+        { name: 'Git & GitHub', level: 88, years: 1, projects: 5, connections: ['VS Code', 'Version Control'] },
+        { name: 'VS Code', level: 95, years: 1, projects: 5, connections: ['Git & GitHub', 'Development Tools'] },
+        { name: 'Postman', level: 80, years: 1, projects: 5, connections: ['RESTful APIs', 'Testing'] }
       ]
     },
     programming: {
       name: 'Programming Languages',
       color: '#F59E0B',
       skills: [
-        { name: 'C', level: 85, years: 1.5, projects: 10, connections: ['C++', 'System Programming'] },
-        { name: 'C++', level: 82, years: 1.5, projects: 8, connections: ['C', 'Object-Oriented Programming'] },
-        { name: 'Python', level: 75, years: 1, projects: 6, connections: ['Machine Learning', 'Data Analysis'] },
-        { name: 'Machine Learning', level: 65, years: 0.5, projects: 3, connections: ['Python', 'Data Analysis'] }
+        { name: 'C', level: 85, years: 1, projects: 5, connections: ['C++', 'System Programming'] },
+        { name: 'C++', level: 82, years: 1, projects: 5, connections: ['C', 'Object-Oriented Programming'] },
+        { name: 'Python', level: 75, years: 1, projects: 5, connections: ['Machine Learning', 'Data Analysis'] },
+        { name: 'Machine Learning', level: 65, years: 1, projects: 5, connections: ['Python', 'Data Analysis'] }
       ]
     }
   };
@@ -274,192 +274,54 @@ const Skills = () => {
             </select>
           </div>
 
-          {/* View Mode Toggle */}
-          <div className="flex bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-1">
-            {['network', 'grid'].map((mode) => (
-              <button
-                key={mode}
-                onClick={() => setViewMode(mode)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  viewMode === mode
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-blue-600'
-                }`}
-              >
-                {mode.charAt(0).toUpperCase() + mode.slice(1)}
-              </button>
-            ))}
-          </div>
         </div>
 
-        {/* Main Content */}
+        {/* Skills Grid - Always face front */}
         <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-          {viewMode === 'network' ? (
-            <div className="grid lg:grid-cols-3 gap-8">
-              {/* Network Visualization */}
-              <div className="lg:col-span-2">
-                <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-2xl border border-gray-200 dark:border-gray-700">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Skills Network</h3>
-                  <canvas
-                    ref={canvasRef}
-                    className="w-full h-96 rounded-xl cursor-pointer"
-                    style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}
-                  />
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-4 text-center">
-                    Hover over nodes to see connections • Click to view details
-                  </p>
-                </div>
-              </div>
-
-              {/* Skill Details */}
-              <div className="space-y-6">
-                {/* Selected Skill Details */}
-                {selectedSkill && (
-                  <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-2xl border border-gray-200 dark:border-gray-700">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{selectedSkill.name}</h3>
-                      <button
-                        onClick={() => setSelectedSkill(null)}
-                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                      >
-                        ×
-                      </button>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      {/* Proficiency */}
-                      <div>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Proficiency</span>
-                          <span className={`px-2 py-1 rounded-full text-xs font-bold ${getSkillLevelLabel(selectedSkill.level).color}`}>
-                            {getSkillLevelLabel(selectedSkill.level).label}
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                          <div
-                            className="h-full rounded-full transition-all duration-1000 ease-out"
-                            style={{
-                              width: `${selectedSkill.level}%`,
-                              backgroundColor: selectedSkill.categoryColor
-                            }}
-                          />
-                        </div>
-                        <div className="text-right text-sm font-bold mt-1" style={{ color: selectedSkill.categoryColor }}>
-                          {selectedSkill.level}%
-                        </div>
-                      </div>
-
-                      {/* Stats */}
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                          <div className="text-2xl font-bold text-gray-900 dark:text-white">{selectedSkill.years}</div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">Years</div>
-                        </div>
-                        <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                          <div className="text-2xl font-bold text-gray-900 dark:text-white">{selectedSkill.projects}</div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">Projects</div>
-                        </div>
-                      </div>
-
-                      {/* Connected Skills */}
-                      {selectedSkill.connections && (
-                        <div>
-                          <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Connected Skills</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {selectedSkill.connections.map((connection, index) => (
-                              <span
-                                key={index}
-                                className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium"
-                              >
-                                {connection}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredSkills.map((skill, index) => {
+              const levelInfo = getSkillLevelLabel(skill.level);
+              return (
+                <div
+                  key={skill.name}
+                  className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer border border-gray-200 dark:border-gray-700"
+                  style={{
+                    animationDelay: `${index * 100}ms`
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-bold text-gray-900 dark:text-white">{skill.name}</h3>
+                    <span className={`px-2 py-1 rounded-full text-xs font-bold ${levelInfo.color}`}>
+                      {levelInfo.label}
+                    </span>
                   </div>
-                )}
 
-                {/* Category Stats */}
-                <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-2xl border border-gray-200 dark:border-gray-700">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Skills Overview</h3>
-                  <div className="space-y-4">
-                    {Object.entries(skillsData).map(([key, data]) => {
-                      const avgLevel = Math.round(data.skills.reduce((acc, skill) => acc + skill.level, 0) / data.skills.length);
-                      return (
-                        <div key={key} className="flex items-center justify-between">
-                          <div>
-                            <div className="font-semibold text-gray-900 dark:text-white">{data.name}</div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">{data.skills.length} skills</div>
-                          </div>
-                          <div className="text-right">
-                            <div className="font-bold" style={{ color: data.color }}>{avgLevel}%</div>
-                            <div className="w-16 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                              <div
-                                className="h-full rounded-full"
-                                style={{
-                                  width: `${avgLevel}%`,
-                                  backgroundColor: data.color
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            /* Grid View */
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredSkills.map((skill, index) => {
-                const levelInfo = getSkillLevelLabel(skill.level);
-                return (
-                  <div
-                    key={skill.name}
-                    className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer border border-gray-200 dark:border-gray-700"
-                    onClick={() => setSelectedSkill(skill)}
-                    style={{
-                      animationDelay: `${index * 100}ms`
-                    }}
-                  >
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-bold text-gray-900 dark:text-white">{skill.name}</h3>
-                      <span className={`px-2 py-1 rounded-full text-xs font-bold ${levelInfo.color}`}>
-                        {levelInfo.label}
+                  <div className="mb-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Proficiency</span>
+                      <span className="text-sm font-bold" style={{ color: skill.categoryColor }}>
+                        {skill.level}%
                       </span>
                     </div>
-                    
-                    <div className="mb-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Proficiency</span>
-                        <span className="text-sm font-bold" style={{ color: skill.categoryColor }}>
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                        <div
-                          className="h-full rounded-full transition-all duration-1000 ease-out"
-                          style={{
-                            width: `${skill.level}%`,
-                            backgroundColor: skill.categoryColor
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
-                      <span>{skill.years} years</span>
-                      <span>{skill.projects} projects</span>
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      <div
+                        className="h-full rounded-full transition-all duration-1000 ease-out"
+                        style={{
+                          width: `${skill.level}%`,
+                          backgroundColor: skill.categoryColor
+                        }}
+                      />
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          )}
+
+                  <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+                    <span>{skill.years} year</span>
+                    <span>{skill.projects} projects</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Call to Action */}
