@@ -359,7 +359,6 @@ const Contact = () => {
                         <>
                           <Send size={20} className="mr-3 transform group-hover:translate-x-1 transition-transform duration-300" />
                           <span>Send Message</span>
-                          <Rocket size={20} className="ml-3 transform group-hover:scale-110 transition-transform duration-300" />
                         </>
                       )}
                     </div>
