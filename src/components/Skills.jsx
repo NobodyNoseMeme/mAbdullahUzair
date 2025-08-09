@@ -665,7 +665,7 @@ const Skills = () => {
                           return (
                             <div
                               key={index}
-                              className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                              className="bg-gray-100 dark:bg-gray-700/50 rounded-lg p-3 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedSkill(skill);
