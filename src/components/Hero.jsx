@@ -72,8 +72,8 @@ const Hero = () => {
               left: `${(Math.random() * 100).toFixed(1)}%`,
               top: `${(Math.random() * 100).toFixed(1)}%`,
               animationDelay: `${(Math.random() * 3).toFixed(2)}s`,
-              transform: `translate(${(mousePosition.x || 0) * (10 + i * 2)}px, ${(mousePosition.y || 0) * (10 + i * 2)}px)`,
-              transition: 'transform 0.3s ease-out'
+              transform: window.innerWidth > 768 ? `translate(${(mousePosition.x || 0) * (5 + i)}px, ${(mousePosition.y || 0) * (5 + i)}px)` : 'none',
+              transition: window.innerWidth > 768 ? 'transform 0.3s ease-out' : 'none'
             }}
           />
         ))}
