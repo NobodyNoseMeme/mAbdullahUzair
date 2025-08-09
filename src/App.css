@@ -902,12 +902,8 @@ html {
   border: 1px solid rgba(147, 51, 234, 0.1) !important;
 }
 
-/* Remove cursor hiding on hover to prevent disappearance */
-button, a, .cursor-pointer {
-  cursor: none !important;
-}
-
-button:hover, a:hover, .cursor-pointer:hover {
+/* Ensure cursor is hidden globally when custom cursor is active */
+* {
   cursor: none !important;
 }
 
