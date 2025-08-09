@@ -283,7 +283,7 @@ const Projects3D = () => {
     setIsTransitioning(true);
     const newIndex = (currentProject + 1) % projects.length;
     setCurrentProject(newIndex);
-    setRotation(prev => (prev || 0) - 60); // 360 / 8 projects = 45 degrees per project
+    setRotation(prev => (prev || 0) - 45); // 360 / 8 projects = 45 degrees per project
     setTimeout(() => {
       setIsTransitioning(false);
     }, 500);
@@ -294,7 +294,7 @@ const Projects3D = () => {
     setIsTransitioning(true);
     const newIndex = (currentProject - 1 + projects.length) % projects.length;
     setCurrentProject(newIndex);
-    setRotation(prev => (prev || 0) + 60);
+    setRotation(prev => (prev || 0) + 45);
     setTimeout(() => {
       setIsTransitioning(false);
     }, 500);
@@ -306,7 +306,7 @@ const Projects3D = () => {
     setCurrentProject(index);
     const direction = index > currentProject ? -1 : 1;
     const steps = Math.abs(index - currentProject);
-    setRotation(prev => prev + (direction * steps * 60));
+    setRotation(prev => prev + (direction * steps * 45));
     setIsAutoPlaying(false);
     setTimeout(() => {
       setIsTransitioning(false);
