@@ -202,28 +202,32 @@ const Projects3D = () => {
     };
   }, [isDragging]);
 
-  // Drag functionality
+  // Enhanced drag and touch functionality
   useEffect(() => {
-    const handleMouseDown = (e) => {
+    const handleStart = (e) => {
       if (carouselRef.current?.contains(e.target)) {
         setIsDragging(true);
-        setDragStart({ x: e.clientX, y: e.clientY });
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        setDragStart({ x: clientX, y: clientY });
         setLastRotation(rotation);
         setIsAutoPlaying(false);
         e.preventDefault();
       }
     };
 
-    const handleMouseMove = (e) => {
+    const handleMove = (e) => {
       if (isDragging) {
-        const deltaX = e.clientX - dragStart.x;
-        const newRotation = lastRotation + (deltaX * 0.5); // Sensitivity adjustment
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const deltaX = clientX - dragStart.x;
+        const sensitivity = window.innerWidth <= 768 ? 0.8 : 0.5; // Higher sensitivity on mobile
+        const newRotation = lastRotation + (deltaX * sensitivity);
         setRotation(newRotation);
         e.preventDefault();
       }
     };
 
-    const handleMouseUp = () => {
+    const handleEnd = () => {
       if (isDragging) {
         setIsDragging(false);
         // Snap to nearest project
@@ -234,14 +238,23 @@ const Projects3D = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    // Mouse events
+    document.addEventListener('mousedown', handleStart);
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('mouseup', handleEnd);
+
+    // Touch events for mobile
+    document.addEventListener('touchstart', handleStart, { passive: false });
+    document.addEventListener('touchmove', handleMove, { passive: false });
+    document.addEventListener('touchend', handleEnd);
 
     return () => {
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousedown', handleStart);
+      document.removeEventListener('mousemove', handleMove);
+      document.removeEventListener('mouseup', handleEnd);
+      document.removeEventListener('touchstart', handleStart);
+      document.removeEventListener('touchmove', handleMove);
+      document.removeEventListener('touchend', handleEnd);
     };
   }, [isDragging, dragStart, rotation, lastRotation, projects.length]);
 
