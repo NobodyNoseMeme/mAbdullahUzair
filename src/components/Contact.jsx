@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Mail, Phone, MapPin, Send, User, MessageSquare, ChevronRight, ArrowRight, TrendingUp, Check } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, User, MessageSquare, ChevronRight, ArrowRight, TrendingUp, Check, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button.jsx';
 
 const Contact = () => {
