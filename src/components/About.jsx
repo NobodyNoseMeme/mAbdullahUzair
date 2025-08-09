@@ -15,7 +15,7 @@ const About = () => {
 
   const achievements = [
     { icon: Code, text: "Written over 10,000 lines of production code", color: "text-green-600" },
-    { icon: CheckCircle, text: "Delivered 50+ successful projects and features", color: "text-blue-600" },
+    { icon: CheckCircle, text: "Delivered 5+ successful projects and features", color: "text-blue-600" },
     { icon: Award, text: "Maintaining 3.6 CGPA in Software Engineering", color: "text-purple-600" },
     { icon: TrendingUp, text: "Specialized in full-stack web development", color: "text-indigo-600" },
     { icon: Monitor, text: "Focus on clean code and efficient solutions", color: "text-cyan-600" }
