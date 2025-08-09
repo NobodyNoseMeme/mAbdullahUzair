@@ -1,12 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { Code, Database, Globe, Smartphone, Server, Palette, Brain, Zap } from 'lucide-react';
+import { Code, Server, Database, Palette, Brain, Zap, Globe, Monitor } from 'lucide-react';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeTab, setActiveTab] = useState('frontend');
-  const [hoveredSkill, setHoveredSkill] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [showDetails, setShowDetails] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('frontend');
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -16,7 +13,7 @@ const Skills = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
@@ -26,44 +23,18 @@ const Skills = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Optimized cursor tracking with throttling for mobile performance
-  useEffect(() => {
-    let animationFrame;
-    const handleMouseMove = (e) => {
-      if (animationFrame) return;
-      animationFrame = requestAnimationFrame(() => {
-        setMousePosition({ x: e.clientX, y: e.clientY });
-        animationFrame = null;
-      });
-    };
-
-    // Only enable hover effects on desktop
-    const isMobile = window.innerWidth <= 768;
-    if (hoveredSkill && !isMobile) {
-      document.addEventListener("mousemove", handleMouseMove, { passive: true });
-    } else {
-      document.body.style.cursor = "auto";
-    }
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      if (animationFrame) cancelAnimationFrame(animationFrame);
-      document.body.style.cursor = "auto";
-    };
-  }, [hoveredSkill]);
-
   const skillCategories = {
     frontend: {
       title: 'Frontend Development',
       icon: Globe,
       color: 'from-blue-500 to-cyan-500',
       skills: [
-        { name: 'HTML5', level: 95, experience: '1 year', projects: 5, description: 'Semantic HTML and modern web standards with accessibility features' },
-        { name: 'CSS3', level: 92, experience: '1 year', projects: 5, description: 'Advanced CSS with animations, flexbox, grid, and responsive design' },
-        { name: 'Bootstrap', level: 88, experience: '1 year', projects: 5, description: 'Responsive framework for rapid UI development' },
-        { name: 'Tailwind CSS', level: 90, experience: '1 year', projects: 5, description: 'Utility-first CSS framework for modern web design' },
-        { name: 'JavaScript', level: 85, experience: '1 year', projects: 5, description: 'ES6+, DOM manipulation, and modern JavaScript patterns' },
-        { name: 'Responsive Web Design', level: 93, experience: '1 year', projects: 5, description: 'Mobile-first design approach with cross-device compatibility' }
+        { name: 'HTML5', level: 95, icon: '🌐' },
+        { name: 'CSS3', level: 92, icon: '🎨' },
+        { name: 'JavaScript', level: 85, icon: '🟨' },
+        { name: 'Bootstrap', level: 88, icon: '🅱️' },
+        { name: 'Tailwind CSS', level: 90, icon: '💨' },
+        { name: 'Responsive Design', level: 93, icon: '📱' }
       ]
     },
     backend: {
@@ -71,266 +42,133 @@ const Skills = () => {
       icon: Server,
       color: 'from-green-500 to-emerald-500',
       skills: [
-        { name: 'PHP', level: 80, experience: '1 year', projects: 5, description: 'Server-side scripting and web application development' },
-        { name: 'Node.js', level: 75, experience: '1 year', projects: 5, description: 'JavaScript runtime for server-side development' },
-        { name: 'Express.js', level: 75, experience: '1 year', projects: 5, description: 'Web application framework for Node.js' },
-        { name: 'MongoDB', level: 70, experience: '1 year', projects: 5, description: 'NoSQL database for modern web applications' },
-        { name: 'MySQL', level: 78, experience: '1 year', projects: 5, description: 'Relational database management and optimization' },
-        { name: 'RESTful APIs', level: 72, experience: '1 year', projects: 5, description: 'API design and development for web services' }
+        { name: 'PHP', level: 80, icon: '🐘' },
+        { name: 'Node.js', level: 75, icon: '🟢' },
+        { name: 'Express.js', level: 75, icon: '⚡' },
+        { name: 'RESTful APIs', level: 72, icon: '🔗' }
+      ]
+    },
+    database: {
+      title: 'Database & Tools',
+      icon: Database,
+      color: 'from-purple-500 to-pink-500',
+      skills: [
+        { name: 'MySQL', level: 78, icon: '🐬' },
+        { name: 'MongoDB', level: 70, icon: '🍃' },
+        { name: 'Git & GitHub', level: 88, icon: '🔧' },
+        { name: 'VS Code', level: 95, icon: '💻' },
+        { name: 'Postman', level: 80, icon: '📮' }
       ]
     },
     programming: {
       title: 'Programming Languages',
       icon: Code,
-      color: 'from-purple-500 to-pink-500',
-      skills: [
-        { name: 'C', level: 85, experience: '1 year', projects: 5, description: 'System programming and algorithm implementation' },
-        { name: 'C++', level: 82, experience: '1 year', projects: 5, description: 'Object-oriented programming and data structures' },
-        { name: 'JavaScript', level: 85, experience: '1 year', projects: 5, description: 'Full-stack JavaScript development' },
-        { name: 'Python', level: 75, experience: '1 year', projects: 5, description: 'Machine learning and web development with Python' },
-        { name: 'Machine Learning', level: 65, experience: '1 year', projects: 5, description: 'Basic ML algorithms and data analysis with Python' },
-        { name: 'MERN Stack', level: 70, experience: '1 year', projects: 5, description: 'MongoDB, Express.js, React.js, Node.js development' }
-      ]
-    },
-    tools: {
-      title: 'Tools & Technologies',
-      icon: Zap,
       color: 'from-orange-500 to-red-500',
       skills: [
-        { name: 'Git & GitHub', level: 88, experience: '1 year', projects: 5, description: 'Version control and collaborative development' },
-        { name: 'VS Code', level: 95, experience: '1 year', projects: 5, description: 'Primary development environment and extensions' },
-        { name: 'Postman', level: 80, experience: '1 year', projects: 5, description: 'API testing and development tools' },
-        { name: 'SEO & Optimization', level: 75, experience: '1 year', projects: 5, description: 'Search engine optimization and web performance' },
-        { name: 'Agile Methodology', level: 70, experience: '1 year', projects: 5, description: 'Project management and team collaboration' },
-        { name: 'Debugging & Testing', level: 82, experience: '1 year', projects: 5, description: 'Code debugging and quality assurance practices' }
+        { name: 'C', level: 85, icon: '⚙️' },
+        { name: 'C++', level: 82, icon: '🔧' },
+        { name: 'JavaScript', level: 85, icon: '🟨' },
+        { name: 'Python', level: 75, icon: '🐍' },
+        { name: 'Machine Learning', level: 65, icon: '🤖' }
       ]
     }
   };
 
-  const handleSkillHover = (skill, event) => {
-    setHoveredSkill(skill);
-    setShowDetails(true);
-  };
-
-  const handleSkillLeave = () => {
-    setHoveredSkill(null);
-    setShowDetails(false);
-  };
-
-  const getSkillIcon = (skillName) => {
-    const iconMap = {
-      'HTML5': '🌐',
-      'CSS3': '🎨',
-      'Bootstrap': '🅱️',
-      'Tailwind CSS': '💨',
-      'JavaScript': '🟨',
-      'Responsive Web Design': '📱',
-      'PHP': '🐘',
-      'Node.js': '🟢',
-      'Express.js': '⚡',
-      'MongoDB': '🍃',
-      'MySQL': '🐬',
-      'RESTful APIs': '🔗',
-      'C': '⚙️',
-      'C++': '🔧',
-      'Python': '🐍',
-      'Machine Learning': '🤖',
-      'MERN Stack': '📚',
-      'Git & GitHub': '🔧',
-      'VS Code': '💻',
-      'Postman': '📮',
-      'SEO & Optimization': '🔍',
-      'Agile Methodology': '🏃',
-      'Debugging & Testing': '🐛'
-    };
-    return iconMap[skillName] || '💻';
-  };
-
   return (
-    <section id="skills" ref={sectionRef} className="py-20 bg-white dark:bg-gray-900 relative overflow-hidden">
-      {/* Custom Cursor - Only show on desktop */}
-      {hoveredSkill && window.innerWidth > 768 && (
-        <div
-          className="fixed pointer-events-none z-50 transition-all duration-200 hidden md:block"
-          style={{
-            left: mousePosition.x + 20,
-            top: mousePosition.y - 10,
-            transform: 'translate(-50%, -50%)'
-          }}
-        >
-          <div className="bg-black/90 text-white px-3 py-1 rounded-lg text-sm font-medium backdrop-blur-md border border-white/20">
-            {hoveredSkill.level}% Proficiency
-          </div>
-        </div>
-      )}
-
-      {/* Skill Details Modal - Only show on desktop */}
-      {showDetails && hoveredSkill && window.innerWidth > 768 && (
-        <div
-          className="fixed pointer-events-none z-40 transition-all duration-300 hidden md:block"
-          style={{
-            left: mousePosition.x + 50,
-            top: mousePosition.y - 50,
-            transform: 'translate(0, -50%)'
-          }}
-        >
-          <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 max-w-xs transform transition-transform duration-300"
-               style={{
-                 boxShadow: '0 10px 25px rgba(0,0,0,0.15)'
-               }}>
-            <div className="flex items-center mb-2">
-              <span className="text-xl mr-2">{getSkillIcon(hoveredSkill.name)}</span>
-              <h4 className="font-bold text-base text-gray-900 dark:text-white">{hoveredSkill.name}</h4>
-            </div>
-            <p className="text-gray-600 dark:text-gray-300 text-xs mb-3">{hoveredSkill.description}</p>
-            <div className="space-y-1">
-              <div className="flex justify-between text-xs">
-                <span className="text-gray-500">Experience:</span>
-                <span className="font-semibold text-purple-600">1 year</span>
-              </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-gray-500">Projects:</span>
-                <span className="font-semibold text-blue-600">5 projects</span>
-              </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-gray-500">Proficiency:</span>
-                <span className="font-semibold text-green-600">{hoveredSkill.level}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
+    <section id="skills" ref={sectionRef} className="py-16 md:py-20 bg-white dark:bg-gray-900 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className={`text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             Technical Skills
           </h2>
-          <p className={`text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <p className={`text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             Expertise across the full development stack
           </p>
         </div>
 
-        {/* Enhanced Tab Navigation with 3D effects */}
-        <div className={`flex flex-wrap justify-center mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        {/* Category Tabs */}
+        <div className={`flex flex-wrap justify-center mb-12 gap-2 md:gap-4 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {Object.entries(skillCategories).map(([key, category]) => {
             const IconComponent = category.icon;
             return (
               <button
                 key={key}
-                onClick={() => setActiveTab(key)}
-                className={`flex items-center px-6 py-3 m-2 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-110 hover:translateY-2 ${
-                  activeTab === key
-                    ? `bg-gradient-to-r ${category.color} text-white shadow-2xl scale-105`
+                onClick={() => setActiveCategory(key)}
+                className={`flex items-center px-4 md:px-6 py-2 md:py-3 rounded-xl font-semibold transition-all duration-300 ${
+                  activeCategory === key
+                    ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105`
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                 }`}
-                style={{
-                  boxShadow: activeTab === key ? '0 15px 30px rgba(0,0,0,0.2)' : '0 5px 15px rgba(0,0,0,0.1)',
-                  transform: activeTab === key ? 'translateY(-5px) scale(1.05)' : 'translateY(0) scale(1)'
-                }}
               >
-                <IconComponent size={20} className="mr-2" />
-                {category.title}
+                <IconComponent size={18} className="mr-2" />
+                <span className="text-sm md:text-base">{category.title}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Enhanced 3D Skill Cards Grid */}
+        {/* Skills Grid */}
         <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {skillCategories[activeTab].skills.map((skill, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {skillCategories[activeCategory].skills.map((skill, index) => (
               <div
                 key={skill.name}
-                className="group relative bg-white dark:bg-gray-800 rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-lg md:hover:shadow-2xl transition-all duration-300 md:duration-500 transform md:hover:scale-105 md:hover:translateY-4 md:hover:rotate-1 cursor-pointer border border-gray-200 dark:border-gray-700"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 style={{
-                  animationDelay: `${index * 100}ms`,
-                  transformStyle: 'preserve-3d',
-                  perspective: '1000px'
-                }}
-                onMouseEnter={(e) => {
-                  // Only enable hover effects on desktop for performance
-                  if (window.innerWidth > 768) {
-                    handleSkillHover(skill, e);
-                  }
-                }}
-                onMouseLeave={() => {
-                  if (window.innerWidth > 768) {
-                    handleSkillLeave();
-                  }
+                  animationDelay: `${index * 100}ms`
                 }}
               >
-                {/* 3D Background Effect - Disabled on mobile */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 via-blue-500/10 to-cyan-500/10 rounded-2xl md:rounded-3xl opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:duration-500" />
-                
-                {/* Skill Icon with 3D effect */}
-                <div className="relative z-10 mb-4">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl md:rounded-2xl flex items-center justify-center text-white text-lg md:text-2xl font-bold transform md:group-hover:scale-110 md:group-hover:rotate-12 transition-all duration-300 shadow-lg md:group-hover:shadow-2xl">
-                    {getSkillIcon(skill.name)}
+                {/* Skill Header */}
+                <div className="flex items-center mb-4">
+                  <div className="text-2xl mr-3 bg-gray-100 dark:bg-gray-700 w-12 h-12 rounded-xl flex items-center justify-center">
+                    {skill.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 dark:text-white text-sm md:text-base">
+                      {skill.name}
+                    </h3>
+                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                      {skill.level}% Proficiency
+                    </p>
                   </div>
                 </div>
 
-                {/* Skill Name with 3D text effect */}
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2 md:mb-3 transform md:group-hover:translateZ-10 transition-transform duration-300"
-                    style={{
-                      textShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                    }}>
-                  {skill.name}
-                </h3>
-
-                {/* Enhanced Progress Bar with 3D effect */}
-                <div className="mb-3 md:mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Proficiency</span>
-                    <span className="text-sm font-bold text-purple-600 dark:text-purple-400">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden shadow-inner">
+                {/* Progress Bar */}
+                <div className="relative">
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div
-                      className={`h-full bg-gradient-to-r ${skillCategories[activeTab].color} rounded-full transition-all duration-1000 ease-out transform origin-left shadow-lg`}
+                      className={`h-full bg-gradient-to-r ${skillCategories[activeCategory].color} rounded-full transition-all duration-1000 ease-out`}
                       style={{
                         width: isVisible ? `${skill.level}%` : '0%',
-                        animationDelay: `${index * 200}ms`,
-                        boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.3), 0 2px 8px rgba(0,0,0,0.2)'
+                        animationDelay: `${index * 200}ms`
                       }}
                     />
                   </div>
                 </div>
-
-                {/* Experience Badge with 3D hover */}
-                <div className="flex items-center justify-between">
-                  <span className="px-2 md:px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium transform md:group-hover:scale-105 transition-transform duration-300">
-                    {skill.experience}
-                  </span>
-                  <span className="px-2 md:px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium transform md:group-hover:scale-105 transition-transform duration-300">
-                    {skill.projects} projects
-                  </span>
-                </div>
-
-                {/* 3D Hover Glow Effect - Disabled on mobile */}
-                <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-r from-purple-500/20 to-blue-500/20 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:duration-500 blur-xl transform scale-110" />
-                
-                {/* Interactive Corner Accent */}
-                <div className="absolute top-3 right-3 md:top-4 md:right-4 w-2 h-2 md:w-3 md:h-3 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full opacity-50 md:group-hover:opacity-100 md:group-hover:scale-150 transition-all duration-300" />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Floating 3D Elements - Reduced count on mobile */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(window.innerWidth > 768 ? 15 : 5)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 md:w-4 md:h-4 bg-purple-400 rounded-full opacity-10 animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 2}s`,
-                transform: `translateZ(${Math.random() * 50}px) rotateX(${Math.random() * 360}deg)`
-              }}
-            />
-          ))}
+        {/* Summary Stats */}
+        <div className={`mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="text-center bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-2xl p-4 md:p-6">
+            <div className="text-2xl md:text-3xl font-bold">15+</div>
+            <div className="text-xs md:text-sm opacity-90">Technologies</div>
+          </div>
+          <div className="text-center bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-2xl p-4 md:p-6">
+            <div className="text-2xl md:text-3xl font-bold">10+</div>
+            <div className="text-xs md:text-sm opacity-90">Projects</div>
+          </div>
+          <div className="text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl p-4 md:p-6">
+            <div className="text-2xl md:text-3xl font-bold">1+</div>
+            <div className="text-xs md:text-sm opacity-90">Years Experience</div>
+          </div>
+          <div className="text-center bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl p-4 md:p-6">
+            <div className="text-2xl md:text-3xl font-bold">85%</div>
+            <div className="text-xs md:text-sm opacity-90">Avg Proficiency</div>
+          </div>
         </div>
       </div>
     </section>
