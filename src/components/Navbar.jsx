@@ -133,8 +133,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           </div>
         </div>
 
-        {/* Mobile Navigation - Enhanced for all small screens */}
-        <div className={`md:hidden transition-all duration-500 ease-in-out overflow-hidden ${
+        {/* Mobile Navigation */}
+        <div className={`lg:hidden transition-all duration-500 ease-in-out overflow-hidden ${
           isOpen
             ? 'max-h-screen opacity-100 visible'
             : 'max-h-0 opacity-0 invisible'
