@@ -49,6 +49,10 @@ const Skills = () => {
   const [selectedMenuSkill, setSelectedMenuSkill] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [flippedCard, setFlippedCard] = useState(null);
+  const [isDraggingKeyboard, setIsDraggingKeyboard] = useState(false);
+  const [keyboardRotation, setKeyboardRotation] = useState({ x: -5, y: 0 });
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [lastRotation, setLastRotation] = useState({ x: -5, y: 0 });
   const sectionRef = useRef(null);
   const keyboardRef = useRef(null);
 
@@ -182,26 +186,58 @@ const Skills = () => {
     return () => clearInterval(interval);
   }, [autoRotate]);
 
-  // Mouse tracking for subtle 3D effect
+  // Enhanced drag functionality for keyboard
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (keyboardRef.current && !isMobile && !autoRotate) {
-        const rect = keyboardRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const mouseX = ((e.clientX - centerX) / rect.width) * 15; // Reduced intensity
-        const mouseY = ((e.clientY - centerY) / rect.height) * 10; // Reduced intensity
-        
-        setRotationY(mouseX);
-        setRotationX(-5 + mouseY);
+    const handleStart = (e) => {
+      if (keyboardRef.current?.contains(e.target)) {
+        setIsDraggingKeyboard(true);
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        setDragStart({ x: clientX, y: clientY });
+        setLastRotation(keyboardRotation);
+        e.preventDefault();
       }
     };
 
-    if (!isMobile) {
-      document.addEventListener('mousemove', handleMouseMove);
-      return () => document.removeEventListener('mousemove', handleMouseMove);
-    }
-  }, [isMobile, autoRotate]);
+    const handleMove = (e) => {
+      if (isDraggingKeyboard) {
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        const deltaX = clientX - dragStart.x;
+        const deltaY = clientY - dragStart.y;
+        const sensitivity = isMobile ? 0.5 : 0.3;
+
+        const newRotationY = lastRotation.y + (deltaX * sensitivity);
+        const newRotationX = lastRotation.x + (deltaY * sensitivity * -1);
+
+        setKeyboardRotation({
+          x: Math.max(-45, Math.min(45, newRotationX)),
+          y: newRotationY
+        });
+        e.preventDefault();
+      }
+    };
+
+    const handleEnd = () => {
+      setIsDraggingKeyboard(false);
+    };
+
+    document.addEventListener('mousedown', handleStart);
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('mouseup', handleEnd);
+    document.addEventListener('touchstart', handleStart, { passive: false });
+    document.addEventListener('touchmove', handleMove, { passive: false });
+    document.addEventListener('touchend', handleEnd);
+
+    return () => {
+      document.removeEventListener('mousedown', handleStart);
+      document.removeEventListener('mousemove', handleMove);
+      document.removeEventListener('mouseup', handleEnd);
+      document.removeEventListener('touchstart', handleStart);
+      document.removeEventListener('touchmove', handleMove);
+      document.removeEventListener('touchend', handleEnd);
+    };
+  }, [isDraggingKeyboard, dragStart, keyboardRotation, lastRotation, isMobile]);
 
   // Keyboard input handling
   useEffect(() => {
@@ -261,8 +297,7 @@ const Skills = () => {
   }, [isTypingMode, soundEnabled, keyboardLayout]);
 
   const resetRotation = () => {
-    setRotationX(-5);
-    setRotationY(0);
+    setKeyboardRotation({ x: -5, y: 0 });
   };
 
   const getCategoryColor = (category) => {
@@ -434,11 +469,12 @@ const Skills = () => {
               transformStyle: 'preserve-3d'
             }}
           >
-            <div 
-              className="transform-3d transition-transform duration-300 ease-out"
+            <div
+              className={`transform-3d transition-transform duration-300 ease-out ${isDraggingKeyboard ? 'cursor-grabbing' : 'cursor-grab'}`}
               style={{
-                transform: isMobile ? 'rotateX(-5deg)' : `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`,
-                transformStyle: 'preserve-3d'
+                transform: `rotateX(${keyboardRotation.x}deg) rotateY(${keyboardRotation.y}deg)`,
+                transformStyle: 'preserve-3d',
+                touchAction: 'none'
               }}
             >
               <div className="relative bg-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-700">
@@ -546,92 +582,157 @@ const Skills = () => {
           </div>
         )}
 
-        {/* Simple Skills Cards Section */}
+        {/* Skills Categories Section */}
         <div className={`mt-16 sm:mt-20 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <div className="text-center mb-8 sm:mb-12">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
-                Skills Cards
+                Skills Categories
               </span>
             </h3>
-            <p className="text-gray-400 text-sm sm:text-lg">Click on any card to see details - only one card rotates at a time</p>
+            <p className="text-gray-400 text-sm sm:text-lg">Explore my expertise organized by technology categories</p>
           </div>
 
-          {/* Skills Cards Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
-            {Object.entries(skillsData).map(([categoryKey, category]) =>
-              category.skills.map((skill, index) => {
-                const skillId = `${categoryKey}-${index}`;
-                const isFlipped = flippedCard === skillId;
-                const SkillIcon = skill.icon;
+          {/* Skills Category Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {Object.entries(skillsData).map(([categoryKey, category]) => {
+              const isFlipped = flippedCard === categoryKey;
+              const IconComponent = category.icon;
+              const avgLevel = Math.round(category.skills.reduce((acc, skill) => acc + skill.level, 0) / category.skills.length);
 
-                return (
+              return (
+                <div
+                  key={categoryKey}
+                  className="relative h-80 sm:h-96 cursor-pointer group"
+                  style={{ perspective: '1000px' }}
+                  onClick={() => setFlippedCard(isFlipped ? null : categoryKey)}
+                >
                   <div
-                    key={skillId}
-                    className="relative h-32 sm:h-40 lg:h-48 cursor-pointer"
-                    style={{ perspective: '1000px' }}
-                    onClick={() => setFlippedCard(isFlipped ? null : skillId)}
+                    className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+                      isFlipped ? 'rotate-y-180' : ''
+                    }`}
                   >
-                    <div
-                      className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
-                        isFlipped ? 'rotate-y-180' : ''
-                      }`}
-                    >
-                      {/* Front Side */}
-                      <div className="absolute inset-0 w-full h-full backface-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 p-4 sm:p-6 flex flex-col items-center justify-center hover:border-gray-600 transition-colors duration-300">
+                    {/* Front Side - Category Overview */}
+                    <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 p-6 flex flex-col justify-between hover:border-gray-600 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+                      <div>
                         <div
-                          className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-2 sm:mb-3"
-                          style={{ backgroundColor: `${skill.color}20` }}
+                          className="w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
+                          style={{ backgroundColor: `${category.color}20` }}
                         >
-                          <SkillIcon size={isMobile ? 20 : 28} style={{ color: skill.color }} />
+                          <IconComponent size={32} style={{ color: category.color }} />
                         </div>
-                        <h4 className="text-white font-bold text-xs sm:text-sm lg:text-base text-center">{skill.name}</h4>
-                        <div
-                          className="w-12 sm:w-16 h-1 rounded-full mt-2"
-                          style={{ backgroundColor: skill.color }}
-                        />
+                        <h4 className="text-white font-bold text-xl mb-2">{category.name}</h4>
+                        <p className="text-gray-300 text-sm mb-4">{category.description}</p>
+
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-gray-400 text-sm">Average Level:</span>
+                          <span className="font-bold text-lg" style={{ color: category.color }}>{avgLevel}%</span>
+                        </div>
+
+                        <div className="w-full bg-gray-700 rounded-full h-3 mb-4">
+                          <div
+                            className="h-full rounded-full transition-all duration-1000 group-hover:animate-pulse"
+                            style={{
+                              width: `${avgLevel}%`,
+                              backgroundColor: category.color
+                            }}
+                          />
+                        </div>
                       </div>
 
-                      {/* Back Side */}
-                      <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-xl sm:rounded-2xl border border-gray-700 p-3 sm:p-4 flex flex-col justify-center" style={{ background: `linear-gradient(135deg, ${skill.color}10, ${skill.color}05)` }}>
-                        <div className="text-center">
-                          <div
-                            className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center mx-auto mb-2"
-                            style={{ backgroundColor: `${skill.color}30` }}
-                          >
-                            <SkillIcon size={isMobile ? 16 : 20} style={{ color: skill.color }} />
-                          </div>
-                          <h4 className="text-white font-bold text-xs sm:text-sm mb-2">{skill.name}</h4>
-                          <div className="space-y-1 text-xs text-gray-300">
-                            <div className="flex justify-between">
-                              <span>Level:</span>
-                              <span className="font-bold" style={{ color: skill.color }}>{skill.level}%</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span>Years:</span>
-                              <span className="text-white">{skill.years}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span>Projects:</span>
-                              <span className="text-white">{skill.projects}</span>
-                            </div>
-                          </div>
-                          <div className="w-full bg-gray-700 rounded-full h-1 mt-2">
-                            <div
-                              className="h-full rounded-full transition-all duration-1000"
-                              style={{
-                                width: `${skill.level}%`,
-                                backgroundColor: skill.color
-                              }}
-                            />
-                          </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-400 text-sm">{category.skills.length} Skills</span>
+                        <div
+                          className="px-3 py-1 rounded-full text-xs font-semibold"
+                          style={{
+                            backgroundColor: `${category.color}20`,
+                            color: category.color
+                          }}
+                        >
+                          Click to explore
                         </div>
                       </div>
                     </div>
+
+                    {/* Back Side - Skills List */}
+                    <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border border-gray-700 p-6 flex flex-col" style={{ background: `linear-gradient(135deg, ${category.color}10, ${category.color}05)` }}>
+                      <div className="flex items-center mb-4">
+                        <div
+                          className="w-8 h-8 rounded-lg flex items-center justify-center mr-3"
+                          style={{ backgroundColor: `${category.color}30` }}
+                        >
+                          <IconComponent size={20} style={{ color: category.color }} />
+                        </div>
+                        <h4 className="text-white font-bold text-lg">{category.name}</h4>
+                      </div>
+
+                      <div className="space-y-3 flex-1 overflow-y-auto">
+                        {category.skills.map((skill, index) => {
+                          const SkillIcon = skill.icon;
+                          return (
+                            <div
+                              key={index}
+                              className="bg-gray-700/50 rounded-lg p-3 hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedSkill(skill);
+                              }}
+                            >
+                              <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center">
+                                  <SkillIcon size={16} style={{ color: skill.color }} className="mr-2" />
+                                  <span className="text-white text-sm font-semibold">{skill.name}</span>
+                                </div>
+                                <span className="text-xs" style={{ color: skill.color }}>{skill.level}%</span>
+                              </div>
+                              <div className="w-full bg-gray-600 rounded-full h-1.5">
+                                <div
+                                  className="h-full rounded-full transition-all duration-500"
+                                  style={{
+                                    width: `${skill.level}%`,
+                                    backgroundColor: skill.color
+                                  }}
+                                />
+                              </div>
+                              <div className="flex justify-between mt-1 text-xs text-gray-400">
+                                <span>{skill.years} year{skill.years !== 1 ? 's' : ''}</span>
+                                <span>{skill.projects} projects</span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
-                );
-              })
-            )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Instructions */}
+          <div className="text-center mt-12">
+            <div className="bg-black/30 backdrop-blur-md rounded-2xl p-6 border border-gray-700/50 max-w-4xl mx-auto">
+              <h4 className="text-lg font-bold text-white mb-4 font-mono flex items-center justify-center">
+                <Info className="w-5 h-5 mr-2" />
+                Interactive Guide
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-300">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-purple-600/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <Keyboard className="w-6 h-6 text-purple-400" />
+                  </div>
+                  <h5 className="font-semibold mb-2">Interactive Keyboard</h5>
+                  <p>Drag to rotate the keyboard in 3D space. Press any key to explore that skill.</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-pink-600/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <Sparkles className="w-6 h-6 text-pink-400" />
+                  </div>
+                  <h5 className="font-semibold mb-2">Skill Categories</h5>
+                  <p>Click any category card to flip and see all skills in that technology area.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -683,12 +784,12 @@ const Skills = () => {
           </div>
         )}
 
-        {/* Instructions */}
+        {/* Keyboard Instructions */}
         <div className="text-center mt-8 sm:mt-12">
           <div className="bg-black/30 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-700/50">
             <h4 className="text-sm sm:text-lg font-bold text-white mb-3 sm:mb-4 font-mono flex items-center justify-center">
-              <Info className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-              How to Use
+              <Terminal className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              Keyboard Controls
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-300 font-mono">
               <div className="flex flex-col items-center">
@@ -705,7 +806,7 @@ const Skills = () => {
               </div>
             </div>
             <p className="text-gray-400 text-xs sm:text-sm mt-3 sm:mt-4">
-              Press any key to explore skills • Hover for 3D effects on desktop • Fully responsive design
+              🖱️ Drag to rotate • ⌨️ Type to explore • 📱 Touch-friendly • 🎯 Click categories to flip
             </p>
           </div>
         </div>
