@@ -54,11 +54,15 @@ function App() {
       border: 2px solid rgba(147, 51, 234, 0.4);
       border-radius: 50%;
       pointer-events: none;
-      z-index: 10000;
+      z-index: 99999;
       transition: transform 0.1s ease-out;
       transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
     `;
     document.body.appendChild(cursor);
+
+    // Set cursor to none on all elements
+    document.documentElement.style.cursor = 'none';
     document.body.style.cursor = 'none';
 
     const updateCursor = (e) => {
@@ -70,6 +74,7 @@ function App() {
 
     return () => {
       document.removeEventListener('mousemove', updateCursor);
+      document.documentElement.style.cursor = 'auto';
       document.body.style.cursor = 'auto';
 
       if (document.body.contains(cursor)) {
