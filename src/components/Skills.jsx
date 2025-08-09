@@ -1,295 +1,315 @@
 import { useState, useEffect, useRef } from 'react';
 import { 
-  ChevronRight, 
-  RotateCcw, 
+  Beaker, 
   Zap, 
-  Star, 
-  Trophy, 
-  Target, 
-  Code, 
+  Cpu, 
   Database, 
   Palette, 
-  Cpu, 
+  Code, 
   Globe, 
   Wrench, 
   Brain, 
   Layers, 
-  Sparkles, 
-  Eye, 
-  ArrowRight, 
-  ToggleLeft,
-  ToggleRight,
-  Circle,
-  Square,
+  Target, 
+  Activity,
+  FlaskConical,
+  Microscope,
+  TestTube,
   Play,
   Pause,
-  Filter,
-  Search
+  RotateCcw,
+  Sparkles,
+  TrendingUp,
+  Settings,
+  Monitor
 } from 'lucide-react';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [viewMode, setViewMode] = useState('complex'); // 'complex' or 'simple'
+  const [activeExperiment, setActiveExperiment] = useState(null);
+  const [hoveredBeaker, setHoveredBeaker] = useState(null);
+  const [isLabRunning, setIsLabRunning] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedSkill, setSelectedSkill] = useState(null);
-  const [hoveredCategory, setHoveredCategory] = useState(null);
-  const [flippedCards, setFlippedCards] = useState(new Set());
-  const [isAnimating, setIsAnimating] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [animationSpeed, setAnimationSpeed] = useState(1);
+  const [labTemperature, setLabTemperature] = useState(75);
+  const [bubbleAnimation, setBubbleAnimation] = useState(true);
   const sectionRef = useRef(null);
 
-  const skillsData = {
+  const skillLaboratory = {
     frontend: {
-      name: 'Frontend Development',
-      shortName: 'Frontend',
-      color: '#8B5CF6',
-      darkColor: '#7C3AED',
-      icon: Palette,
-      description: 'Building beautiful and interactive user interfaces',
-      totalSkills: 6,
-      skills: [
-        { 
-          name: 'HTML5', 
-          level: 95, 
-          years: 1, 
-          projects: 5, 
+      name: 'Frontend Chemistry Lab',
+      color: '#3B82F6',
+      glowColor: '#60A5FA',
+      icon: FlaskConical,
+      description: 'Where beautiful interfaces are crafted',
+      equipment: 'Beaker Set A',
+      experiments: [
+        {
+          name: 'HTML5',
+          type: 'Base Solution',
+          level: 95,
+          years: 1,
+          projects: 5,
           icon: Code,
-          description: 'Semantic markup, accessibility, and modern web standards',
-          tags: ['Semantic', 'Accessibility', 'SEO'],
-          gradient: 'from-orange-400 to-red-500',
-          proficiency: 'Expert'
+          color: '#FF6B35',
+          reaction: 'Stable foundation reaction',
+          formula: 'C₁₂H₁₅N₃O₃',
+          bubbleSpeed: 2,
+          glowIntensity: 95,
+          description: 'The fundamental building blocks of web structure'
         },
-        { 
-          name: 'CSS3', 
-          level: 92, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'CSS3',
+          type: 'Styling Compound',
+          level: 92,
+          years: 1,
+          projects: 5,
           icon: Palette,
-          description: 'Advanced styling, animations, and responsive design',
-          tags: ['Animation', 'Flexbox', 'Grid'],
-          gradient: 'from-blue-400 to-blue-600',
-          proficiency: 'Expert'
+          color: '#4285F4',
+          reaction: 'Visual transformation',
+          formula: 'C₈H₁₁NO₂',
+          bubbleSpeed: 1.8,
+          glowIntensity: 92,
+          description: 'Creates beautiful visual transformations'
         },
-        { 
-          name: 'JavaScript', 
-          level: 85, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'JavaScript',
+          type: 'Dynamic Catalyst',
+          level: 85,
+          years: 1,
+          projects: 5,
           icon: Zap,
-          description: 'Modern ES6+, DOM manipulation, and asynchronous programming',
-          tags: ['ES6+', 'Async/Await', 'DOM'],
-          gradient: 'from-yellow-400 to-orange-500',
-          proficiency: 'Advanced'
+          color: '#F7DF1E',
+          reaction: 'Interactive synthesis',
+          formula: 'C₁₀H₁₃N₂O',
+          bubbleSpeed: 2.5,
+          glowIntensity: 85,
+          description: 'Brings life and interactivity to static elements'
         },
-        { 
-          name: 'React.js', 
-          level: 82, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'React.js',
+          type: 'Component Matrix',
+          level: 82,
+          years: 1,
+          projects: 5,
           icon: Layers,
-          description: 'Component-based architecture and state management',
-          tags: ['Hooks', 'Context', 'JSX'],
-          gradient: 'from-cyan-400 to-blue-500',
-          proficiency: 'Advanced'
+          color: '#61DAFB',
+          reaction: 'Modular assembly',
+          formula: 'C₁₄H₁₈N₂O₅',
+          bubbleSpeed: 2.2,
+          glowIntensity: 82,
+          description: 'Assembles complex interfaces from simple components'
         },
-        { 
-          name: 'Tailwind CSS', 
-          level: 90, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'Tailwind CSS',
+          type: 'Utility Essence',
+          level: 90,
+          years: 1,
+          projects: 5,
           icon: Sparkles,
-          description: 'Utility-first CSS framework for rapid development',
-          tags: ['Utility-First', 'Responsive', 'Dark Mode'],
-          gradient: 'from-teal-400 to-cyan-500',
-          proficiency: 'Expert'
-        },
-        { 
-          name: 'Bootstrap', 
-          level: 88, 
-          years: 1, 
-          projects: 5, 
-          icon: Wrench,
-          description: 'Responsive component library and grid system',
-          tags: ['Components', 'Grid', 'Responsive'],
-          gradient: 'from-purple-400 to-purple-600',
-          proficiency: 'Advanced'
+          color: '#06B6D4',
+          reaction: 'Rapid styling',
+          formula: 'C₉H₁₂N₂O₃',
+          bubbleSpeed: 1.9,
+          glowIntensity: 90,
+          description: 'Ultra-fast styling reactions'
         }
       ]
     },
     backend: {
-      name: 'Backend Development',
-      shortName: 'Backend',
+      name: 'Backend Processing Unit',
       color: '#10B981',
-      darkColor: '#059669',
-      icon: Database,
-      description: 'Building robust server-side applications and APIs',
-      totalSkills: 4,
-      skills: [
-        { 
-          name: 'PHP', 
-          level: 80, 
-          years: 1, 
-          projects: 5, 
+      glowColor: '#34D399',
+      icon: TestTube,
+      description: 'Server-side molecular reactions',
+      equipment: 'Test Tube Array',
+      experiments: [
+        {
+          name: 'PHP',
+          type: 'Server Enzyme',
+          level: 80,
+          years: 1,
+          projects: 5,
           icon: Code,
-          description: 'Server-side scripting and web application development',
-          tags: ['OOP', 'MVC', 'Laravel'],
-          gradient: 'from-indigo-400 to-purple-500',
-          proficiency: 'Advanced'
+          color: '#777BB4',
+          reaction: 'Backend processing',
+          formula: 'C₁₁H₁₄N₂O₄',
+          bubbleSpeed: 1.6,
+          glowIntensity: 80,
+          description: 'Processes server-side logic efficiently'
         },
-        { 
-          name: 'Node.js', 
-          level: 75, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'Node.js',
+          type: 'Runtime Solution',
+          level: 75,
+          years: 1,
+          projects: 5,
           icon: Cpu,
-          description: 'JavaScript runtime for scalable server applications',
-          tags: ['Express', 'Async', 'NPM'],
-          gradient: 'from-green-400 to-emerald-500',
-          proficiency: 'Proficient'
+          color: '#339933',
+          reaction: 'Async execution',
+          formula: 'C₁₃H₁₆N₃O₂',
+          bubbleSpeed: 2.1,
+          glowIntensity: 75,
+          description: 'Enables JavaScript to run on servers'
         },
-        { 
-          name: 'Express.js', 
-          level: 75, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'Express.js',
+          type: 'Framework Polymer',
+          level: 75,
+          years: 1,
+          projects: 5,
           icon: Globe,
-          description: 'Fast and minimalist web framework for Node.js',
-          tags: ['Middleware', 'Routes', 'REST'],
-          gradient: 'from-gray-400 to-gray-600',
-          proficiency: 'Proficient'
+          color: '#000000',
+          reaction: 'Route synthesis',
+          formula: 'C₇H₉NO₃',
+          bubbleSpeed: 1.7,
+          glowIntensity: 75,
+          description: 'Creates efficient web application routes'
         },
-        { 
-          name: 'RESTful APIs', 
-          level: 72, 
-          years: 1, 
-          projects: 5, 
-          icon: ArrowRight,
-          description: 'Designing and building scalable web APIs',
-          tags: ['REST', 'JSON', 'HTTP'],
-          gradient: 'from-orange-400 to-red-500',
-          proficiency: 'Proficient'
+        {
+          name: 'RESTful APIs',
+          type: 'Communication Protocol',
+          level: 72,
+          years: 1,
+          projects: 5,
+          icon: Activity,
+          color: '#FF4500',
+          reaction: 'Data exchange',
+          formula: 'C₆H₈N₂O₂',
+          bubbleSpeed: 1.8,
+          glowIntensity: 72,
+          description: 'Facilitates seamless data communication'
         }
       ]
     },
     database: {
-      name: 'Database & Tools',
-      shortName: 'Database',
-      color: '#F59E0B',
-      darkColor: '#D97706',
-      icon: Database,
-      description: 'Data management and development tools expertise',
-      totalSkills: 5,
-      skills: [
-        { 
-          name: 'MySQL', 
-          level: 78, 
-          years: 1, 
-          projects: 5, 
+      name: 'Data Analysis Chamber',
+      color: '#8B5CF6',
+      glowColor: '#A78BFA',
+      icon: Microscope,
+      description: 'Data storage and tool synthesis',
+      equipment: 'Microscope Station',
+      experiments: [
+        {
+          name: 'MySQL',
+          type: 'Relational Compound',
+          level: 78,
+          years: 1,
+          projects: 5,
           icon: Database,
-          description: 'Relational database design and optimization',
-          tags: ['SQL', 'Indexing', 'Joins'],
-          gradient: 'from-blue-400 to-indigo-500',
-          proficiency: 'Proficient'
+          color: '#4479A1',
+          reaction: 'Structured storage',
+          formula: 'C₁₂H₁₇N₃O₄',
+          bubbleSpeed: 1.5,
+          glowIntensity: 78,
+          description: 'Organizes data in structured relationships'
         },
-        { 
-          name: 'MongoDB', 
-          level: 70, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'MongoDB',
+          type: 'Document Solution',
+          level: 70,
+          years: 1,
+          projects: 5,
           icon: Layers,
-          description: 'NoSQL document database for flexible data storage',
-          tags: ['NoSQL', 'Documents', 'Aggregation'],
-          gradient: 'from-green-400 to-teal-500',
-          proficiency: 'Proficient'
+          color: '#47A248',
+          reaction: 'Flexible storage',
+          formula: 'C₉H₁₁N₂O₃',
+          bubbleSpeed: 1.8,
+          glowIntensity: 70,
+          description: 'Stores data in flexible document format'
         },
-        { 
-          name: 'Git & GitHub', 
-          level: 88, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'Git & GitHub',
+          type: 'Version Tracker',
+          level: 88,
+          years: 1,
+          projects: 5,
           icon: Code,
-          description: 'Version control and collaborative development',
-          tags: ['Branching', 'Merging', 'CI/CD'],
-          gradient: 'from-gray-700 to-gray-900',
-          proficiency: 'Advanced'
+          color: '#F05032',
+          reaction: 'Change tracking',
+          formula: 'C₁₀H₁₂N₂O₃',
+          bubbleSpeed: 2.0,
+          glowIntensity: 88,
+          description: 'Tracks and manages code evolution'
         },
-        { 
-          name: 'VS Code', 
-          level: 95, 
-          years: 1, 
-          projects: 5, 
-          icon: Wrench,
-          description: 'Advanced IDE usage with extensions and shortcuts',
-          tags: ['Extensions', 'Debugging', 'Shortcuts'],
-          gradient: 'from-blue-500 to-blue-700',
-          proficiency: 'Expert'
-        },
-        { 
-          name: 'Postman', 
-          level: 80, 
-          years: 1, 
-          projects: 5, 
-          icon: Target,
-          description: 'API testing, documentation, and collaboration',
-          tags: ['Testing', 'Collections', 'Documentation'],
-          gradient: 'from-orange-400 to-red-500',
-          proficiency: 'Advanced'
+        {
+          name: 'VS Code',
+          type: 'Development Medium',
+          level: 95,
+          years: 1,
+          projects: 5,
+          icon: Monitor,
+          color: '#007ACC',
+          reaction: 'Code synthesis',
+          formula: 'C₁₅H₂₀N₄O₅',
+          bubbleSpeed: 2.3,
+          glowIntensity: 95,
+          description: 'Advanced development environment catalyst'
         }
       ]
     },
     programming: {
-      name: 'Programming Languages',
-      shortName: 'Programming',
-      color: '#EF4444',
-      darkColor: '#DC2626',
+      name: 'Algorithm Research Lab',
+      color: '#F59E0B',
+      glowColor: '#FBBF24',
       icon: Brain,
-      description: 'Core programming languages and paradigms',
-      totalSkills: 4,
-      skills: [
-        { 
-          name: 'C', 
-          level: 85, 
-          years: 1, 
-          projects: 5, 
+      description: 'Core programming research facility',
+      equipment: 'Neural Network Array',
+      experiments: [
+        {
+          name: 'C',
+          type: 'System Base',
+          level: 85,
+          years: 1,
+          projects: 5,
           icon: Cpu,
-          description: 'System programming and memory management',
-          tags: ['Pointers', 'Memory', 'Performance'],
-          gradient: 'from-gray-500 to-gray-700',
-          proficiency: 'Advanced'
+          color: '#A8B9CC',
+          reaction: 'Low-level control',
+          formula: 'C₈H₁₀N₂O₂',
+          bubbleSpeed: 1.4,
+          glowIntensity: 85,
+          description: 'Provides direct system-level control'
         },
-        { 
-          name: 'C++', 
-          level: 82, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'C++',
+          type: 'Object Polymer',
+          level: 82,
+          years: 1,
+          projects: 5,
           icon: Layers,
-          description: 'Object-oriented programming and data structures',
-          tags: ['OOP', 'STL', 'Templates'],
-          gradient: 'from-blue-500 to-purple-600',
-          proficiency: 'Advanced'
+          color: '#00599C',
+          reaction: 'Object synthesis',
+          formula: 'C₁₁H₁₅N₃O₄',
+          bubbleSpeed: 1.6,
+          glowIntensity: 82,
+          description: 'Builds complex object structures'
         },
-        { 
-          name: 'Python', 
-          level: 75, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'Python',
+          type: 'Versatile Agent',
+          level: 75,
+          years: 1,
+          projects: 5,
           icon: Brain,
-          description: 'Versatile language for scripting and data science',
-          tags: ['Scripting', 'Libraries', 'Data Science'],
-          gradient: 'from-green-400 to-blue-500',
-          proficiency: 'Proficient'
+          color: '#3776AB',
+          reaction: 'Multi-purpose synthesis',
+          formula: 'C₉H₁₃N₂O₃',
+          bubbleSpeed: 1.9,
+          glowIntensity: 75,
+          description: 'Adapts to various computational needs'
         },
-        { 
-          name: 'Machine Learning', 
-          level: 65, 
-          years: 1, 
-          projects: 5, 
-          icon: Star,
-          description: 'AI algorithms, model training, and data analysis',
-          tags: ['Algorithms', 'Models', 'Data Analysis'],
-          gradient: 'from-purple-400 to-pink-500',
-          proficiency: 'Learning'
+        {
+          name: 'Machine Learning',
+          type: 'AI Catalyst',
+          level: 65,
+          years: 1,
+          projects: 5,
+          icon: Brain,
+          color: '#FF6B6B',
+          reaction: 'Intelligence synthesis',
+          formula: 'C₂₀H₂₅N₅O₆',
+          bubbleSpeed: 2.4,
+          glowIntensity: 65,
+          description: 'Creates artificial intelligence reactions'
         }
       ]
     }
@@ -312,540 +332,113 @@ const Skills = () => {
     return () => observer.disconnect();
   }, []);
 
-  const toggleCardFlip = (skillName) => {
-    setFlippedCards(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(skillName)) {
-        newSet.delete(skillName);
-      } else {
-        newSet.add(skillName);
-      }
-      return newSet;
-    });
-  };
-
-  const getFilteredSkills = () => {
-    let allSkills = [];
-    
+  const getFilteredLabs = () => {
     if (selectedCategory === 'all') {
-      allSkills = Object.values(skillsData).flatMap(category => 
-        category.skills.map(skill => ({
-          ...skill,
-          category: category.name,
-          categoryColor: category.color,
-          categoryKey: Object.keys(skillsData).find(key => skillsData[key] === category)
-        }))
-      );
-    } else {
-      const category = skillsData[selectedCategory];
-      allSkills = category.skills.map(skill => ({
-        ...skill,
-        category: category.name,
-        categoryColor: category.color,
-        categoryKey: selectedCategory
-      }));
+      return Object.entries(skillLaboratory);
     }
-
-    if (searchTerm) {
-      allSkills = allSkills.filter(skill => 
-        skill.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        skill.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-    }
-
-    return allSkills;
+    return Object.entries(skillLaboratory).filter(([key]) => key === selectedCategory);
   };
 
-  const getProficiencyColor = (proficiency) => {
-    switch (proficiency) {
-      case 'Expert': return 'text-emerald-600 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/30';
-      case 'Advanced': return 'text-blue-600 bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30';
-      case 'Proficient': return 'text-orange-600 bg-orange-100 dark:text-orange-400 dark:bg-orange-900/30';
-      default: return 'text-red-600 bg-red-100 dark:text-red-400 dark:bg-red-900/30';
-    }
+  const getBubbleCount = (level) => Math.floor(level / 20) + 2;
+  const getTemperatureColor = (temp) => {
+    if (temp > 80) return '#FF4444';
+    if (temp > 60) return '#FFA500';
+    if (temp > 40) return '#FFFF00';
+    return '#44FF44';
   };
-
-  // Complex View: Orbital Skills with Physics
-  const ComplexView = () => (
-    <div className="space-y-20">
-      {Object.entries(skillsData).map(([categoryKey, category], categoryIndex) => {
-        if (selectedCategory !== 'all' && selectedCategory !== categoryKey) return null;
-        
-        const isHovered = hoveredCategory === categoryKey;
-        const IconComponent = category.icon;
-        const filteredSkills = category.skills.filter(skill => 
-          !searchTerm || skill.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          skill.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-        );
-        
-        return (
-          <div 
-            key={categoryKey}
-            className="relative min-h-[500px]"
-            onMouseEnter={() => setHoveredCategory(categoryKey)}
-            onMouseLeave={() => setHoveredCategory(null)}
-          >
-            {/* Category Center Hub */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-              <div 
-                className={`relative transition-all duration-700 transform ${
-                  isHovered ? 'scale-125' : 'scale-100'
-                }`}
-              >
-                {/* Glowing Ring */}
-                <div 
-                  className={`absolute inset-0 rounded-full transition-all duration-1000 ${
-                    isHovered ? 'animate-pulse' : ''
-                  }`}
-                  style={{ 
-                    background: `conic-gradient(from 0deg, ${category.color}40, transparent, ${category.color}40)`,
-                    filter: 'blur(8px)',
-                    transform: 'scale(1.5)'
-                  }}
-                />
-                
-                {/* Main Hub */}
-                <div 
-                  className="relative w-32 h-32 rounded-full flex flex-col items-center justify-center text-white font-bold shadow-2xl border-4 border-white/20 backdrop-blur-sm"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${category.color}, ${category.darkColor})`,
-                    boxShadow: `0 20px 40px ${category.color}40, inset 0 0 20px rgba(255,255,255,0.1)`
-                  }}
-                >
-                  <IconComponent size={32} className="mb-2" />
-                  <div className="text-center">
-                    <div className="text-sm font-bold">{category.shortName}</div>
-                    <div className="text-xs opacity-80">{filteredSkills.length} skills</div>
-                  </div>
-                </div>
-
-                {/* Particle Effects */}
-                {isHovered && (
-                  <div className="absolute inset-0">
-                    {[...Array(8)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute w-2 h-2 rounded-full animate-ping"
-                        style={{
-                          background: category.color,
-                          left: '50%',
-                          top: '50%',
-                          transform: `translate(-50%, -50%) rotate(${i * 45}deg) translateY(-80px)`,
-                          animationDelay: `${i * 0.2}s`,
-                          animationDuration: '2s'
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Orbiting Skills */}
-            <div className="relative w-full h-full">
-              {filteredSkills.map((skill, index) => {
-                const totalSkills = filteredSkills.length;
-                const angle = (index / totalSkills) * 2 * Math.PI;
-                const orbitRadius = isHovered ? 200 : 180;
-                const animationDelay = index * 0.2;
-                
-                // Multiple orbit layers for visual depth
-                const orbitLayer = Math.floor(index / 6) + 1;
-                const layerRadius = orbitRadius + (orbitLayer - 1) * 60;
-                
-                const x = Math.cos(angle + (isAnimating ? Date.now() * 0.001 * animationSpeed : 0)) * layerRadius;
-                const y = Math.sin(angle + (isAnimating ? Date.now() * 0.001 * animationSpeed : 0)) * layerRadius;
-                
-                const SkillIcon = skill.icon;
-                const isSelected = selectedSkill?.name === skill.name;
-                
-                return (
-                  <div
-                    key={skill.name}
-                    className={`absolute transition-all duration-500 cursor-pointer group z-20`}
-                    style={{
-                      left: '50%',
-                      top: '50%',
-                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) ${isHovered ? `scale(1.1)` : 'scale(1)'}`,
-                      transitionDelay: `${animationDelay}s`
-                    }}
-                    onClick={() => setSelectedSkill(isSelected ? null : skill)}
-                  >
-                    {/* Skill Orb */}
-                    <div 
-                      className={`relative w-16 h-16 rounded-full bg-gradient-to-br ${skill.gradient} shadow-lg flex items-center justify-center transform transition-all duration-300 group-hover:scale-125 ${
-                        isSelected ? 'ring-4 ring-white/50 scale-110' : ''
-                      }`}
-                      style={{
-                        boxShadow: isSelected 
-                          ? `0 0 30px ${category.color}80, 0 10px 30px rgba(0,0,0,0.3)` 
-                          : '0 10px 30px rgba(0,0,0,0.2)'
-                      }}
-                    >
-                      <SkillIcon size={24} className="text-white" />
-                      
-                      {/* Skill Level Ring */}
-                      <div 
-                        className="absolute inset-0 rounded-full border-4 border-white/30"
-                        style={{
-                          background: `conic-gradient(${category.color} ${skill.level * 3.6}deg, transparent ${skill.level * 3.6}deg)`
-                        }}
-                      />
-                    </div>
-
-                    {/* Floating Label */}
-                    <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-3 transition-all duration-300 ${
-                      isHovered || isSelected ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
-                    }`}>
-                      <div className="bg-gray-900/90 backdrop-blur-md rounded-lg px-3 py-2 shadow-xl border border-gray-700 text-center min-w-max">
-                        <div className="text-sm font-semibold text-white">{skill.name}</div>
-                        <div className="text-xs text-gray-300">{skill.level}% • {skill.proficiency}</div>
-                        <div className={`text-xs px-2 py-1 rounded-full mt-1 ${getProficiencyColor(skill.proficiency)}`}>
-                          {skill.proficiency}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Connection Line to Center */}
-                    {isHovered && (
-                      <div 
-                        className="absolute w-0.5 bg-gradient-to-r opacity-30 pointer-events-none"
-                        style={{
-                          background: `linear-gradient(90deg, ${category.color}, transparent)`,
-                          height: `${layerRadius}px`,
-                          left: '50%',
-                          top: '50%',
-                          transformOrigin: 'top',
-                          transform: `translate(-50%, -50%) rotate(${angle * (180 / Math.PI) + 90}deg)`
-                        }}
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Category Info Panel */}
-            {isHovered && (
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full">
-                <div className="bg-gray-900/90 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-gray-700 text-center min-w-max">
-                  <h3 className="text-xl font-bold text-white mb-2">{category.name}</h3>
-                  <p className="text-gray-300 text-sm mb-3">{category.description}</p>
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <div className="text-lg font-bold" style={{ color: category.color }}>
-                        {filteredSkills.length}
-                      </div>
-                      <div className="text-xs text-gray-400">Skills</div>
-                    </div>
-                    <div>
-                      <div className="text-lg font-bold" style={{ color: category.color }}>
-                        {Math.round(filteredSkills.reduce((acc, skill) => acc + skill.level, 0) / filteredSkills.length)}%
-                      </div>
-                      <div className="text-xs text-gray-400">Avg Level</div>
-                    </div>
-                    <div>
-                      <div className="text-lg font-bold" style={{ color: category.color }}>
-                        {filteredSkills.reduce((acc, skill) => acc + skill.projects, 0)}
-                      </div>
-                      <div className="text-xs text-gray-400">Projects</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-
-  // Simple View: Categorized Flip Cards
-  const SimpleView = () => (
-    <div className="space-y-12">
-      {Object.entries(skillsData).map(([categoryKey, category]) => {
-        if (selectedCategory !== 'all' && selectedCategory !== categoryKey) return null;
-        
-        const filteredSkills = category.skills.filter(skill => 
-          !searchTerm || skill.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          skill.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-        );
-
-        if (filteredSkills.length === 0) return null;
-
-        const IconComponent = category.icon;
-        
-        return (
-          <div key={categoryKey} className="space-y-6">
-            {/* Category Header */}
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-4">
-                <div 
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center mr-4 shadow-lg"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${category.color}, ${category.darkColor})`
-                  }}
-                >
-                  <IconComponent size={32} className="text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{category.name}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">{category.description}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Skills Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredSkills.map((skill, index) => {
-                const isFlipped = flippedCards.has(skill.name);
-                const SkillIcon = skill.icon;
-                
-                return (
-                  <div
-                    key={skill.name}
-                    className="relative h-64 cursor-pointer group perspective-1000"
-                    onClick={() => toggleCardFlip(skill.name)}
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <div 
-                      className={`relative w-full h-full transition-transform duration-700 transform-3d ${
-                        isFlipped ? 'rotate-y-180' : ''
-                      }`}
-                    >
-                      {/* Front of Card */}
-                      <div className="absolute inset-0 w-full h-full rounded-2xl backface-hidden bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                        <div 
-                          className={`h-32 bg-gradient-to-br ${skill.gradient} relative overflow-hidden`}
-                        >
-                          {/* Background Pattern */}
-                          <div className="absolute inset-0 opacity-20">
-                            <div className="absolute top-4 right-4 w-16 h-16 border-2 border-white rounded-full"></div>
-                            <div className="absolute bottom-4 left-4 w-8 h-8 border-2 border-white rounded-lg rotate-45"></div>
-                          </div>
-                          
-                          {/* Icon */}
-                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                            <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                              <SkillIcon size={32} className="text-white" />
-                            </div>
-                          </div>
-                          
-                          {/* Level Badge */}
-                          <div className="absolute top-4 left-4">
-                            <span className={`px-3 py-1 text-xs font-bold rounded-full ${getProficiencyColor(skill.proficiency)}`}>
-                              {skill.proficiency}
-                            </span>
-                          </div>
-
-                          {/* Category Badge */}
-                          <div className="absolute top-4 right-4">
-                            <span 
-                              className="px-2 py-1 text-xs font-bold rounded-full text-white"
-                              style={{ backgroundColor: category.color }}
-                            >
-                              {category.shortName}
-                            </span>
-                          </div>
-                        </div>
-                        
-                        <div className="p-6">
-                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{skill.name}</h3>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{skill.description}</p>
-                          
-                          <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
-                            <span>{skill.years} year{skill.years !== 1 ? 's' : ''}</span>
-                            <span>{skill.projects} projects</span>
-                          </div>
-
-                          {/* Progress Bar */}
-                          <div className="mb-3">
-                            <div className="flex justify-between items-center mb-1">
-                              <span className="text-xs text-gray-600 dark:text-gray-400">Proficiency</span>
-                              <span className="text-xs font-bold" style={{ color: category.color }}>
-                                {skill.level}%
-                              </span>
-                            </div>
-                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                              <div
-                                className="h-full rounded-full transition-all duration-1000 ease-out"
-                                style={{
-                                  width: `${skill.level}%`,
-                                  backgroundColor: category.color
-                                }}
-                              />
-                            </div>
-                          </div>
-                          
-                          <div className="text-center text-xs text-gray-400">
-                            Click to flip →
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Back of Card */}
-                      <div className="absolute inset-0 w-full h-full rounded-2xl backface-hidden rotate-y-180 bg-white dark:bg-gray-800 shadow-xl border border-gray-200 dark:border-gray-700 p-6">
-                        <div className="h-full flex flex-col">
-                          <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">{skill.name}</h3>
-                            <div 
-                              className="w-10 h-10 rounded-lg flex items-center justify-center"
-                              style={{ backgroundColor: category.color + '20' }}
-                            >
-                              <SkillIcon size={20} style={{ color: category.color }} />
-                            </div>
-                          </div>
-                          
-                          {/* Proficiency Circle */}
-                          <div className="flex items-center justify-center mb-4">
-                            <div className="relative w-20 h-20">
-                              <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
-                                <circle
-                                  cx="50"
-                                  cy="50"
-                                  r="40"
-                                  stroke="currentColor"
-                                  strokeWidth="8"
-                                  fill="transparent"
-                                  className="text-gray-200 dark:text-gray-700"
-                                />
-                                <circle
-                                  cx="50"
-                                  cy="50"
-                                  r="40"
-                                  stroke={category.color}
-                                  strokeWidth="8"
-                                  fill="transparent"
-                                  strokeDasharray={`${(skill.level / 100) * 251.2} 251.2`}
-                                  className="transition-all duration-1000 ease-out"
-                                />
-                              </svg>
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="text-lg font-bold" style={{ color: category.color }}>
-                                  {skill.level}%
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          {/* Tags */}
-                          <div className="mb-4">
-                            <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Technologies</h4>
-                            <div className="flex flex-wrap gap-1">
-                              {skill.tags.map((tag, idx) => (
-                                <span
-                                  key={idx}
-                                  className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                          
-                          {/* Stats */}
-                          <div className="mt-auto">
-                            <div className="grid grid-cols-2 gap-4">
-                              <div className="text-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                                <div className="text-lg font-bold" style={{ color: category.color }}>
-                                  {skill.years}
-                                </div>
-                                <div className="text-xs text-gray-500">Year{skill.years !== 1 ? 's' : ''}</div>
-                              </div>
-                              <div className="text-center p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                                <div className="text-lg font-bold" style={{ color: category.color }}>
-                                  {skill.projects}
-                                </div>
-                                <div className="text-xs text-gray-500">Projects</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
 
   return (
     <section 
       id="skills" 
       ref={sectionRef} 
-      className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden"
+      className="py-20 bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 relative overflow-hidden min-h-screen"
     >
-      {/* Animated Background */}
+      {/* Laboratory Environment */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Gradient Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-emerald-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-full blur-3xl animate-pulse transform -translate-x-1/2 -translate-y-1/2" style={{ animationDelay: '4s' }} />
-        
-        {/* Floating Particles */}
-        {[...Array(30)].map((_, i) => (
+        {/* Steam Effects */}
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-60 animate-pulse"
+            className="absolute w-2 h-8 bg-gradient-to-t from-gray-400/40 to-transparent rounded-full animate-pulse opacity-60"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
+              animationDelay: `${Math.random() * 3}s`,
               animationDuration: `${2 + Math.random() * 3}s`
             }}
           />
         ))}
+        
+        {/* Laboratory Lighting */}
+        <div className="absolute top-0 left-1/4 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-green-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
+        {/* Laboratory Header */}
         <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Technical Skills
-            </span>
-          </h2>
+          <div className="flex items-center justify-center mb-6">
+            <Beaker className="w-12 h-12 text-blue-400 mr-4 animate-pulse" />
+            <h2 className="text-4xl md:text-6xl font-bold">
+              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent">
+                Skill Laboratory
+              </span>
+            </h2>
+            <Microscope className="w-12 h-12 text-purple-400 ml-4 animate-bounce" />
+          </div>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Explore my technical expertise through interactive experiences
+            Welcome to my interactive skill laboratory where technology meets science
           </p>
         </div>
 
-        {/* Controls */}
+        {/* Laboratory Control Panel */}
         <div className={`flex flex-wrap justify-center gap-4 mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* View Mode Toggle */}
-          <div className="flex items-center space-x-4 bg-white/10 backdrop-blur-md rounded-xl px-6 py-3">
-            <span className="text-gray-300">Simple</span>
+          {/* Lab Status */}
+          <div className="flex items-center space-x-4 bg-gray-800/80 backdrop-blur-md rounded-xl px-6 py-3 border border-gray-600">
+            <div className="flex items-center space-x-2">
+              <div className={`w-3 h-3 rounded-full ${isLabRunning ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`} />
+              <span className="text-gray-300 text-sm">Lab Status: {isLabRunning ? 'Active' : 'Paused'}</span>
+            </div>
             <button
-              onClick={() => setViewMode(viewMode === 'complex' ? 'simple' : 'complex')}
-              className="relative inline-flex h-8 w-16 items-center rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transition-colors duration-300"
+              onClick={() => setIsLabRunning(!isLabRunning)}
+              className="p-1 rounded-lg hover:bg-gray-700 transition-colors duration-200"
             >
-              <span
-                className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-300 ${
-                  viewMode === 'complex' ? 'translate-x-9' : 'translate-x-1'
-                }`}
-              />
+              {isLabRunning ? <Pause size={16} className="text-gray-300" /> : <Play size={16} className="text-gray-300" />}
             </button>
-            <span className="text-gray-300">Complex</span>
           </div>
 
-          {/* Category Filter */}
+          {/* Temperature Control */}
+          <div className="flex items-center space-x-3 bg-gray-800/80 backdrop-blur-md rounded-xl px-6 py-3 border border-gray-600">
+            <Activity className="w-5 h-5 text-orange-400" />
+            <span className="text-gray-300 text-sm">Temp:</span>
+            <input
+              type="range"
+              min="20"
+              max="100"
+              value={labTemperature}
+              onChange={(e) => setLabTemperature(parseInt(e.target.value))}
+              className="w-20"
+            />
+            <span className="text-sm font-bold" style={{ color: getTemperatureColor(labTemperature) }}>
+              {labTemperature}°C
+            </span>
+          </div>
+
+          {/* Lab Sections */}
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory('all')}
               className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
                 selectedCategory === 'all'
-                  ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg'
-                  : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
+                  : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700/80'
               }`}
             >
-              All Skills
+              All Labs
             </button>
-            {Object.entries(skillsData).map(([key, category]) => {
-              const IconComponent = category.icon;
+            {Object.entries(skillLaboratory).map(([key, lab]) => {
+              const IconComponent = lab.icon;
               return (
                 <button
                   key={key}
@@ -853,206 +446,249 @@ const Skills = () => {
                   className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center ${
                     selectedCategory === key
                       ? 'text-white shadow-lg'
-                      : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                      : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700/80'
                   }`}
                   style={selectedCategory === key ? { 
-                    background: `linear-gradient(135deg, ${category.color}, ${category.darkColor})`
+                    background: `linear-gradient(135deg, ${lab.color}, ${lab.glowColor})`
                   } : {}}
                 >
                   <IconComponent size={16} className="mr-2" />
-                  {category.shortName}
+                  {lab.name.split(' ')[0]}
                 </button>
               );
             })}
           </div>
-
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-            <input
-              type="text"
-              placeholder="Search skills..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-64 pl-10 pr-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 text-white placeholder-gray-400"
-            />
-          </div>
-
-          {/* Animation Controls (Complex View Only) */}
-          {viewMode === 'complex' && (
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl px-4 py-3">
-              <button
-                onClick={() => setIsAnimating(!isAnimating)}
-                className="p-1 rounded-lg hover:bg-white/20 transition-colors duration-200"
-              >
-                {isAnimating ? <Pause size={16} className="text-gray-300" /> : <Play size={16} className="text-gray-300" />}
-              </button>
-              <span className="text-gray-300 text-sm mx-2">Speed:</span>
-              <input
-                type="range"
-                min="0.1"
-                max="3"
-                step="0.1"
-                value={animationSpeed}
-                onChange={(e) => setAnimationSpeed(parseFloat(e.target.value))}
-                className="w-20"
-              />
-            </div>
-          )}
         </div>
 
-        {/* Instructions */}
-        <div className="text-center mb-8">
-          <p className="text-gray-400">
-            {viewMode === 'complex' 
-              ? '🌀 Hover over skill hubs to see orbiting skills • 🎯 Click skills to explore details'
-              : '🔄 Click on cards to flip and see detailed information • 📱 Mobile optimized'
-            }
-          </p>
-        </div>
-
-        {/* Skills Content */}
-        <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-          {viewMode === 'complex' ? <ComplexView /> : <SimpleView />}
-        </div>
-
-        {/* Selected Skill Details (Complex View) */}
-        {selectedSkill && viewMode === 'complex' && (
-          <div className={`mt-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="max-w-4xl mx-auto bg-gray-900/90 backdrop-blur-md rounded-3xl p-8 border border-gray-700/50 shadow-2xl">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center">
-                  <div 
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${selectedSkill.gradient} flex items-center justify-center mr-4 shadow-lg`}
-                  >
-                    <selectedSkill.icon size={32} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-3xl font-bold text-white">{selectedSkill.name}</h3>
-                    <p className="text-gray-300">{selectedSkill.description}</p>
-                    <p className="text-gray-400 text-sm mt-1">From {selectedSkill.category}</p>
+        {/* Laboratory Workstations */}
+        <div className={`space-y-16 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          {getFilteredLabs().map(([categoryKey, lab], labIndex) => {
+            const LabIcon = lab.icon;
+            
+            return (
+              <div key={categoryKey} className="relative">
+                {/* Lab Station Header */}
+                <div className="text-center mb-8">
+                  <div className="flex items-center justify-center mb-4">
+                    <div 
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center mr-4 shadow-lg animate-pulse"
+                      style={{ 
+                        background: `linear-gradient(135deg, ${lab.color}, ${lab.glowColor})`,
+                        boxShadow: `0 0 30px ${lab.color}40`
+                      }}
+                    >
+                      <LabIcon size={32} className="text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">{lab.name}</h3>
+                      <p className="text-gray-300">{lab.description}</p>
+                      <p className="text-gray-400 text-sm">Equipment: {lab.equipment}</p>
+                    </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => setSelectedSkill(null)}
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  <span className="text-2xl">×</span>
-                </button>
-              </div>
 
-              <div className="grid md:grid-cols-4 gap-6">
-                <div className="bg-white/5 rounded-2xl p-6 text-center">
-                  <Trophy className="w-8 h-8 mx-auto mb-3 text-yellow-400" />
-                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.level}%</div>
-                  <div className="text-gray-400 text-sm">Proficiency</div>
-                </div>
-                
-                <div className="bg-white/5 rounded-2xl p-6 text-center">
-                  <Target className="w-8 h-8 mx-auto mb-3 text-blue-400" />
-                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.years}</div>
-                  <div className="text-gray-400 text-sm">Year{selectedSkill.years !== 1 ? 's' : ''}</div>
-                </div>
-                
-                <div className="bg-white/5 rounded-2xl p-6 text-center">
-                  <Eye className="w-8 h-8 mx-auto mb-3 text-green-400" />
-                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.projects}</div>
-                  <div className="text-gray-400 text-sm">Projects</div>
-                </div>
-                
-                <div className="bg-white/5 rounded-2xl p-6 text-center">
-                  <Sparkles className="w-8 h-8 mx-auto mb-3 text-purple-400" />
-                  <div className={`text-sm font-bold px-3 py-1 rounded-full ${getProficiencyColor(selectedSkill.proficiency)}`}>
-                    {selectedSkill.proficiency}
-                  </div>
-                  <div className="text-gray-400 text-sm mt-2">Level</div>
-                </div>
-              </div>
-
-              {selectedSkill.tags && (
-                <div className="mt-6">
-                  <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
-                    <ArrowRight className="w-5 h-5 mr-2 text-purple-400" />
-                    Technologies & Features
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedSkill.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm border border-white/20"
+                {/* Experiment Containers */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+                  {lab.experiments.map((experiment, index) => {
+                    const isHovered = hoveredBeaker === `${categoryKey}-${experiment.name}`;
+                    const isActive = activeExperiment === `${categoryKey}-${experiment.name}`;
+                    const ExperimentIcon = experiment.icon;
+                    const bubbleCount = getBubbleCount(experiment.level);
+                    
+                    return (
+                      <div
+                        key={experiment.name}
+                        className="relative cursor-pointer group"
+                        onMouseEnter={() => setHoveredBeaker(`${categoryKey}-${experiment.name}`)}
+                        onMouseLeave={() => setHoveredBeaker(null)}
+                        onClick={() => setActiveExperiment(isActive ? null : `${categoryKey}-${experiment.name}`)}
                       >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+                        {/* Experiment Container */}
+                        <div className="relative">
+                          {/* Glow Effect */}
+                          <div 
+                            className={`absolute inset-0 rounded-3xl transition-all duration-500 ${
+                              isHovered || isActive ? 'scale-110 opacity-60' : 'scale-100 opacity-0'
+                            }`}
+                            style={{
+                              background: `radial-gradient(circle, ${experiment.color}40, transparent)`,
+                              filter: 'blur(15px)'
+                            }}
+                          />
+                          
+                          {/* Main Beaker */}
+                          <div 
+                            className={`relative bg-gray-800/90 backdrop-blur-md rounded-3xl p-6 border-2 transition-all duration-500 transform ${
+                              isHovered ? 'scale-105 -translate-y-2' : 'scale-100'
+                            } ${isActive ? 'ring-4 ring-white/30' : ''}`}
+                            style={{
+                              borderColor: isHovered || isActive ? experiment.color : '#374151',
+                              boxShadow: isHovered || isActive 
+                                ? `0 20px 40px ${experiment.color}30, inset 0 0 20px ${experiment.color}20`
+                                : '0 10px 30px rgba(0,0,0,0.3)'
+                            }}
+                          >
+                            {/* Experiment Label */}
+                            <div className="text-center mb-4">
+                              <div 
+                                className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-2"
+                                style={{ backgroundColor: `${experiment.color}20` }}
+                              >
+                                <ExperimentIcon size={24} style={{ color: experiment.color }} />
+                              </div>
+                              <h4 className="text-lg font-bold text-white">{experiment.name}</h4>
+                              <p className="text-xs text-gray-400">{experiment.type}</p>
+                            </div>
 
-        {/* Category Stats Overview */}
-        {selectedCategory === 'all' && (
-          <div className={`mt-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {Object.entries(skillsData).map(([key, category]) => {
-                const avgLevel = Math.round(category.skills.reduce((acc, skill) => acc + skill.level, 0) / category.skills.length);
-                const IconComponent = category.icon;
+                            {/* Liquid Level Indicator */}
+                            <div className="relative h-32 bg-gray-700 rounded-2xl overflow-hidden mb-4">
+                              <div 
+                                className="absolute bottom-0 left-0 w-full transition-all duration-1000 ease-out"
+                                style={{
+                                  height: `${experiment.level}%`,
+                                  background: `linear-gradient(0deg, ${experiment.color}, ${experiment.color}80)`,
+                                  opacity: 0.8
+                                }}
+                              />
+                              
+                              {/* Bubbles */}
+                              {isLabRunning && bubbleAnimation && [...Array(bubbleCount)].map((_, i) => (
+                                <div
+                                  key={i}
+                                  className="absolute rounded-full opacity-60"
+                                  style={{
+                                    width: `${4 + Math.random() * 8}px`,
+                                    height: `${4 + Math.random() * 8}px`,
+                                    backgroundColor: experiment.color,
+                                    left: `${10 + Math.random() * 80}%`,
+                                    bottom: `${Math.random() * experiment.level}%`,
+                                    animation: `bubble-float ${1 + Math.random() * 2}s ease-in-out infinite`,
+                                    animationDelay: `${Math.random() * 2}s`
+                                  }}
+                                />
+                              ))}
+
+                              {/* Level Indicator */}
+                              <div className="absolute top-2 right-2 text-xs text-white font-bold">
+                                {experiment.level}%
+                              </div>
+                            </div>
+
+                            {/* Chemical Formula */}
+                            <div className="text-center mb-3">
+                              <p className="text-xs text-gray-300 font-mono">{experiment.formula}</p>
+                              <p className="text-xs text-gray-400">{experiment.reaction}</p>
+                            </div>
+
+                            {/* Stats */}
+                            <div className="grid grid-cols-2 gap-2 text-center">
+                              <div className="bg-gray-700/50 rounded-lg p-2">
+                                <div className="text-sm font-bold text-white">{experiment.years}</div>
+                                <div className="text-xs text-gray-400">Years</div>
+                              </div>
+                              <div className="bg-gray-700/50 rounded-lg p-2">
+                                <div className="text-sm font-bold text-white">{experiment.projects}</div>
+                                <div className="text-xs text-gray-400">Projects</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Detailed Information Panel */}
+                        {isActive && (
+                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 z-50">
+                            <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-gray-600 min-w-max max-w-sm">
+                              <div className="flex items-center mb-4">
+                                <ExperimentIcon size={24} style={{ color: experiment.color }} className="mr-3" />
+                                <div>
+                                  <h5 className="text-lg font-bold text-white">{experiment.name}</h5>
+                                  <p className="text-sm text-gray-300">{experiment.type}</p>
+                                </div>
+                              </div>
+                              
+                              <p className="text-gray-300 text-sm mb-4">{experiment.description}</p>
+                              
+                              <div className="space-y-2">
+                                <div className="flex justify-between">
+                                  <span className="text-gray-400 text-sm">Formula:</span>
+                                  <span className="text-white text-sm font-mono">{experiment.formula}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-gray-400 text-sm">Reaction:</span>
+                                  <span className="text-white text-sm">{experiment.reaction}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span className="text-gray-400 text-sm">Stability:</span>
+                                  <span className="text-white text-sm">{experiment.level}%</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Laboratory Summary */}
+        <div className={`mt-16 text-center transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="bg-gray-800/80 backdrop-blur-md rounded-3xl p-8 border border-gray-600">
+            <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center">
+              <Settings className="mr-3" size={28} />
+              Laboratory Analysis Complete
+            </h3>
+            <p className="text-gray-300 mb-6">
+              All experiments are stable and ready for production deployment
+            </p>
+            <div className="grid md:grid-cols-4 gap-6">
+              {Object.entries(skillLaboratory).map(([key, lab]) => {
+                const avgLevel = Math.round(lab.experiments.reduce((acc, exp) => acc + exp.level, 0) / lab.experiments.length);
+                const LabIcon = lab.icon;
                 
                 return (
-                  <div
-                    key={key}
-                    className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105 cursor-pointer"
-                    onClick={() => setSelectedCategory(key)}
-                  >
-                    <div className="flex items-center mb-4">
-                      <div 
-                        className="w-12 h-12 rounded-xl flex items-center justify-center mr-3"
-                        style={{ backgroundColor: `${category.color}40` }}
-                      >
-                        <IconComponent size={24} style={{ color: category.color }} />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-white">{category.shortName}</h3>
-                        <p className="text-sm text-gray-400">{category.skills.length} skills</p>
-                      </div>
+                  <div key={key} className="text-center">
+                    <div 
+                      className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3"
+                      style={{ backgroundColor: `${lab.color}20` }}
+                    >
+                      <LabIcon size={32} style={{ color: lab.color }} />
                     </div>
-                    
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-gray-400">Average Level:</span>
-                      <span className="font-bold" style={{ color: category.color }}>{avgLevel}%</span>
+                    <h4 className="text-lg font-bold text-white">{lab.name.split(' ')[0]}</h4>
+                    <p className="text-sm text-gray-400 mb-2">{lab.experiments.length} experiments</p>
+                    <div className="text-2xl font-bold" style={{ color: lab.color }}>
+                      {avgLevel}%
                     </div>
-                    
-                    <div className="w-full bg-white/20 rounded-full h-2">
-                      <div
-                        className="h-full rounded-full transition-all duration-1000"
-                        style={{
-                          width: `${avgLevel}%`,
-                          backgroundColor: category.color
-                        }}
-                      />
-                    </div>
+                    <div className="text-xs text-gray-400">Avg Stability</div>
                   </div>
                 );
               })}
             </div>
           </div>
-        )}
+        </div>
+
+        {/* Instructions */}
+        <div className="text-center mt-8">
+          <p className="text-gray-400">
+            🧪 Hover over experiments to see reactions • 🔬 Click for detailed analysis • ⚗️ Adjust lab conditions
+          </p>
+        </div>
       </div>
 
-      {/* Custom CSS for 3D effects */}
+      {/* CSS Animations */}
       <style jsx>{`
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        .transform-3d {
-          transform-style: preserve-3d;
-        }
-        .backface-hidden {
-          backface-visibility: hidden;
-        }
-        .rotate-y-180 {
-          transform: rotateY(180deg);
+        @keyframes bubble-float {
+          0%, 100% {
+            transform: translateY(0px) scale(1);
+            opacity: 0.6;
+          }
+          50% {
+            transform: translateY(-20px) scale(1.2);
+            opacity: 0.8;
+          }
         }
       `}</style>
     </section>
