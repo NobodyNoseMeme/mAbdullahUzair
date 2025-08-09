@@ -43,14 +43,15 @@ function App() {
     // Enable on all devices but with different behavior
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    // Simple custom cursor
+    // Simple custom cursor - different sizes for different devices
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
+    const cursorSize = window.innerWidth <= 768 ? 16 : 20;
     cursor.style.cssText = `
       position: fixed;
-      width: 20px;
-      height: 20px;
-      background: rgba(147, 51, 234, 0.8);
+      width: ${cursorSize}px;
+      height: ${cursorSize}px;
+      background: rgba(147, 51, 234, ${isTouchDevice ? '0.6' : '0.8'});
       border: 2px solid rgba(147, 51, 234, 0.4);
       border-radius: 50%;
       pointer-events: none;
@@ -69,6 +70,11 @@ function App() {
       *, *:before, *:after {
         cursor: none !important;
       }
+      @media (max-width: 768px) {
+        .custom-cursor {
+          opacity: ${isTouchDevice ? '0.7' : '1'} !important;
+        }
+      }
     `;
     document.head.appendChild(cursorStyle);
 
@@ -77,7 +83,30 @@ function App() {
       cursor.style.top = e.clientY + 'px';
     };
 
+    // Add both mouse and touch event listeners
     document.addEventListener('mousemove', updateCursor, { passive: true });
+
+    // For touch devices, show cursor at touch points
+    if (isTouchDevice) {
+      document.addEventListener('touchstart', (e) => {
+        if (e.touches[0]) {
+          cursor.style.left = e.touches[0].clientX + 'px';
+          cursor.style.top = e.touches[0].clientY + 'px';
+          cursor.style.opacity = '0.8';
+        }
+      }, { passive: true });
+
+      document.addEventListener('touchmove', (e) => {
+        if (e.touches[0]) {
+          cursor.style.left = e.touches[0].clientX + 'px';
+          cursor.style.top = e.touches[0].clientY + 'px';
+        }
+      }, { passive: true });
+
+      document.addEventListener('touchend', () => {
+        cursor.style.opacity = '0.3';
+      });
+    }
 
     return () => {
       document.removeEventListener('mousemove', updateCursor);
