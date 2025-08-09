@@ -349,13 +349,13 @@ const Skills = () => {
             <Terminal className="w-8 h-8 sm:w-12 sm:h-12 text-green-400 mr-2 sm:mr-4 animate-pulse" />
             <h2 className="text-2xl sm:text-4xl lg:text-6xl font-bold font-mono">
               <span className="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Interactive Skills Keyboard
+                Write Skills Here
               </span>
             </h2>
             <Keyboard className="w-8 h-8 sm:w-12 sm:h-12 text-blue-400 ml-2 sm:ml-4" />
           </div>
           <p className="text-sm sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto font-mono px-4">
-            Press any highlighted key to explore my technical skills
+            Type any skill key to explore my technical expertise
           </p>
         </div>
 
