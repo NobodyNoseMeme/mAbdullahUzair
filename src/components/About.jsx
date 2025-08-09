@@ -86,7 +86,7 @@ const About = () => {
   }, []);
 
   const startCountingAnimation = () => {
-    const targets = { projects: 50, technologies: 20, coffees: 500, linesOfCode: 10000 };
+    const targets = { projects: 5, technologies: 20, coffees: 500, linesOfCode: 10000 };
     const duration = 2000;
     const steps = 60;
     const stepTime = duration / steps;
@@ -94,7 +94,7 @@ const About = () => {
     Object.keys(targets).forEach(key => {
       let current = 0;
       const increment = targets[key] / steps;
-      
+
       const timer = setInterval(() => {
         current += increment;
         if (current >= targets[key]) {
