@@ -62,21 +62,19 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
               </div>
             </div>
 
-            {/* Desktop Navigation - Enhanced for medium screens */}
-            <div className="hidden md:flex items-center space-x-1">
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-2">
               {navItems.map((item) => {
                 const IconComponent = item.icon;
                 return (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(`#${item.id}`)}
-                    className="group relative px-2 lg:px-4 py-2 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 text-sm lg:text-base text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="group relative px-4 py-2 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <div className="flex items-center space-x-1 lg:space-x-2">
-                      <IconComponent size={14} className="lg:hidden transform group-hover:scale-110 transition-transform duration-300" />
-                      <IconComponent size={16} className="hidden lg:block transform group-hover:scale-110 transition-transform duration-300" />
-                      <span className="hidden lg:block">{item.label}</span>
-                      <span className="lg:hidden text-xs">{item.label.slice(0, 4)}</span>
+                    <div className="flex items-center space-x-2">
+                      <IconComponent size={16} className="transform group-hover:scale-110 transition-transform duration-300" />
+                      <span>{item.label}</span>
                     </div>
 
                     {/* Hover effect */}
@@ -86,9 +84,9 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
               })}
             </div>
 
-            {/* Tablet Navigation - For medium screens */}
-            <div className="hidden sm:flex md:hidden items-center space-x-1">
-              {navItems.slice(0, 4).map((item) => {
+            {/* Tablet Navigation */}
+            <div className="hidden md:flex lg:hidden items-center space-x-1">
+              {navItems.map((item) => {
                 const IconComponent = item.icon;
                 return (
                   <button
@@ -96,7 +94,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                     onClick={() => scrollToSection(`#${item.id}`)}
                     className="group relative p-2 rounded-lg transition-all duration-300 transform hover:scale-105 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <IconComponent size={18} className="transform group-hover:scale-110 transition-transform duration-300" />
+                    <IconComponent size={16} className="transform group-hover:scale-110 transition-transform duration-300" />
                   </button>
                 );
               })}
