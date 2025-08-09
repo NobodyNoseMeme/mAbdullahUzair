@@ -40,8 +40,8 @@ function App() {
 
   // Optimized custom cursor effect
   useEffect(() => {
-    // Only enable on desktop
-    if (window.innerWidth <= 1024 || 'ontouchstart' in window) return;
+    // Enable on all devices but with different behavior
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     // Simple custom cursor
     const cursor = document.createElement('div');
