@@ -92,7 +92,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(`#${item.id}`)}
-                    className="group relative p-2 rounded-lg transition-all duration-300 transform hover:scale-105 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="group relative p-2 rounded-lg transition-all duration-300 transform hover:scale-105 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800 flex-shrink-0"
+                    title={item.label}
                   >
                     <IconComponent size={16} className="transform group-hover:scale-110 transition-transform duration-300" />
                   </button>
