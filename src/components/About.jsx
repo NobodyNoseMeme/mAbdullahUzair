@@ -208,10 +208,10 @@ const About = () => {
             </span>
           </h2>
           
-          {/* Rotating Fun Facts */}
+          {/* Rotating Achievements */}
           <div className={`h-16 flex items-center justify-center transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {funFacts.map((fact, index) => {
-              const IconComponent = fact.icon;
+            {achievements.map((achievement, index) => {
+              const IconComponent = achievement.icon;
               return (
                 <div
                   key={index}
@@ -219,9 +219,9 @@ const About = () => {
                     index === currentFact ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                   }`}
                 >
-                  <IconComponent className={fact.color} size={24} />
+                  <IconComponent className={achievement.color} size={24} />
                   <p className="text-lg text-gray-600 dark:text-gray-300 font-medium">
-                    {fact.text}
+                    {achievement.text}
                   </p>
                 </div>
               );
