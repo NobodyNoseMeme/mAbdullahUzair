@@ -1,83 +1,276 @@
 import { useState, useEffect, useRef } from 'react';
-import { Sparkles, Zap, Star, Code, Database, Globe, Cpu, Palette, Wrench, Brain, Layers, Rocket } from 'lucide-react';
+import { ChevronRight, Play, Pause, RotateCcw, Zap, Star, Trophy, Target, Code, Database, Palette, Cpu, Globe, Wrench, Brain, Layers, Sparkles, Eye, ArrowRight } from 'lucide-react';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [hoveredSkill, setHoveredSkill] = useState(null);
-  const [rotationSpeed, setRotationSpeed] = useState(1);
-  const [animationPhase, setAnimationPhase] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState('all');
+  const [activeConstellation, setActiveConstellation] = useState('all');
+  const [animationSpeed, setAnimationSpeed] = useState(1);
+  const [isAnimating, setIsAnimating] = useState(true);
+  const [viewMode, setViewMode] = useState('constellation'); // constellation, grid, timeline
+  const [particles, setParticles] = useState([]);
   const sectionRef = useRef(null);
-  const skillsContainerRef = useRef(null);
+  const canvasRef = useRef(null);
+  const animationRef = useRef(null);
 
-  const skillsData = {
+  const skillConstellations = {
     frontend: {
-      name: 'Frontend Development',
+      name: 'Frontend Galaxy',
       color: '#3B82F6',
       icon: Palette,
+      center: { x: 200, y: 150 },
       skills: [
-        { name: 'HTML5', level: 95, years: 1, projects: 5, icon: Code, description: 'Semantic markup and modern web standards' },
-        { name: 'CSS3', level: 92, years: 1, projects: 5, icon: Palette, description: 'Advanced styling, animations & responsive design' },
-        { name: 'JavaScript', level: 85, years: 1, projects: 5, icon: Zap, description: 'ES6+, DOM manipulation & modern JS features' },
-        { name: 'React.js', level: 82, years: 1, projects: 5, icon: Layers, description: 'Component-based UI development' },
-        { name: 'Bootstrap', level: 88, years: 1, projects: 5, icon: Wrench, description: 'Responsive framework expertise' },
-        { name: 'Tailwind CSS', level: 90, years: 1, projects: 5, icon: Sparkles, description: 'Utility-first CSS framework' }
+        { 
+          name: 'HTML5', 
+          level: 95, 
+          years: 1, 
+          projects: 5, 
+          icon: Code,
+          position: { x: 200, y: 100 },
+          connections: ['CSS3', 'JavaScript'],
+          description: 'Semantic markup and accessibility'
+        },
+        { 
+          name: 'CSS3', 
+          level: 92, 
+          years: 1, 
+          projects: 5, 
+          icon: Palette,
+          position: { x: 150, y: 180 },
+          connections: ['HTML5', 'Tailwind CSS', 'Bootstrap'],
+          description: 'Advanced styling and animations'
+        },
+        { 
+          name: 'JavaScript', 
+          level: 85, 
+          years: 1, 
+          projects: 5, 
+          icon: Zap,
+          position: { x: 280, y: 120 },
+          connections: ['HTML5', 'React.js'],
+          description: 'Modern ES6+ and DOM manipulation'
+        },
+        { 
+          name: 'React.js', 
+          level: 82, 
+          years: 1, 
+          projects: 5, 
+          icon: Layers,
+          position: { x: 320, y: 200 },
+          connections: ['JavaScript'],
+          description: 'Component-based architecture'
+        },
+        { 
+          name: 'Tailwind CSS', 
+          level: 90, 
+          years: 1, 
+          projects: 5, 
+          icon: Sparkles,
+          position: { x: 120, y: 240 },
+          connections: ['CSS3'],
+          description: 'Utility-first CSS framework'
+        },
+        { 
+          name: 'Bootstrap', 
+          level: 88, 
+          years: 1, 
+          projects: 5, 
+          icon: Wrench,
+          position: { x: 240, y: 260 },
+          connections: ['CSS3'],
+          description: 'Responsive component library'
+        }
       ]
     },
     backend: {
-      name: 'Backend Development',
+      name: 'Backend Universe',
       color: '#10B981',
       icon: Database,
+      center: { x: 600, y: 150 },
       skills: [
-        { name: 'PHP', level: 80, years: 1, projects: 5, icon: Code, description: 'Server-side scripting & web development' },
-        { name: 'Node.js', level: 75, years: 1, projects: 5, icon: Cpu, description: 'Server-side JavaScript runtime' },
-        { name: 'Express.js', level: 75, years: 1, projects: 5, icon: Rocket, description: 'Fast web framework for Node.js' },
-        { name: 'RESTful APIs', level: 72, years: 1, projects: 5, icon: Globe, description: 'API design & development' }
+        { 
+          name: 'PHP', 
+          level: 80, 
+          years: 1, 
+          projects: 5, 
+          icon: Code,
+          position: { x: 550, y: 100 },
+          connections: ['MySQL', 'RESTful APIs'],
+          description: 'Server-side scripting'
+        },
+        { 
+          name: 'Node.js', 
+          level: 75, 
+          years: 1, 
+          projects: 5, 
+          icon: Cpu,
+          position: { x: 650, y: 120 },
+          connections: ['Express.js', 'MongoDB'],
+          description: 'JavaScript runtime environment'
+        },
+        { 
+          name: 'Express.js', 
+          level: 75, 
+          years: 1, 
+          projects: 5, 
+          icon: Globe,
+          position: { x: 700, y: 180 },
+          connections: ['Node.js', 'RESTful APIs'],
+          description: 'Web framework for Node.js'
+        },
+        { 
+          name: 'RESTful APIs', 
+          level: 72, 
+          years: 1, 
+          projects: 5, 
+          icon: ArrowRight,
+          position: { x: 580, y: 220 },
+          connections: ['PHP', 'Express.js'],
+          description: 'API design and development'
+        }
       ]
     },
     database: {
-      name: 'Database & Tools',
+      name: 'Data Nebula',
       color: '#8B5CF6',
       icon: Database,
+      center: { x: 200, y: 400 },
       skills: [
-        { name: 'MySQL', level: 78, years: 1, projects: 5, icon: Database, description: 'Relational database management' },
-        { name: 'MongoDB', level: 70, years: 1, projects: 5, icon: Layers, description: 'NoSQL document database' },
-        { name: 'Git & GitHub', level: 88, years: 1, projects: 5, icon: Code, description: 'Version control & collaboration' },
-        { name: 'VS Code', level: 95, years: 1, projects: 5, icon: Wrench, description: 'Advanced IDE usage & extensions' },
-        { name: 'Postman', level: 80, years: 1, projects: 5, icon: Zap, description: 'API testing & documentation' }
+        { 
+          name: 'MySQL', 
+          level: 78, 
+          years: 1, 
+          projects: 5, 
+          icon: Database,
+          position: { x: 150, y: 350 },
+          connections: ['MongoDB', 'Git & GitHub'],
+          description: 'Relational database management'
+        },
+        { 
+          name: 'MongoDB', 
+          level: 70, 
+          years: 1, 
+          projects: 5, 
+          icon: Layers,
+          position: { x: 280, y: 380 },
+          connections: ['MySQL', 'Postman'],
+          description: 'NoSQL document database'
+        },
+        { 
+          name: 'Git & GitHub', 
+          level: 88, 
+          years: 1, 
+          projects: 5, 
+          icon: Code,
+          position: { x: 120, y: 450 },
+          connections: ['MySQL', 'VS Code'],
+          description: 'Version control system'
+        },
+        { 
+          name: 'VS Code', 
+          level: 95, 
+          years: 1, 
+          projects: 5, 
+          icon: Wrench,
+          position: { x: 220, y: 480 },
+          connections: ['Git & GitHub', 'Postman'],
+          description: 'Advanced IDE usage'
+        },
+        { 
+          name: 'Postman', 
+          level: 80, 
+          years: 1, 
+          projects: 5, 
+          icon: Target,
+          position: { x: 320, y: 450 },
+          connections: ['MongoDB', 'VS Code'],
+          description: 'API testing and documentation'
+        }
       ]
     },
     programming: {
-      name: 'Programming Languages',
+      name: 'Code Solar System',
       color: '#F59E0B',
       icon: Brain,
+      center: { x: 600, y: 400 },
       skills: [
-        { name: 'C', level: 85, years: 1, projects: 5, icon: Cpu, description: 'System programming & algorithms' },
-        { name: 'C++', level: 82, years: 1, projects: 5, icon: Rocket, description: 'Object-oriented programming' },
-        { name: 'Python', level: 75, years: 1, projects: 5, icon: Brain, description: 'Scripting & data analysis' },
-        { name: 'Machine Learning', level: 65, years: 1, projects: 5, icon: Star, description: 'AI algorithms & model training' }
+        { 
+          name: 'C', 
+          level: 85, 
+          years: 1, 
+          projects: 5, 
+          icon: Cpu,
+          position: { x: 550, y: 350 },
+          connections: ['C++'],
+          description: 'System programming language'
+        },
+        { 
+          name: 'C++', 
+          level: 82, 
+          years: 1, 
+          projects: 5, 
+          icon: Layers,
+          position: { x: 650, y: 380 },
+          connections: ['C', 'Python'],
+          description: 'Object-oriented programming'
+        },
+        { 
+          name: 'Python', 
+          level: 75, 
+          years: 1, 
+          projects: 5, 
+          icon: Brain,
+          position: { x: 580, y: 480 },
+          connections: ['C++', 'Machine Learning'],
+          description: 'Versatile programming language'
+        },
+        { 
+          name: 'Machine Learning', 
+          level: 65, 
+          years: 1, 
+          projects: 5, 
+          icon: Star,
+          position: { x: 700, y: 450 },
+          connections: ['Python'],
+          description: 'AI and data science'
+        }
       ]
     }
   };
 
-  // Flatten all skills for 3D sphere
-  const allSkills = Object.entries(skillsData).flatMap(([category, data]) => 
-    data.skills.map(skill => ({ 
-      ...skill, 
-      category, 
-      categoryColor: data.color,
-      categoryIcon: data.icon
-    }))
-  );
+  // Create particles for background animation
+  useEffect(() => {
+    const newParticles = Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 800,
+      y: Math.random() * 600,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      size: Math.random() * 3 + 1,
+      opacity: Math.random() * 0.5 + 0.2,
+      color: ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B'][Math.floor(Math.random() * 4)]
+    }));
+    setParticles(newParticles);
+  }, []);
 
-  const filteredSkills = allSkills.filter(skill => {
-    const matchesCategory = filterCategory === 'all' || skill.category === filterCategory;
-    const matchesSearch = skill.name.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  // Animate particles
+  useEffect(() => {
+    if (!isAnimating) return;
+
+    const animate = () => {
+      setParticles(prev => prev.map(particle => ({
+        ...particle,
+        x: particle.x + particle.vx * animationSpeed,
+        y: particle.y + particle.vy * animationSpeed,
+        x: particle.x < 0 ? 800 : particle.x > 800 ? 0 : particle.x,
+        y: particle.y < 0 ? 600 : particle.y > 600 ? 0 : particle.y
+      })));
+    };
+
+    animationRef.current = setInterval(animate, 16);
+    return () => clearInterval(animationRef.current);
+  }, [isAnimating, animationSpeed]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -96,81 +289,72 @@ const Skills = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Mouse tracking for 3D perspective
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (skillsContainerRef.current) {
-        const rect = skillsContainerRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const mouseX = ((e.clientX - centerX) / rect.width) * 100;
-        const mouseY = ((e.clientY - centerY) / rect.height) * 100;
-        setMousePosition({ x: mouseX, y: mouseY });
-      }
-    };
+  const getAllSkills = () => {
+    return Object.values(skillConstellations).flatMap(constellation => 
+      constellation.skills.map(skill => ({
+        ...skill,
+        constellation: constellation.name,
+        constellationColor: constellation.color
+      }))
+    );
+  };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  const getSkillsToDisplay = () => {
+    if (activeConstellation === 'all') {
+      return getAllSkills();
+    }
+    return skillConstellations[activeConstellation]?.skills.map(skill => ({
+      ...skill,
+      constellation: skillConstellations[activeConstellation].name,
+      constellationColor: skillConstellations[activeConstellation].color
+    })) || [];
+  };
 
-  // Animation phase cycling
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimationPhase(prev => (prev + 1) % 4);
-    }, 8000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Generate 3D positions for skills in a sphere
-  const generateSpherePosition = (index, total, phase) => {
-    const phi = Math.acos(-1 + (2 * index) / total);
-    const theta = Math.sqrt(total * Math.PI) * phi + (phase * 0.01);
-    
-    const radius = 200 + Math.sin(phase + index) * 50;
-    const x = radius * Math.cos(theta) * Math.sin(phi);
-    const y = radius * Math.sin(theta) * Math.sin(phi);
-    const z = radius * Math.cos(phi);
-    
-    return { x, y, z };
+  const getConnectionOpacity = (skill, connectedSkillName) => {
+    if (hoveredSkill === skill.name || hoveredSkill === connectedSkillName) {
+      return 0.8;
+    }
+    return 0.2;
   };
 
   const getSkillLevelColor = (level) => {
-    if (level >= 90) return 'from-green-400 to-emerald-500';
-    if (level >= 80) return 'from-blue-400 to-cyan-500';
-    if (level >= 70) return 'from-yellow-400 to-orange-500';
-    return 'from-red-400 to-pink-500';
+    if (level >= 90) return '#10B981'; // green
+    if (level >= 80) return '#3B82F6'; // blue
+    if (level >= 70) return '#F59E0B'; // orange
+    return '#EF4444'; // red
   };
 
-  const getSkillLevelLabel = (level) => {
-    if (level >= 90) return { label: 'Expert', color: 'text-green-600 bg-green-100' };
-    if (level >= 80) return { label: 'Advanced', color: 'text-blue-600 bg-blue-100' };
-    if (level >= 70) return { label: 'Proficient', color: 'text-orange-600 bg-orange-100' };
-    return { label: 'Learning', color: 'text-red-600 bg-red-100' };
+  const resetView = () => {
+    setSelectedSkill(null);
+    setHoveredSkill(null);
+    setActiveConstellation('all');
   };
 
   return (
     <section 
       id="skills" 
       ref={sectionRef} 
-      className="py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900 relative overflow-hidden min-h-screen"
+      className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden min-h-screen"
     >
-      {/* Enhanced Background Elements */}
+      {/* Animated Background */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-purple-400/30 to-blue-400/30 rounded-full animate-pulse blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-pink-400/30 to-purple-400/30 rounded-full animate-pulse blur-3xl" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-gradient-to-br from-cyan-400/20 to-green-400/20 rounded-full animate-pulse blur-3xl transform -translate-x-1/2 -translate-y-1/2" style={{ animationDelay: '4s' }} />
+        {/* Gradient Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
         
-        {/* Floating particles */}
-        {[...Array(20)].map((_, i) => (
+        {/* Floating Particles */}
+        {particles.map(particle => (
           <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-60 animate-pulse"
+            key={particle.id}
+            className="absolute rounded-full pointer-events-none"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              left: `${particle.x}px`,
+              top: `${particle.y}px`,
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              backgroundColor: particle.color,
+              opacity: particle.opacity,
+              transform: 'translate(-50%, -50%)'
             }}
           />
         ))}
@@ -178,277 +362,309 @@ const Skills = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+        <div className={`text-center mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
-              Interactive Skills Sphere
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+              Skill Constellations
             </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Explore my technical expertise in an immersive 3D environment
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+            Navigate through my technical universe and discover interconnected skills
           </p>
         </div>
 
         {/* Controls */}
-        <div className={`flex flex-col md:flex-row gap-4 mb-8 justify-center transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* Search */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search skills..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-64 pl-4 pr-4 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
-            />
+        <div className={`flex flex-wrap justify-center gap-4 mb-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {/* Constellation Selector */}
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setActiveConstellation('all')}
+              className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+                activeConstellation === 'all'
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
+                  : 'bg-white/10 text-gray-300 hover:bg-white/20'
+              }`}
+            >
+              🌌 All Constellations
+            </button>
+            {Object.entries(skillConstellations).map(([key, constellation]) => {
+              const IconComponent = constellation.icon;
+              return (
+                <button
+                  key={key}
+                  onClick={() => setActiveConstellation(key)}
+                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center ${
+                    activeConstellation === key
+                      ? 'text-white shadow-lg'
+                      : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                  }`}
+                  style={activeConstellation === key ? { 
+                    background: `linear-gradient(135deg, ${constellation.color}, ${constellation.color}CC)`
+                  } : {}}
+                >
+                  <IconComponent size={16} className="mr-2" />
+                  {constellation.name}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Category Filter */}
-          <select
-            value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value)}
-            className="px-4 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
-          >
-            <option value="all">All Categories</option>
-            {Object.entries(skillsData).map(([key, data]) => (
-              <option key={key} value={key}>{data.name}</option>
-            ))}
-          </select>
-
-          {/* Animation Speed Control */}
-          <div className="flex items-center space-x-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Speed:</span>
+          {/* Animation Controls */}
+          <div className="flex items-center gap-2 bg-white/10 rounded-xl px-4 py-2">
+            <button
+              onClick={() => setIsAnimating(!isAnimating)}
+              className="p-1 rounded-lg hover:bg-white/20 transition-colors duration-200"
+            >
+              {isAnimating ? <Pause size={16} className="text-gray-300" /> : <Play size={16} className="text-gray-300" />}
+            </button>
+            <span className="text-gray-300 text-sm mx-2">Speed:</span>
             <input
               type="range"
               min="0.1"
               max="3"
               step="0.1"
-              value={rotationSpeed}
-              onChange={(e) => setRotationSpeed(parseFloat(e.target.value))}
+              value={animationSpeed}
+              onChange={(e) => setAnimationSpeed(parseFloat(e.target.value))}
               className="w-20"
             />
+            <button
+              onClick={resetView}
+              className="p-1 rounded-lg hover:bg-white/20 transition-colors duration-200 ml-2"
+            >
+              <RotateCcw size={16} className="text-gray-300" />
+            </button>
           </div>
         </div>
 
-        {/* 3D Skills Sphere */}
-        <div 
-          ref={skillsContainerRef}
-          className={`relative w-full h-[600px] transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
-          style={{ perspective: '1000px' }}
-        >
-          <div 
-            className="relative w-full h-full flex items-center justify-center"
-            style={{
-              transformStyle: 'preserve-3d',
-              transform: `rotateX(${mousePosition.y * 0.1}deg) rotateY(${mousePosition.x * 0.1 + animationPhase * 90 * rotationSpeed}deg)`
-            }}
-          >
-            {filteredSkills.map((skill, index) => {
-              const position = generateSpherePosition(index, filteredSkills.length, animationPhase);
-              const isHovered = hoveredSkill === skill.name;
-              const isSelected = selectedSkill?.name === skill.name;
-              const IconComponent = skill.icon;
-              const levelInfo = getSkillLevelLabel(skill.level);
-              
-              return (
-                <div
-                  key={skill.name}
-                  className={`absolute cursor-pointer transition-all duration-500 transform hover:scale-125 ${
-                    isHovered || isSelected ? 'z-50' : 'z-10'
-                  }`}
-                  style={{
-                    transform: `translate3d(${position.x}px, ${position.y}px, ${position.z}px)`,
-                    transformStyle: 'preserve-3d'
-                  }}
-                  onMouseEnter={() => setHoveredSkill(skill.name)}
-                  onMouseLeave={() => setHoveredSkill(null)}
-                  onClick={() => setSelectedSkill(isSelected ? null : skill)}
-                >
-                  {/* Skill Orb */}
-                  <div 
-                    className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${getSkillLevelColor(skill.level)} shadow-2xl flex items-center justify-center group ${
-                      isHovered || isSelected ? 'animate-pulse' : ''
-                    }`}
-                    style={{
-                      transform: `rotateY(${-mousePosition.x * 0.1 - animationPhase * 90 * rotationSpeed}deg) rotateX(${-mousePosition.y * 0.1}deg)`,
-                      boxShadow: isHovered || isSelected 
-                        ? `0 0 30px ${skill.categoryColor}80, 0 0 60px ${skill.categoryColor}40`
-                        : `0 10px 30px rgba(0,0,0,0.3)`
-                    }}
-                  >
-                    <IconComponent 
-                      size={isHovered || isSelected ? 32 : 24} 
-                      className="text-white transition-all duration-300" 
+        {/* Constellation Canvas */}
+        <div className={`relative w-full h-[600px] transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          <div className="relative w-full h-full bg-black/20 backdrop-blur-sm rounded-3xl border border-white/10 overflow-hidden">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 800 600">
+              {/* Constellation Connections */}
+              {getSkillsToDisplay().map(skill => 
+                skill.connections?.map(connectionName => {
+                  const connectedSkill = getSkillsToDisplay().find(s => s.name === connectionName);
+                  if (!connectedSkill) return null;
+                  
+                  return (
+                    <line
+                      key={`${skill.name}-${connectionName}`}
+                      x1={skill.position.x}
+                      y1={skill.position.y}
+                      x2={connectedSkill.position.x}
+                      y2={connectedSkill.position.y}
+                      stroke={skill.constellationColor || '#3B82F6'}
+                      strokeWidth={hoveredSkill === skill.name || hoveredSkill === connectionName ? 3 : 1}
+                      opacity={getConnectionOpacity(skill, connectionName)}
+                      className="transition-all duration-300"
+                    />
+                  );
+                })
+              )}
+
+              {/* Skill Nodes */}
+              {getSkillsToDisplay().map(skill => {
+                const IconComponent = skill.icon;
+                const isHovered = hoveredSkill === skill.name;
+                const isSelected = selectedSkill?.name === skill.name;
+                const nodeSize = isHovered || isSelected ? 60 : 40;
+                
+                return (
+                  <g key={skill.name}>
+                    {/* Glow Effect */}
+                    {(isHovered || isSelected) && (
+                      <circle
+                        cx={skill.position.x}
+                        cy={skill.position.y}
+                        r={nodeSize + 10}
+                        fill={skill.constellationColor || getSkillLevelColor(skill.level)}
+                        opacity="0.3"
+                        className="animate-pulse"
+                      />
+                    )}
+                    
+                    {/* Main Node */}
+                    <circle
+                      cx={skill.position.x}
+                      cy={skill.position.y}
+                      r={nodeSize / 2}
+                      fill="url(#gradient)"
+                      stroke={skill.constellationColor || getSkillLevelColor(skill.level)}
+                      strokeWidth={isHovered || isSelected ? 4 : 2}
+                      className="cursor-pointer transition-all duration-300 hover:scale-110"
+                      onMouseEnter={() => setHoveredSkill(skill.name)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      onClick={() => setSelectedSkill(selectedSkill?.name === skill.name ? null : skill)}
                     />
                     
                     {/* Skill Level Ring */}
-                    <div 
-                      className="absolute inset-0 rounded-full border-4 border-white/30"
-                      style={{
-                        background: `conic-gradient(${skill.categoryColor} ${skill.level * 3.6}deg, transparent ${skill.level * 3.6}deg)`
-                      }}
+                    <circle
+                      cx={skill.position.x}
+                      cy={skill.position.y}
+                      r={nodeSize / 2 + 8}
+                      fill="none"
+                      stroke={skill.constellationColor || getSkillLevelColor(skill.level)}
+                      strokeWidth="3"
+                      strokeDasharray={`${(skill.level / 100) * 2 * Math.PI * (nodeSize / 2 + 8)} ${2 * Math.PI * (nodeSize / 2 + 8)}`}
+                      opacity="0.7"
+                      transform={`rotate(-90 ${skill.position.x} ${skill.position.y})`}
                     />
                     
-                    {/* Pulsing Ring Effect */}
+                    {/* Skill Name */}
+                    <text
+                      x={skill.position.x}
+                      y={skill.position.y + nodeSize/2 + 20}
+                      textAnchor="middle"
+                      fill="white"
+                      fontSize={isHovered || isSelected ? "14" : "12"}
+                      fontWeight={isHovered || isSelected ? "bold" : "normal"}
+                      className="pointer-events-none transition-all duration-300"
+                    >
+                      {skill.name}
+                    </text>
+                    
+                    {/* Proficiency Badge */}
                     {(isHovered || isSelected) && (
-                      <div 
-                        className="absolute inset-0 rounded-full animate-ping"
-                        style={{
-                          background: `radial-gradient(circle, ${skill.categoryColor}40 0%, transparent 70%)`
-                        }}
-                      />
+                      <text
+                        x={skill.position.x}
+                        y={skill.position.y + nodeSize/2 + 35}
+                        textAnchor="middle"
+                        fill={skill.constellationColor || getSkillLevelColor(skill.level)}
+                        fontSize="11"
+                        fontWeight="bold"
+                        className="pointer-events-none"
+                      >
+                        {skill.level}%
+                      </text>
                     )}
-                  </div>
-
-                  {/* Floating Label */}
-                  <div 
-                    className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 transition-all duration-300 ${
-                      isHovered || isSelected ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
-                    }`}
-                    style={{
-                      transform: `translate(-50%, 0) rotateY(${-mousePosition.x * 0.1 - animationPhase * 90 * rotationSpeed}deg) rotateX(${-mousePosition.y * 0.1}deg)`
-                    }}
-                  >
-                    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-lg px-3 py-2 shadow-xl border border-gray-200 dark:border-gray-700">
-                      <div className="text-center">
-                        <div className="font-bold text-gray-900 dark:text-white text-sm">{skill.name}</div>
-                        <div className={`text-xs px-2 py-1 rounded-full mt-1 ${levelInfo.color}`}>
-                          {levelInfo.label} - {skill.level}%
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                  </g>
+                );
+              })}
+              
+              {/* Gradient Definitions */}
+              <defs>
+                <radialGradient id="gradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="rgba(255,255,255,0.9)" />
+                  <stop offset="100%" stopColor="rgba(255,255,255,0.3)" />
+                </radialGradient>
+              </defs>
+            </svg>
           </div>
         </div>
 
-        {/* Selected Skill Details Panel */}
+        {/* Selected Skill Details */}
         {selectedSkill && (
-          <div className={`mt-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="max-w-4xl mx-auto bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-gray-200/50 dark:border-gray-700/50">
+          <div className={`mt-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
                   <div 
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${getSkillLevelColor(selectedSkill.level)} flex items-center justify-center mr-4 shadow-lg`}
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center mr-4 shadow-lg"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${selectedSkill.constellationColor || getSkillLevelColor(selectedSkill.level)}, ${selectedSkill.constellationColor || getSkillLevelColor(selectedSkill.level)}80)`
+                    }}
                   >
                     <selectedSkill.icon size={32} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white">{selectedSkill.name}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">{selectedSkill.description}</p>
+                    <h3 className="text-3xl font-bold text-white">{selectedSkill.name}</h3>
+                    <p className="text-gray-300">{selectedSkill.description}</p>
+                    <p className="text-gray-400 text-sm mt-1">From {selectedSkill.constellation}</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setSelectedSkill(null)}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
+                  className="text-gray-400 hover:text-white transition-colors duration-200"
                 >
                   <span className="text-2xl">×</span>
                 </button>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
-                {/* Proficiency */}
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-2xl p-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                    <Star className="w-5 h-5 mr-2 text-yellow-500" />
-                    Proficiency
-                  </h4>
-                  <div className="text-center">
-                    <div className="text-4xl font-bold mb-2" style={{ color: selectedSkill.categoryColor }}>
-                      {selectedSkill.level}%
-                    </div>
-                    <div className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getSkillLevelLabel(selectedSkill.level).color}`}>
-                      {getSkillLevelLabel(selectedSkill.level).label}
-                    </div>
-                  </div>
-                  <div className="mt-4 w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
-                    <div
-                      className="h-full rounded-full transition-all duration-1000 ease-out"
-                      style={{
-                        width: `${selectedSkill.level}%`,
-                        background: `linear-gradient(90deg, ${selectedSkill.categoryColor}CC, ${selectedSkill.categoryColor})`
-                      }}
-                    />
-                  </div>
+              <div className="grid md:grid-cols-4 gap-6">
+                <div className="bg-white/5 rounded-2xl p-6 text-center">
+                  <Trophy className="w-8 h-8 mx-auto mb-3 text-yellow-400" />
+                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.level}%</div>
+                  <div className="text-gray-400 text-sm">Proficiency</div>
                 </div>
-
-                {/* Experience */}
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-2xl p-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                    <Zap className="w-5 h-5 mr-2 text-blue-500" />
-                    Experience
-                  </h4>
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-blue-600 mb-2">{selectedSkill.years}</div>
-                    <div className="text-gray-600 dark:text-gray-400">Year{selectedSkill.years !== 1 ? 's' : ''}</div>
-                  </div>
-                  <div className="mt-4 text-center">
-                    <div className="text-2xl font-bold text-green-600">{selectedSkill.projects}</div>
-                    <div className="text-gray-600 dark:text-gray-400">Projects</div>
-                  </div>
+                
+                <div className="bg-white/5 rounded-2xl p-6 text-center">
+                  <Target className="w-8 h-8 mx-auto mb-3 text-blue-400" />
+                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.years}</div>
+                  <div className="text-gray-400 text-sm">Year{selectedSkill.years !== 1 ? 's' : ''}</div>
                 </div>
-
-                {/* Category */}
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-2xl p-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                    <selectedSkill.categoryIcon className="w-5 h-5 mr-2" style={{ color: selectedSkill.categoryColor }} />
-                    Category
-                  </h4>
-                  <div className="text-center">
-                    <div 
-                      className="text-xl font-bold mb-2" 
-                      style={{ color: selectedSkill.categoryColor }}
-                    >
-                      {skillsData[selectedSkill.category].name}
-                    </div>
-                    <div className="text-gray-600 dark:text-gray-400">
-                      {skillsData[selectedSkill.category].skills.length} skills total
-                    </div>
-                  </div>
+                
+                <div className="bg-white/5 rounded-2xl p-6 text-center">
+                  <Eye className="w-8 h-8 mx-auto mb-3 text-green-400" />
+                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.projects}</div>
+                  <div className="text-gray-400 text-sm">Projects</div>
+                </div>
+                
+                <div className="bg-white/5 rounded-2xl p-6 text-center">
+                  <Sparkles className="w-8 h-8 mx-auto mb-3 text-purple-400" />
+                  <div className="text-2xl font-bold text-white mb-1">{selectedSkill.connections?.length || 0}</div>
+                  <div className="text-gray-400 text-sm">Connections</div>
                 </div>
               </div>
+
+              {selectedSkill.connections && selectedSkill.connections.length > 0 && (
+                <div className="mt-6">
+                  <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
+                    <ArrowRight className="w-5 h-5 mr-2 text-purple-400" />
+                    Connected Skills
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedSkill.connections.map(connection => (
+                      <span
+                        key={connection}
+                        className="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm border border-white/20"
+                      >
+                        {connection}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
 
-        {/* Category Overview */}
-        <div className={`mt-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        {/* Constellation Stats */}
+        <div className={`mt-8 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {Object.entries(skillsData).map(([key, data]) => {
-              const avgLevel = Math.round(data.skills.reduce((acc, skill) => acc + skill.level, 0) / data.skills.length);
-              const IconComponent = data.icon;
+            {Object.entries(skillConstellations).map(([key, constellation]) => {
+              const avgLevel = Math.round(constellation.skills.reduce((acc, skill) => acc + skill.level, 0) / constellation.skills.length);
+              const IconComponent = constellation.icon;
               
               return (
                 <div
                   key={key}
-                  className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-gray-200/50 dark:border-gray-700/50 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
-                  onClick={() => setFilterCategory(key)}
+                  className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                  onClick={() => setActiveConstellation(key)}
                 >
                   <div className="flex items-center mb-4">
                     <div 
                       className="w-12 h-12 rounded-xl flex items-center justify-center mr-3"
-                      style={{ backgroundColor: `${data.color}20` }}
+                      style={{ backgroundColor: `${constellation.color}40` }}
                     >
-                      <IconComponent size={24} style={{ color: data.color }} />
+                      <IconComponent size={24} style={{ color: constellation.color }} />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-white">{data.name}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{data.skills.length} skills</p>
+                      <h3 className="font-bold text-white">{constellation.name}</h3>
+                      <p className="text-sm text-gray-400">{constellation.skills.length} skills</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Average:</span>
-                    <span className="font-bold" style={{ color: data.color }}>{avgLevel}%</span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-gray-400">Average Level:</span>
+                    <span className="font-bold" style={{ color: constellation.color }}>{avgLevel}%</span>
                   </div>
                   
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
+                  <div className="w-full bg-white/20 rounded-full h-2">
                     <div
                       className="h-full rounded-full transition-all duration-1000"
                       style={{
                         width: `${avgLevel}%`,
-                        backgroundColor: data.color
+                        backgroundColor: constellation.color
                       }}
                     />
                   </div>
@@ -460,8 +676,8 @@ const Skills = () => {
 
         {/* Instructions */}
         <div className="text-center mt-8">
-          <p className="text-gray-600 dark:text-gray-400">
-            🖱️ Move your mouse to rotate the sphere • 🎯 Click on skills to explore details • ⚡ Adjust speed with the slider
+          <p className="text-gray-400">
+            🖱️ Hover over stars to see connections • 🎯 Click to explore details • 🌌 Select constellations to focus
           </p>
         </div>
       </div>
