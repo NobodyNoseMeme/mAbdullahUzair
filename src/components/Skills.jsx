@@ -495,7 +495,6 @@ const Skills = () => {
                           key={`${rowIndex}-${keyIndex}`}
                           className={getKeyStyle(keyData)}
                           onClick={() => {
-                            console.log('Button clicked:', keyData.key, 'Skill:', keyData.skill); // Debug log
                             if (keyData.skill) {
                               setSelectedSkill(keyData.skill);
                               setTypedText(prev => prev + keyData.key);
