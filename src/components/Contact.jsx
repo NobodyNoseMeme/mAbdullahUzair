@@ -256,7 +256,9 @@ const Contact = () => {
                       I typically respond within 24 hours
                     </p>
                   </div>
-                  <div className="text-4xl animate-bounce">📬</div>
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                    <Mail className="text-blue-600" size={24} />
+                  </div>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
