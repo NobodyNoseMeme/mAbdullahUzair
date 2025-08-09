@@ -496,9 +496,35 @@ const Skills = () => {
                           key={`${rowIndex}-${keyIndex}`}
                           className={getKeyStyle(keyData)}
                           onClick={() => {
+                            console.log('Button clicked:', keyData.key, 'Skill:', keyData.skill); // Debug log
                             if (keyData.skill) {
                               setSelectedSkill(keyData.skill);
                               setTypedText(prev => prev + keyData.key);
+
+                              // Play sound effect on click too
+                              if (soundEnabled) {
+                                try {
+                                  const audio = new AudioContext();
+                                  const oscillator = audio.createOscillator();
+                                  const gainNode = audio.createGain();
+
+                                  oscillator.connect(gainNode);
+                                  gainNode.connect(audio.destination);
+
+                                  oscillator.frequency.setValueAtTime(600 + Math.random() * 200, audio.currentTime);
+                                  oscillator.type = 'sine';
+
+                                  gainNode.gain.setValueAtTime(0.1, audio.currentTime);
+                                  gainNode.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.2);
+
+                                  oscillator.start(audio.currentTime);
+                                  oscillator.stop(audio.currentTime + 0.2);
+                                } catch (error) {
+                                  console.log('Audio error:', error);
+                                }
+                              }
+                            } else {
+                              console.log('No skill found for key:', keyData.key);
                             }
                           }}
                           style={{
