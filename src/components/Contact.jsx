@@ -155,9 +155,9 @@ const Contact = () => {
 
         {/* Success Message */}
         {showSuccess && (
-          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-8 py-4 rounded-2xl shadow-2xl z-50 animate-bounce">
+          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-8 py-4 rounded-2xl shadow-2xl z-50 transition-all duration-500">
             <div className="flex items-center space-x-2">
-              <Star className="text-yellow-300" size={20} />
+              <Check className="text-white" size={20} />
               <span>Message sent successfully! I'll get back to you soon.</span>
             </div>
           </div>
