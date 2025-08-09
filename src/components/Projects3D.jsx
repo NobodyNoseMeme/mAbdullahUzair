@@ -348,13 +348,16 @@ const Projects3D = () => {
           ref={carouselRef}
           className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
         >
-          {/* Main 3D Carousel */}
-          <div className="relative w-full h-[600px] mx-auto flex items-center justify-center perspective-1000">
+          {/* Main 3D Carousel - Optimized for mobile */}
+          <div className="relative w-full h-[350px] md:h-[600px] mx-auto flex items-center justify-center perspective-1000 touch-pan-x">
             <div
-              className={`relative w-56 h-56 transition-transform duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+              className={`relative w-40 h-40 md:w-56 md:h-56 transition-transform duration-300 md:duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
               style={{
                 transformStyle: 'preserve-3d',
-                transform: `rotateY(${rotation || 0}deg) rotateX(${(mousePosition.y || 0) * 0.5}deg) rotateZ(${(mousePosition.x || 0) * 0.2}deg)`
+                transform: window.innerWidth > 768 ?
+                  `rotateY(${rotation || 0}deg) rotateX(${(mousePosition.y || 0) * 0.3}deg) rotateZ(${(mousePosition.x || 0) * 0.1}deg)` :
+                  `rotateY(${rotation || 0}deg)`,
+                touchAction: 'pan-x'
               }}
             >
               {projects.map((project, index) => {
