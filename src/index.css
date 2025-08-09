@@ -4,42 +4,47 @@
 
 /* Performance optimizations for mobile */
 @media (max-width: 768px) {
-  /* Reduce animation complexity on mobile */
-  * {
-    animation-duration: 0.3s !important;
-    transition-duration: 0.3s !important;
-  }
-  
-  /* Disable 3D transforms on mobile for performance */
-  .no-mobile-3d {
-    transform: none !important;
-    transform-style: flat !important;
-    perspective: none !important;
-  }
-  
   /* Optimize scrolling performance */
   body {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
-  
+
   /* Reduce blur effects on mobile */
   .backdrop-blur-md {
+    backdrop-filter: blur(2px) !important;
+  }
+
+  .backdrop-blur-xl {
     backdrop-filter: blur(4px) !important;
   }
-  
-  /* Optimize hover states for touch devices */
-  @media (hover: none) {
-    .hover\:scale-105:hover,
-    .hover\:scale-110:hover,
-    .hover\:scale-125:hover {
-      transform: none !important;
-    }
-    
-    .group:hover .group-hover\:scale-110,
-    .group:hover .group-hover\:rotate-12 {
-      transform: none !important;
-    }
+
+  /* Optimize animations for mobile */
+  .animate-pulse {
+    animation-duration: 2s !important;
+  }
+
+  .animate-spin {
+    animation-duration: 4s !important;
+  }
+
+  .animate-bounce {
+    animation-duration: 2s !important;
+  }
+}
+
+/* Optimize hover states for touch devices */
+@media (hover: none) {
+  .hover\:scale-105:hover,
+  .hover\:scale-110:hover,
+  .hover\:scale-125:hover {
+    transform: none !important;
+  }
+
+  .group:hover .group-hover\:scale-110,
+  .group:hover .group-hover\:rotate-12,
+  .group:hover .group-hover\:translate-x-1 {
+    transform: none !important;
   }
 }
 
