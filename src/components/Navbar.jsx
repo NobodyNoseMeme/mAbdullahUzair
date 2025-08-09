@@ -72,13 +72,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                     onClick={() => scrollToSection(`#${item.id}`)}
                     className="px-4 py-2 rounded-xl font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
                   >
-                    <div className="flex items-center space-x-1 xl:space-x-2">
-                      <IconComponent size={16} className="transform group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
-                      <span className="text-sm xl:text-base whitespace-nowrap">{item.label}</span>
-                    </div>
-
-                    {/* Hover effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+                    <IconComponent size={16} className="mr-2" />
+                    {item.label}
                   </button>
                 );
               })}
