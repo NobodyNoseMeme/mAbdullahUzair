@@ -1,17 +1,70 @@
 import { useState, useEffect, useRef } from 'react';
-import { User, GraduationCap, Code, Award, Target, Heart, Lightbulb, Rocket } from 'lucide-react';
+import { Code, Lightbulb, Rocket, Heart, Star, Zap, Coffee, Target, Trophy, Users, BookOpen, Cpu } from 'lucide-react';
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCard, setActiveCard] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [activeTab, setActiveTab] = useState('story');
+  const [currentFact, setCurrentFact] = useState(0);
+  const [countingStats, setCountingStats] = useState({
+    projects: 0,
+    technologies: 0,
+    coffees: 0,
+    linesOfCode: 0
+  });
   const sectionRef = useRef(null);
+
+  const funFacts = [
+    { icon: Coffee, text: "I've consumed 500+ cups of coffee while coding", color: "text-amber-600" },
+    { icon: Code, text: "Written over 10,000 lines of code this year", color: "text-green-600" },
+    { icon: Star, text: "Debugged code at 3 AM more times than I can count", color: "text-purple-600" },
+    { icon: Rocket, text: "Turned 5+ crazy ideas into working applications", color: "text-blue-600" },
+    { icon: Heart, text: "Fall in love with clean code and elegant solutions", color: "text-red-600" }
+  ];
+
+  const personalityTraits = [
+    { icon: Lightbulb, title: "Problem Solver", description: "I love breaking down complex challenges into manageable solutions" },
+    { icon: Users, title: "Team Player", description: "Collaboration brings out the best in every project" },
+    { icon: BookOpen, title: "Continuous Learner", description: "Always exploring new technologies and best practices" },
+    { icon: Target, title: "Detail Oriented", description: "Perfection is in the details, from pixel-perfect UIs to clean code" }
+  ];
+
+  const timeline = [
+    {
+      year: "2022",
+      title: "Started My Journey",
+      description: "Began Software Engineering at University of Central Punjab",
+      icon: BookOpen,
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      year: "2023",
+      title: "First Real Project",
+      description: "Built my first full-stack application with HTML, CSS, and JavaScript",
+      icon: Code,
+      color: "from-green-500 to-emerald-500"
+    },
+    {
+      year: "2024",
+      title: "Professional Experience",
+      description: "Internship at Levelup Solutions - worked on real client projects",
+      icon: Trophy,
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      year: "2025",
+      title: "Current Focus",
+      description: "Building AI-powered applications and expanding full-stack expertise",
+      icon: Cpu,
+      color: "from-orange-500 to-red-500"
+    }
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          startCountingAnimation();
         }
       },
       { threshold: 0.1 }
@@ -24,200 +77,232 @@ const About = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Mouse tracking for interactive effects
+  // Rotate fun facts
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
+    const interval = setInterval(() => {
+      setCurrentFact((prev) => (prev + 1) % funFacts.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
-  const stats = [
-    {
-      icon: GraduationCap,
-      value: '3.6',
-      label: 'CGPA',
-      description: 'Current Academic Performance',
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      icon: Code,
-      value: '5+',
-      label: 'Projects',
-      description: 'Completed Projects',
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
-      icon: Award,
-      value: '1+',
-      label: 'Years',
-      description: 'Development Experience',
-      color: 'from-green-500 to-emerald-500'
-    }
-  ];
+  const startCountingAnimation = () => {
+    const targets = { projects: 50, technologies: 20, coffees: 500, linesOfCode: 10000 };
+    const duration = 2000;
+    const steps = 60;
+    const stepTime = duration / steps;
 
-  const highlights = [
-    {
-      icon: Target,
-      title: 'Problem Solver',
-      description: 'Passionate about solving complex problems through innovative software solutions',
-      color: 'from-orange-500 to-red-500'
-    },
-    {
-      icon: Heart,
-      title: 'Full-Stack Enthusiast',
-      description: 'Experienced in both frontend and backend technologies with MERN stack knowledge',
-      color: 'from-pink-500 to-rose-500'
-    },
-    {
-      icon: Lightbulb,
-      title: 'Continuous Learner',
-      description: 'Always exploring new technologies and staying updated with industry trends',
-      color: 'from-yellow-500 to-orange-500'
-    },
-    {
-      icon: Rocket,
-      title: 'Innovation Driven',
-      description: 'Focused on creating modern, efficient, and user-friendly web applications',
-      color: 'from-indigo-500 to-purple-500'
-    }
-  ];
+    Object.keys(targets).forEach(key => {
+      let current = 0;
+      const increment = targets[key] / steps;
+      
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= targets[key]) {
+          current = targets[key];
+          clearInterval(timer);
+        }
+        setCountingStats(prev => ({ ...prev, [key]: Math.floor(current) }));
+      }, stepTime);
+    });
+  };
+
+  const tabContent = {
+    story: (
+      <div className="space-y-6">
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">My Story</h3>
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            Hey there! I'm a passionate Software Engineering student at the University of Central Punjab, 
+            currently maintaining a solid 3.6 CGPA while diving deep into the world of web development.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            My journey began with curiosity about how websites work, and it's evolved into a genuine passion 
+            for creating digital experiences that matter. I love the moment when code comes to life and 
+            transforms into something beautiful and functional.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, 
+            or enjoying a good cup of coffee while planning my next big project. I believe in the power of 
+            clean code, collaborative development, and never stopping to learn.
+          </p>
+        </div>
+      </div>
+    ),
+    personality: (
+      <div className="space-y-6">
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">What Makes Me Tick</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          {personalityTraits.map((trait, index) => {
+            const IconComponent = trait.icon;
+            return (
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center mr-4">
+                    <IconComponent size={24} className="text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-white">{trait.title}</h4>
+                </div>
+                <p className="text-gray-600 dark:text-gray-400">{trait.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    ),
+    journey: (
+      <div className="space-y-6">
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">My Journey</h3>
+        <div className="space-y-6">
+          {timeline.map((item, index) => {
+            const IconComponent = item.icon;
+            return (
+              <div key={index} className="flex items-start space-x-4">
+                <div className={`w-16 h-16 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                  <IconComponent size={24} className="text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm font-bold">
+                      {item.year}
+                    </span>
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white">{item.title}</h4>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    )
+  };
 
   return (
-    <section id="about" ref={sectionRef} className="py-20 bg-white dark:bg-gray-900 relative overflow-hidden">
-      {/* Interactive Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+    <section id="about" ref={sectionRef} className="py-20 bg-gradient-to-br from-white via-purple-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/50 dark:to-gray-800 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(12)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-purple-400 rounded-full opacity-20 animate-pulse"
+            className={`absolute w-3 h-3 rounded-full opacity-20 animate-pulse ${
+              i % 4 === 0 ? 'bg-purple-400' : 
+              i % 4 === 1 ? 'bg-blue-400' : 
+              i % 4 === 2 ? 'bg-pink-400' : 'bg-cyan-400'
+            }`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
-              transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
+              animationDuration: `${2 + Math.random() * 2}s`
             }}
           />
         ))}
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            About Me
+          <h2 className={`text-4xl md:text-6xl font-bold mb-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+            <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
+              About Me
+            </span>
           </h2>
-          <p className={`text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            Passionate Software Engineering student with a drive for innovation and excellence
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Profile Card */}
-          <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-3xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-500 hover:shadow-3xl">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold transform hover:rotate-12 transition-transform duration-300">
-                  <User size={32} />
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Muhammad Abdullah Uzair</h3>
-                  <p className="text-purple-600 dark:text-purple-400 font-semibold">Software Engineering Student</p>
-                </div>
-              </div>
-              
-              <div className="space-y-4 text-gray-700 dark:text-gray-300">
-                <p className="leading-relaxed">
-                  I'm a Software Engineering student at the University of Central Punjab with a passion for problem-solving and full-stack web development.
-                </p>
-                <p className="leading-relaxed">
-                  I've worked with front-end tools like HTML, CSS, Bootstrap, and Tailwind CSS, and back-end technologies like PHP, Node and Express. I have basic knowledge of the MERN stack, MongoDB, Python, C++, and Machine Learning.
-                </p>
-                <p className="leading-relaxed">
-                  My goal is to contribute to innovative projects that make a positive impact on users' lives through modern web technologies.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Interactive Stats */}
-          <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="grid gap-6">
-              {stats.map((stat, index) => {
-                const IconComponent = stat.icon;
-                return (
-                  <div
-                    key={index}
-                    className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:translateY-2 cursor-pointer border border-gray-200 dark:border-gray-700"
-                    onMouseEnter={() => setActiveCard(index)}
-                    onMouseLeave={() => setActiveCard(null)}
-                    style={{
-                      animationDelay: `${index * 200}ms`
-                    }}
-                  >
-                    <div className="flex items-center">
-                      <div className={`w-14 h-14 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
-                        <IconComponent size={24} />
-                      </div>
-                      <div className="ml-4 flex-1">
-                        <div className="flex items-baseline">
-                          <span className="text-3xl font-bold text-gray-900 dark:text-white">{stat.value}</span>
-                          <span className="ml-2 text-lg font-semibold text-purple-600 dark:text-purple-400">{stat.label}</span>
-                        </div>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">{stat.description}</p>
-                      </div>
-                    </div>
-                    
-                    {/* Hover Effect */}
-                    <div className={`mt-4 overflow-hidden transition-all duration-300 ${activeCard === index ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}`}>
-                      <div className={`h-2 bg-gradient-to-r ${stat.color} rounded-full transform origin-left transition-transform duration-1000 ${activeCard === index ? 'scale-x-100' : 'scale-x-0'}`} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Highlights Grid */}
-        <div className={`transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {highlights.map((highlight, index) => {
-              const IconComponent = highlight.icon;
+          
+          {/* Rotating Fun Facts */}
+          <div className={`h-16 flex items-center justify-center transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            {funFacts.map((fact, index) => {
+              const IconComponent = fact.icon;
               return (
                 <div
                   key={index}
-                  className="group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:translateY-4 cursor-pointer border border-gray-200 dark:border-gray-600"
-                  style={{
-                    animationDelay: `${800 + index * 100}ms`
-                  }}
+                  className={`absolute flex items-center space-x-3 transition-all duration-1000 ${
+                    index === currentFact ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                  }`}
                 >
-                  <div className={`w-12 h-12 bg-gradient-to-br ${highlight.color} rounded-xl flex items-center justify-center text-white mb-4 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
-                    <IconComponent size={20} />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
-                    {highlight.title}
-                  </h4>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {highlight.description}
+                  <IconComponent className={fact.color} size={24} />
+                  <p className="text-lg text-gray-600 dark:text-gray-300 font-medium">
+                    {fact.text}
                   </p>
-                  
-                  {/* Interactive Border */}
-                  <div className={`mt-4 h-1 bg-gradient-to-r ${highlight.color} rounded-full transform origin-left transition-transform duration-500 group-hover:scale-x-100 scale-x-0`} />
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* Floating Action Elements */}
-        <div className="absolute top-1/2 left-10 transform -translate-y-1/2 opacity-20 dark:opacity-10">
-          <div className="w-32 h-32 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full animate-pulse" />
+        {/* Interactive Stats */}
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div className="text-3xl font-bold text-purple-600 mb-2">{countingStats.projects}+</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Projects Built</div>
+          </div>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div className="text-3xl font-bold text-blue-600 mb-2">{countingStats.technologies}+</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Technologies</div>
+          </div>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div className="text-3xl font-bold text-amber-600 mb-2">{countingStats.coffees}+</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Cups of Coffee</div>
+          </div>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div className="text-3xl font-bold text-green-600 mb-2">{Math.floor(countingStats.linesOfCode / 1000)}K+</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Lines of Code</div>
+          </div>
         </div>
-        <div className="absolute bottom-20 right-10 opacity-20 dark:opacity-10">
-          <div className="w-24 h-24 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full animate-bounce" />
+
+        {/* Interactive Tabs */}
+        <div className={`transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          {/* Tab Navigation */}
+          <div className="flex justify-center mb-8">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-2 shadow-lg">
+              {['story', 'personality', 'journey'].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
+                    activeTab === tab
+                      ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400'
+                  }`}
+                >
+                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tab Content */}
+          <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700 min-h-[400px]">
+            <div className="transition-all duration-500">
+              {tabContent[activeTab]}
+            </div>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className={`text-center mt-16 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-8 text-white">
+            <h3 className="text-2xl font-bold mb-4 flex items-center justify-center">
+              <Rocket className="mr-3" size={28} />
+              Ready to Build Something Amazing Together?
+            </h3>
+            <p className="text-lg mb-6 opacity-90">
+              I'm always excited to work on new projects and collaborate with amazing people
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button 
+                onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-white text-purple-600 px-8 py-3 rounded-2xl font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+              >
+                View My Work
+              </button>
+              <button 
+                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="border-2 border-white text-white px-8 py-3 rounded-2xl font-bold hover:bg-white hover:text-purple-600 transform hover:scale-105 transition-all duration-300"
+              >
+                Get In Touch
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
