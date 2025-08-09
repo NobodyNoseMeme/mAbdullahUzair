@@ -246,10 +246,11 @@ const Skills = () => {
     const handleKeyDown = (e) => {
       const key = e.key.toUpperCase();
       setPressedKeys(prev => new Set(prev).add(key));
-      
+
       // Find skill for this key
       const keyData = keyboardLayout.flat().find(k => k.key === key && k.skill);
-      if (keyData) {
+      console.log('Key pressed:', key, 'Found keyData:', keyData); // Debug log
+      if (keyData && keyData.skill) {
         setSelectedSkill(keyData.skill);
         setTypedText(prev => prev + key);
         
