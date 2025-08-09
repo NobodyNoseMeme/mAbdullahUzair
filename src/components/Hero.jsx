@@ -11,7 +11,12 @@ const Hero = () => {
   useEffect(() => {
     setIsVisible(true);
 
-    // Optimized mouse tracking with throttling
+    // Disable mouse tracking on mobile for better performance
+    if (window.innerWidth <= 768 || 'ontouchstart' in window) {
+      return;
+    }
+
+    // Optimized mouse tracking with throttling for desktop only
     let animationFrame;
     const handleMouseMove = (e) => {
       if (animationFrame) return;
@@ -19,8 +24,8 @@ const Hero = () => {
         const rect = document.getElementById('hero')?.getBoundingClientRect();
         if (rect) {
           setMousePosition({
-            x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
-            y: ((e.clientY - rect.top) / rect.height - 0.5) * 2
+            x: ((e.clientX - rect.left) / rect.width - 0.5) * 1.5, // Reduced intensity
+            y: ((e.clientY - rect.top) / rect.height - 0.5) * 1.5
           });
         }
         animationFrame = null;
