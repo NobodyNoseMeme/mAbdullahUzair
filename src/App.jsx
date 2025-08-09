@@ -142,9 +142,10 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 relative">
+      <GlobalParticles />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <About />
         <Skills />
