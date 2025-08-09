@@ -622,7 +622,7 @@ const Skills = () => {
                           <span className="font-bold text-lg" style={{ color: category.color }}>{avgLevel}%</span>
                         </div>
 
-                        <div className="w-full bg-gray-700 rounded-full h-3 mb-4">
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-4">
                           <div
                             className="h-full rounded-full transition-all duration-1000 group-hover:animate-pulse"
                             style={{
