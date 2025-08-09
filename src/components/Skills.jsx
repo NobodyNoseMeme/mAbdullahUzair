@@ -420,24 +420,18 @@ const Skills = () => {
             </button>
           </div>
 
-          {!isMobile && (
-            <div className="flex items-center space-x-2 bg-gray-800/80 backdrop-blur-md rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 border border-gray-600">
-              <button
-                onClick={() => setAutoRotate(!autoRotate)}
-                className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm ${
-                  autoRotate ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300'
-                }`}
-              >
-                {autoRotate ? <Play size={14} /> : <Pause size={14} />} 3D
-              </button>
-              <button
-                onClick={resetRotation}
-                className="p-1 rounded hover:bg-gray-700 transition-colors duration-200"
-              >
-                <RotateCcw size={14} className="text-gray-300" />
-              </button>
-            </div>
-          )}
+          <div className="flex items-center space-x-2 bg-gray-800/80 backdrop-blur-md rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 border border-gray-600">
+            <button
+              onClick={resetRotation}
+              className="p-1 rounded hover:bg-gray-700 transition-colors duration-200 flex items-center space-x-1"
+            >
+              <RotateCcw size={14} className="text-gray-300" />
+              <span className="text-gray-300 text-xs hidden sm:inline">Reset</span>
+            </button>
+            <span className="text-gray-400 text-xs">
+              {isMobile ? '👆 Drag to rotate' : '🖱️ Drag to rotate'}
+            </span>
+          </div>
         </div>
 
         {/* Typed Text Display */}
