@@ -5,26 +5,9 @@ import { Button } from '@/components/ui/button.jsx';
 const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      
-      // Update active section based on scroll position
-      const sections = ['hero', 'about', 'skills', 'experience', 'projects', 'education', 'contact'];
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -223,4 +206,3 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 };
 
 export default Navbar;
-
