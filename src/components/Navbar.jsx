@@ -63,7 +63,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+            <div className="hidden lg:flex items-center space-x-2">
               {navItems.map((item) => {
                 const IconComponent = item.icon;
                 return (
