@@ -71,6 +71,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                     key={item.id}
                     onClick={() => scrollToSection(`#${item.id}`)}
                     className="px-4 py-2 rounded-xl font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                    style={{display: 'flex', alignItems: 'center', minWidth: 'fit-content', height: 'auto'}}
                   >
                     <IconComponent size={16} className="mr-2" />
                     {item.label}
