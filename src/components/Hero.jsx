@@ -188,19 +188,26 @@ const Hero = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 sm:mb-8 leading-tight px-4 cursor-default transform transition-all duration-500"
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold mb-6 sm:mb-8 leading-tight px-4 cursor-default transform transition-all duration-500"
               style={{
                 fontFamily: "'Playfair Display', 'Crimson Text', 'Cormorant Garamond', serif",
                 fontWeight: 800,
                 letterSpacing: '-0.02em',
-                textShadow: '0 4px 8px rgba(0,0,0,0.3), 0 0 30px rgba(147, 51, 234, 0.2)',
               }}
           >
-            <span className="inline-block transform transition-all duration-300 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent animate-pulse">
+            <span className="inline-block transform transition-all duration-300 text-transparent bg-gradient-to-r from-purple-700 via-blue-700 to-cyan-700 dark:from-purple-400 dark:via-blue-400 dark:to-cyan-400 bg-clip-text"
+                  style={{
+                    textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                    WebkitTextStroke: '0.5px rgba(0,0,0,0.2)',
+                  }}>
               Hi, I'm Muhammad
             </span>
             <br className="block sm:hidden" />
-            <span className="inline-block transform transition-all duration-300 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="inline-block transform transition-all duration-300 text-transparent bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text"
+                  style={{
+                    textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                    WebkitTextStroke: '0.5px rgba(0,0,0,0.2)',
+                  }}>
               Abdullah Uzair
             </span>
           </h1>
