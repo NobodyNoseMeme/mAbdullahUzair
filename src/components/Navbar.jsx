@@ -145,25 +145,15 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             <div className="px-3 sm:px-4 py-4 sm:py-6 space-y-1 sm:space-y-2 max-h-[70vh] overflow-y-auto">
               {navItems.map((item, index) => {
                 const IconComponent = item.icon;
-                const isActive = activeSection === item.id;
                 return (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(`#${item.id}`)}
-                    className={`group w-full flex items-center space-x-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-medium transition-all duration-300 transform hover:scale-105 text-sm sm:text-base ${
-                      isActive
-                        ? 'text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    }`}
+                    className="group w-full flex items-center space-x-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-medium transition-all duration-300 transform hover:scale-105 text-sm sm:text-base text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <IconComponent size={18} className={`sm:w-5 sm:h-5 transform group-hover:scale-110 transition-transform duration-300 ${isActive ? 'text-white' : ''}`} />
+                    <IconComponent size={18} className="sm:w-5 sm:h-5 transform group-hover:scale-110 transition-transform duration-300" />
                     <span>{item.label}</span>
-                    
-                    {/* Active indicator */}
-                    {isActive && (
-                      <div className="ml-auto w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse" />
-                    )}
                   </button>
                 );
               })}
