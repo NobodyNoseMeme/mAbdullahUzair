@@ -17,10 +17,10 @@ const Contact = () => {
   const sectionRef = useRef(null);
 
   const inspirationalQuotes = [
-    { text: "Every great project starts with a simple conversation", icon: Coffee },
-    { text: "Let's turn your vision into digital reality", icon: Rocket },
-    { text: "Collaboration creates extraordinary outcomes", icon: Star },
-    { text: "Your ideas + My skills = Amazing results", icon: Zap }
+    { text: "Every great project starts with a simple conversation", icon: MessageSquare },
+    { text: "Let's turn your vision into digital reality", icon: TrendingUp },
+    { text: "Collaboration creates extraordinary outcomes", icon: Users },
+    { text: "Your ideas + My skills = Amazing results", icon: ArrowRight }
   ];
 
   useEffect(() => {
