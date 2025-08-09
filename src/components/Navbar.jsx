@@ -121,7 +121,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 onClick={() => setIsOpen(!isOpen)}
                 variant="ghost"
                 size="sm"
-                className="md:hidden w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 transform hover:scale-110"
+                className="lg:hidden w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 transform hover:scale-110"
               >
                 {isOpen ? (
                   <X size={16} className="sm:w-[18px] sm:h-[18px] text-gray-700 dark:text-gray-300" />
