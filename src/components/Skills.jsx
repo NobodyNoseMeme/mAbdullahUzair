@@ -648,7 +648,7 @@ const Skills = () => {
                     </div>
 
                     {/* Back Side - Skills List */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border border-gray-700 p-6 flex flex-col" style={{ background: `linear-gradient(135deg, ${category.color}10, ${category.color}05)` }}>
+                    <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6 flex flex-col bg-white dark:bg-gray-800" style={{ background: `linear-gradient(135deg, ${category.color}10, ${category.color}05)` }}>
                       <div className="flex items-center mb-4">
                         <div
                           className="w-8 h-8 rounded-lg flex items-center justify-center mr-3"
@@ -656,7 +656,7 @@ const Skills = () => {
                         >
                           <IconComponent size={20} style={{ color: category.color }} />
                         </div>
-                        <h4 className="text-white font-bold text-lg">{category.name}</h4>
+                        <h4 className="text-gray-900 dark:text-white font-bold text-base sm:text-lg">{category.name}</h4>
                       </div>
 
                       <div className="space-y-3 flex-1 overflow-y-auto">
