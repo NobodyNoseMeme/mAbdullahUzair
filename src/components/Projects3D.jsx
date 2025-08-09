@@ -408,10 +408,10 @@ const Projects3D = () => {
                         isActive ? 'border-purple-500 scale-110' : 'border-gray-200 dark:border-gray-700 scale-95'
                       } ${hoveredCard === index ? 'scale-105' : ''}`}
                       style={{
-                        boxShadow: isActive 
-                          ? '0 25px 50px rgba(147, 51, 234, 0.3), 0 0 0 1px rgba(147, 51, 234, 0.1)' 
+                        boxShadow: isActive
+                          ? '0 25px 50px rgba(147, 51, 234, 0.3), 0 0 0 1px rgba(147, 51, 234, 0.1)'
                           : '0 15px 30px rgba(0,0,0,0.2)',
-                        transform: `rotateY(${((angle * (180 / Math.PI)) || 0).toFixed(2)}deg)` // Always face forward
+                        transform: `rotateY(${((-angle * (180 / Math.PI)) || 0).toFixed(2)}deg)` // Always face forward
                       }}
                     >
                       {/* Project Image/Preview */}
