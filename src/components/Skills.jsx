@@ -518,11 +518,9 @@ const Skills = () => {
                                   oscillator.start(audio.currentTime);
                                   oscillator.stop(audio.currentTime + 0.2);
                                 } catch (error) {
-                                  console.log('Audio error:', error);
+                                  // Ignore audio errors
                                 }
                               }
-                            } else {
-                              console.log('No skill found for key:', keyData.key);
                             }
                           }}
                           style={{
