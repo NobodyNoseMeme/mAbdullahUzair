@@ -206,22 +206,27 @@ const Contact = () => {
                 })}
               </div>
 
-              {/* Fun Interactive Element */}
+              {/* Professional Networking */}
               <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-6 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-black/10 rounded-3xl" />
                 <div className="relative z-10">
                   <div className="flex items-center mb-4">
-                    <Heart className="mr-3 text-pink-200 animate-pulse" size={24} />
-                    <h3 className="text-xl font-bold">Coffee Chat?</h3>
+                    <Users className="mr-3 text-blue-200" size={24} />
+                    <h3 className="text-xl font-bold">Let's Connect</h3>
                   </div>
                   <p className="text-purple-100 leading-relaxed mb-4">
-                    I'm always up for a good conversation about tech, projects, or just life in general. 
-                    Prefer meeting in person? Let's grab a coffee in Lahore!
+                    I'm always interested in discussing new technologies, project collaborations, and professional opportunities.
+                    Based in Lahore and available for meetings.
                   </p>
-                  <div className="flex space-x-2">
-                    <Coffee className="text-yellow-200" size={20} />
-                    <Rocket className="text-green-200" size={20} />
-                    <Star className="text-yellow-200" size={20} />
+                  <div className="flex items-center space-x-4">
+                    <span className="flex items-center text-sm text-purple-200">
+                      <TrendingUp className="mr-2" size={16} />
+                      Professional Growth
+                    </span>
+                    <span className="flex items-center text-sm text-purple-200">
+                      <ArrowRight className="mr-2" size={16} />
+                      Collaboration Ready
+                    </span>
                   </div>
                 </div>
               </div>
