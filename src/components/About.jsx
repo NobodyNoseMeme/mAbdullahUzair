@@ -13,12 +13,12 @@ const About = () => {
   });
   const sectionRef = useRef(null);
 
-  const funFacts = [
-    { icon: Coffee, text: "I've consumed 500+ cups of coffee while coding", color: "text-amber-600" },
-    { icon: Code, text: "Written over 10,000 lines of code this year", color: "text-green-600" },
-    { icon: Star, text: "Debugged code at 3 AM more times than I can count", color: "text-purple-600" },
-    { icon: Rocket, text: "Turned 5+ crazy ideas into working applications", color: "text-blue-600" },
-    { icon: Heart, text: "Fall in love with clean code and elegant solutions", color: "text-red-600" }
+  const achievements = [
+    { icon: Code, text: "Written over 10,000 lines of production code", color: "text-green-600" },
+    { icon: CheckCircle, text: "Delivered 50+ successful projects and features", color: "text-blue-600" },
+    { icon: Award, text: "Maintaining 3.6 CGPA in Software Engineering", color: "text-purple-600" },
+    { icon: TrendingUp, text: "Specialized in full-stack web development", color: "text-indigo-600" },
+    { icon: Monitor, text: "Focus on clean code and efficient solutions", color: "text-cyan-600" }
   ];
 
   const personalityTraits = [
