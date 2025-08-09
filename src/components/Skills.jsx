@@ -480,10 +480,10 @@ const Skills = () => {
 
                 {/* Category Labels */}
                 <div className="flex justify-between mb-2 sm:mb-4 px-2">
-                  <div className="text-xs text-blue-400 font-mono">Frontend</div>
-                  <div className="text-xs text-green-400 font-mono">Backend</div>
-                  <div className="text-xs text-purple-400 font-mono">Database</div>
-                  <div className="text-xs text-orange-400 font-mono">Programming</div>
+                  <div className="text-xs text-blue-600 dark:text-blue-400 font-mono">Frontend</div>
+                  <div className="text-xs text-green-600 dark:text-green-400 font-mono">Backend</div>
+                  <div className="text-xs text-purple-600 dark:text-purple-400 font-mono">Database</div>
+                  <div className="text-xs text-orange-600 dark:text-orange-400 font-mono">Programming</div>
                 </div>
 
                 {/* Keyboard Layout */}
