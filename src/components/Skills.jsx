@@ -376,10 +376,10 @@ const Skills = () => {
           console.log('Hello World');
         </div>
         <div className="absolute bottom-1/3 right-1/4 text-blue-400 font-mono text-xs opacity-20 animate-pulse" style={{ animationDelay: '1s' }}>
-          function() { return true; }
+          {'function() { return true; }'}
         </div>
         <div className="absolute top-1/2 right-1/3 text-purple-400 font-mono text-xs opacity-20 animate-pulse" style={{ animationDelay: '2s' }}>
-          &lt;div className="awesome"&gt;
+          {'<div className="awesome">'}
         </div>
       </div>
 
