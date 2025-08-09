@@ -687,7 +687,7 @@ const Skills = () => {
                                   }}
                                 />
                               </div>
-                              <div className="flex justify-between mt-1 text-xs text-gray-400">
+                              <div className="flex justify-between mt-1 text-xs text-gray-500 dark:text-gray-400">
                                 <span>{skill.years} year{skill.years !== 1 ? 's' : ''}</span>
                                 <span>{skill.projects} projects</span>
                               </div>
