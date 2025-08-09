@@ -614,8 +614,8 @@ const Skills = () => {
                         >
                           <IconComponent size={32} style={{ color: category.color }} />
                         </div>
-                        <h4 className="text-white font-bold text-xl mb-2">{category.name}</h4>
-                        <p className="text-gray-300 text-sm mb-4">{category.description}</p>
+                        <h4 className="text-gray-900 dark:text-white font-bold text-lg sm:text-xl mb-2">{category.name}</h4>
+                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{category.description}</p>
 
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-gray-400 text-sm">Average Level:</span>
