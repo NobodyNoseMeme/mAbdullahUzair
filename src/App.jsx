@@ -38,68 +38,78 @@ function App() {
     }
   }, [darkMode]);
 
-  // Enhanced cursor trail effect with better performance - disabled on mobile
+  // Optimized cursor effect with better performance
   useEffect(() => {
-    // Disable cursor effects on mobile for better performance
-    if (window.innerWidth <= 768) return;
+    // Disable cursor effects on mobile devices
+    if (window.innerWidth <= 768 || 'ontouchstart' in window) return;
 
     let lastTime = 0;
-    const throttleDelay = 16; // ~60fps for better mobile performance
+    const throttleDelay = 32; // ~30fps for smoother performance
     let trailPool = [];
-    const maxTrails = 8; // Reduced for mobile performance
+    const maxTrails = 5; // Reduced trail count
 
     const createTrail = (e) => {
       const now = performance.now();
       if (now - lastTime < throttleDelay) return;
       lastTime = now;
 
-      // Reuse existing trail elements for better performance
       let trail = trailPool.pop();
       if (!trail) {
         trail = document.createElement('div');
         trail.className = 'cursor-trail';
+        trail.style.cssText = `
+          position: fixed;
+          width: 6px;
+          height: 6px;
+          background: rgba(147, 51, 234, 0.4);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          transform: translate(-50%, -50%);
+        `;
       }
 
       trail.style.left = e.clientX + 'px';
       trail.style.top = e.clientY + 'px';
       trail.style.opacity = '1';
-      trail.style.transform = 'translate(-50%, -50%) scale(1)';
-      
+
       document.body.appendChild(trail);
-      
-      // Use requestAnimationFrame for smooth animation
-      requestAnimationFrame(() => {
-        trail.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        trail.style.opacity = '0';
-        trail.style.transform = 'translate(-50%, -50%) scale(0.1)';
-        
-        setTimeout(() => {
-          if (document.body.contains(trail)) {
-            document.body.removeChild(trail);
-            if (trailPool.length < maxTrails) {
-              trailPool.push(trail);
+
+      setTimeout(() => {
+        if (document.body.contains(trail)) {
+          trail.style.opacity = '0';
+          trail.style.transform = 'translate(-50%, -50%) scale(0.3)';
+          trail.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+
+          setTimeout(() => {
+            if (document.body.contains(trail)) {
+              document.body.removeChild(trail);
+              if (trailPool.length < maxTrails) {
+                trailPool.push(trail);
+              }
             }
-          }
-        }, 600);
-      });
+          }, 400);
+        }
+      }, 50);
     };
 
-    // Add smooth cursor following effect
+    // Simpler cursor
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
     cursor.style.cssText = `
       position: fixed;
-      width: 22px;
-      height: 22px;
-      background: radial-gradient(circle, rgba(147, 51, 234, 0.9) 0%, rgba(59, 130, 246, 0.7) 70%, transparent 100%);
+      width: 18px;
+      height: 18px;
+      background: rgba(147, 51, 234, 0.6);
       border-radius: 50%;
       pointer-events: none;
       z-index: 10000;
-      transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.1s ease-out;
       transform: translate(-50%, -50%);
-      border: 1px solid rgba(147, 51, 234, 0.2);
+      border: 1px solid rgba(147, 51, 234, 0.3);
     `;
     document.body.appendChild(cursor);
+    document.body.style.cursor = 'none';
 
     const updateCursor = (e) => {
       cursor.style.left = e.clientX + 'px';
@@ -108,17 +118,16 @@ function App() {
 
     document.addEventListener('mousemove', createTrail, { passive: true });
     document.addEventListener('mousemove', updateCursor, { passive: true });
-    
+
     return () => {
       document.removeEventListener('mousemove', createTrail);
       document.removeEventListener('mousemove', updateCursor);
       document.body.style.cursor = 'auto';
-      
-      // Clean up cursor and trails
+
       if (document.body.contains(cursor)) {
         document.body.removeChild(cursor);
       }
-      
+
       const trails = document.querySelectorAll('.cursor-trail');
       trails.forEach(trail => {
         if (document.body.contains(trail)) {
@@ -141,7 +150,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300" style={{ cursor: window.innerWidth <= 768 || 'ontouchstart' in window ? 'auto' : 'none' }}>
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <Hero />
