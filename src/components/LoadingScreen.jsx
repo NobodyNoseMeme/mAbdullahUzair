@@ -9,12 +9,12 @@ const LoadingScreen = ({ onComplete }) => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(() => onComplete(), 500);
+          setTimeout(() => onComplete(), 200);
           return 100;
         }
-        return prev + 2;
+        return prev + 5; // Faster loading
       });
-    }, 50);
+    }, 30); // Faster interval
 
     // Update loading text
     const textInterval = setInterval(() => {
@@ -91,4 +91,3 @@ const LoadingScreen = ({ onComplete }) => {
 };
 
 export default LoadingScreen;
-
