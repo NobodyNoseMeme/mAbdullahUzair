@@ -66,33 +66,21 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             <div className="hidden md:flex items-center space-x-1">
               {navItems.map((item) => {
                 const IconComponent = item.icon;
-                const isActive = activeSection === item.id;
                 return (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(`#${item.id}`)}
-                    className={`group relative px-2 lg:px-4 py-2 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 text-sm lg:text-base ${
-                      isActive
-                        ? 'text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    }`}
+                    className="group relative px-2 lg:px-4 py-2 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 text-sm lg:text-base text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
                     <div className="flex items-center space-x-1 lg:space-x-2">
-                      <IconComponent size={14} className={`lg:hidden transform group-hover:scale-110 transition-transform duration-300 ${isActive ? 'text-white' : ''}`} />
-                      <IconComponent size={16} className={`hidden lg:block transform group-hover:scale-110 transition-transform duration-300 ${isActive ? 'text-white' : ''}`} />
+                      <IconComponent size={14} className="lg:hidden transform group-hover:scale-110 transition-transform duration-300" />
+                      <IconComponent size={16} className="hidden lg:block transform group-hover:scale-110 transition-transform duration-300" />
                       <span className="hidden lg:block">{item.label}</span>
                       <span className="lg:hidden text-xs">{item.label.slice(0, 4)}</span>
                     </div>
-                    
-                    {/* Active indicator */}
-                    {isActive && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 lg:w-2 lg:h-2 bg-white rounded-full animate-pulse" />
-                    )}
-                    
+
                     {/* Hover effect */}
-                    {!isActive && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-                    )}
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
                   </button>
                 );
               })}
