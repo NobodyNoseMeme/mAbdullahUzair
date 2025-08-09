@@ -291,12 +291,13 @@ const Projects3D = () => {
     setIsAutoPlaying(false);
   };
 
-  // Auto-play functionality
+  // Auto-play functionality - slower on mobile for better performance
   useEffect(() => {
     if (isAutoPlaying) {
+      const interval = window.innerWidth <= 768 ? 6000 : 4000; // Slower on mobile
       autoPlayRef.current = setInterval(() => {
         nextProject();
-      }, 4000);
+      }, interval);
     } else {
       clearInterval(autoPlayRef.current);
     }
