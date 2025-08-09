@@ -77,10 +77,10 @@ const About = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Rotate fun facts
+  // Rotate achievements
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentFact((prev) => (prev + 1) % funFacts.length);
+      setCurrentFact((prev) => (prev + 1) % achievements.length);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
