@@ -45,7 +45,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             </div>
 
             {/* Desktop Navigation - Forced Visibility */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:flex items-center">
               <div className="flex items-center space-x-1">
                 <a 
                   href="#hero" 
