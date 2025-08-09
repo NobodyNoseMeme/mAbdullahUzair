@@ -365,12 +365,12 @@ const Contact = () => {
                   </Button>
                 </form>
 
-                {/* Fun Message Counter */}
+                {/* Message Counter */}
                 <div className="mt-6 text-center">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Character count: {formData.message.length} | 
-                    <span className="text-purple-600 ml-1">
-                      {formData.message.length > 100 ? 'Perfect length! 🎉' : 'A bit more detail would be great! 💪'}
+                    Character count: {formData.message.length} |
+                    <span className="text-blue-600 ml-1">
+                      {formData.message.length > 100 ? 'Detailed message' : 'More details recommended'}
                     </span>
                   </p>
                 </div>
