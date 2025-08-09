@@ -343,7 +343,7 @@ const Skills = () => {
           style={{ color: skill.color }} 
           className="mb-1" 
         />
-        <span className="text-xs text-gray-300 text-center leading-tight">
+        <span className="text-xs text-gray-600 dark:text-gray-300 text-center leading-tight">
           {keyData.label}
         </span>
         <div 
