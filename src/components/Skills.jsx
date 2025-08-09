@@ -513,9 +513,8 @@ const Skills = () => {
 
                 {/* Status LEDs */}
                 <div className="flex justify-end space-x-2 mt-4">
-                  <div className={`w-2 h-2 rounded-full ${isTypingMode ? 'bg-green-400' : 'bg-gray-600'}`} />
-                  <div className={`w-2 h-2 rounded-full ${soundEnabled ? 'bg-blue-400' : 'bg-gray-600'}`} />
-                  <div className={`w-2 h-2 rounded-full ${autoRotate ? 'bg-purple-400' : 'bg-gray-600'}`} />
+                  <div className={`w-2 h-2 rounded-full ${isTypingMode ? 'bg-green-400' : 'bg-gray-400 dark:bg-gray-600'}`} />
+                  <div className={`w-2 h-2 rounded-full ${soundEnabled ? 'bg-blue-400' : 'bg-gray-400 dark:bg-gray-600'}`} />
                 </div>
               </div>
             </div>
