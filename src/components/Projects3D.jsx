@@ -54,7 +54,7 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'Completed',
       rating: 4.6,
-      year: '2025',
+      year: '2024',
       gradient: 'from-blue-500 via-cyan-500 to-teal-500',
       category: 'Professional Web'
     },
@@ -74,7 +74,7 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'Completed',
       rating: 4.7,
-      year: '2025',
+      year: '2024',
       gradient: 'from-green-500 via-emerald-500 to-teal-500',
       category: 'Landing Page'
     },
@@ -94,7 +94,7 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'Completed',
       rating: 4.5,
-      year: '2025',
+      year: '2024',
       gradient: 'from-orange-500 via-red-500 to-pink-500',
       category: 'Corporate Web'
     },
@@ -114,13 +114,53 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'Completed',
       rating: 4.4,
-      year: '2025',
+      year: '2024',
       gradient: 'from-indigo-500 via-purple-500 to-pink-500',
       category: 'Sports Web'
     },
     {
+      title: 'Talha Portfolio',
+      description: 'Modern and elegant portfolio website showcasing creative design and development skills. Built with attention to detail and user experience.',
+      image: '/api/placeholder/600/400',
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'Animation'],
+      features: [
+        'Creative design aesthetics',
+        'Smooth scroll animations',
+        'Interactive elements',
+        'Mobile responsive',
+        'Fast loading'
+      ],
+      liveUrl: 'https://talhakhalil.netlify.app/',
+      githubUrl: 'https://github.com/NobodyNoseMeme/Talha-Portfolio',
+      status: 'Completed',
+      rating: 4.6,
+      year: '2024',
+      gradient: 'from-cyan-500 via-blue-500 to-indigo-500',
+      category: 'Portfolio'
+    },
+    {
+      title: 'Abdullah Portfolio',
+      description: 'Personal portfolio website showcasing projects and skills with modern design patterns. Features clean UI/UX and optimized performance.',
+      image: '/api/placeholder/600/400',
+      technologies: ['React.js', 'CSS3', 'JavaScript', 'Responsive Design', 'Vercel'],
+      features: [
+        'Modern UI/UX design',
+        'Project showcase',
+        'Skills visualization',
+        'Contact integration',
+        'SEO optimized'
+      ],
+      liveUrl: 'https://abdullahcodes.vercel.app/',
+      githubUrl: 'https://github.com/mabdullahuzair/AbdullahUzair',
+      status: 'Completed',
+      rating: 4.8,
+      year: '2024',
+      gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
+      category: 'Portfolio'
+    },
+    {
       title: 'SignalForge',
-      description: 'Automate SEO Signal Building with AI. Stop wasting time on manual submissions. SignalForge finds top directories, creates accounts, and submits listings for you. 100% free.',
+      description: 'Automate SEO Signal Building with AI. Stop wasting time on manual submissions. SignalForge finds top directories, creates accounts, and submits listings for you.',
       image: '/api/placeholder/600/400',
       technologies: ['React.js', 'Node.js', 'AI/ML', 'Automation', 'SEO', 'API Integration'],
       features: [
@@ -134,29 +174,9 @@ const Projects3D = () => {
       githubUrl: '#',
       status: 'Completed',
       rating: 4.7,
-      year: '2025',
+      year: '2024',
       gradient: 'from-green-500 via-blue-500 to-purple-500',
       category: 'AI Automation'
-    },
-    {
-      title: 'HackerFolio',
-      description: 'Amazing hackdesign portfolio site with modern UI/UX and innovative design patterns. Showcases advanced React development skills.',
-      image: '/api/placeholder/600/400',
-      technologies: ['React.js', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
-      features: [
-        'Modern hack design aesthetics',
-        'Interactive animations',
-        'Dark/Light theme toggle',
-        'Responsive layout',
-        'Performance optimized'
-      ],
-      liveUrl: 'https://abdullahcodes.vercel.app/',
-      githubUrl: 'https://github.com/mabdullahuzair/HackerFolio',
-      status: 'Completed',
-      rating: 4.9,
-      year: '2025',
-      gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
-      category: 'Portfolio'
     }
   ];
 
