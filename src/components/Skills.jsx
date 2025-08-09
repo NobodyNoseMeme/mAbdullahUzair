@@ -678,7 +678,7 @@ const Skills = () => {
                                 </div>
                                 <span className="text-xs" style={{ color: skill.color }}>{skill.level}%</span>
                               </div>
-                              <div className="w-full bg-gray-600 rounded-full h-1.5">
+                              <div className="w-full bg-gray-300 dark:bg-gray-600 rounded-full h-1.5">
                                 <div
                                   className="h-full rounded-full transition-all duration-500"
                                   style={{
