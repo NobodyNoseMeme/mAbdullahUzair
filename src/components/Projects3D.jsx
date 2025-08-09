@@ -374,7 +374,7 @@ const Projects3D = () => {
           {/* Main 3D Carousel - Optimized for mobile */}
           <div className="relative w-full h-[350px] md:h-[600px] mx-auto flex items-center justify-center perspective-1000 touch-pan-x">
             <div
-              className={`relative w-40 h-40 md:w-56 md:h-56 transition-transform duration-300 md:duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
+              className={`relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 transition-transform duration-300 md:duration-700 ease-out ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} select-none`}
               style={{
                 transformStyle: 'preserve-3d',
                 transform: window.innerWidth > 768 ?
