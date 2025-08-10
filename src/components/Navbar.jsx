@@ -44,9 +44,9 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
               </div>
             </div>
 
-            {/* Desktop Navigation - Forced Visibility */}
-            <div className="hidden lg:flex items-center" style={{display: 'flex'}}>
-              <div className="flex items-center space-x-1" style={{display: 'flex'}}>
+            {/* Desktop Navigation - Properly hidden on mobile */}
+            <div className="hidden lg:flex items-center">
+              <div className="flex items-center space-x-1">
                 <a
                   href="#hero"
                   onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
