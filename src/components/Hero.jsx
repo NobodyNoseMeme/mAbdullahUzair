@@ -104,7 +104,7 @@ const Hero = () => {
           }}
         />
         <div
-          className="absolute bottom-20 right-20 w-56 h-56 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-15 animate-bounce"
+          className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-5 animate-bounce"
           style={{
             transform: `translate(${(mousePosition.x || 0) * -12}px, ${(mousePosition.y || 0) * -12}px) rotate(${(mousePosition.x || 0) * -6}deg)`,
             transition: 'transform 2.8s cubic-bezier(0.23, 1, 0.32, 1)',
