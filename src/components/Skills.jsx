@@ -822,10 +822,6 @@ const Skills = () => {
 
         <div className="text-center mt-8 sm:mt-12">
           <div className="bg-white/80 dark:bg-black/30 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-300 dark:border-gray-700/50 shadow-lg">
-            <h4 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 font-mono flex items-center justify-center">
-              <Terminal className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-600 dark:text-green-400" />
-              Skills Quick Reference
-            </h4>
             <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mt-3 sm:mt-4">
               🖱️ Drag to rotate • ⌨️ Type to explore • ��� Touch-friendly • 🎯 Click categories to flip
             </p>
