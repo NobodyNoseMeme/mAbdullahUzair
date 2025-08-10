@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Keyboard, Layers, Play, Pause, RotateCw, Eye, EyeOff } from 'lucide-react';
+import { Sparkles, Keyboard, Layers, Play, Pause, RotateCw, Eye, EyeOff, Monitor } from 'lucide-react';
 import Interactive3DKeyboard from './Interactive3DKeyboard';
 import Skills3DCards from './Skills3DCards';
 
