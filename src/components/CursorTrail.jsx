@@ -8,20 +8,24 @@ const CursorTrail = () => {
     if (window.innerWidth <= 768 || 'ontouchstart' in window) return;
 
     let animationFrame;
-    
+    let lastUpdate = 0;
+    const throttleDelay = 16; // ~60fps
+
     const handleMouseMove = (e) => {
-      if (animationFrame) return;
-      
+      const now = Date.now();
+      if (animationFrame || now - lastUpdate < throttleDelay) return;
+
+      lastUpdate = now;
       animationFrame = requestAnimationFrame(() => {
         setTrail(prevTrail => {
           const newTrail = [
-            { 
-              x: e.clientX, 
-              y: e.clientY, 
-              id: Date.now() + Math.random(),
-              timestamp: Date.now()
+            {
+              x: e.clientX,
+              y: e.clientY,
+              id: now,
+              timestamp: now
             },
-            ...prevTrail.slice(0, 8) // Keep only last 8 trail points
+            ...prevTrail.slice(0, 5) // Reduced from 8 to 5 for better performance
           ];
           return newTrail;
         });
@@ -31,13 +35,13 @@ const CursorTrail = () => {
 
     document.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    // Clean up old trail points
+    // Clean up old trail points less frequently
     const cleanupInterval = setInterval(() => {
       const now = Date.now();
-      setTrail(prevTrail => 
-        prevTrail.filter(point => now - point.timestamp < 1000)
+      setTrail(prevTrail =>
+        prevTrail.filter(point => now - point.timestamp < 800) // Reduced from 1000ms
       );
-    }, 100);
+    }, 200); // Reduced frequency from 100ms
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
