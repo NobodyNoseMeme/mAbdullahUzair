@@ -125,9 +125,9 @@ const Hero = () => {
         <div
           className="absolute top-1/4 left-1/3 w-20 h-20 border-4 border-purple-300 opacity-25 animate-spin"
           style={{
-            animationDuration: '20s',
-            transform: `translate(${(mousePosition.x || 0) * 20}px, ${(mousePosition.y || 0) * 20}px) rotate(${(mousePosition.x || 0) * 50}deg)`,
-            transition: 'transform 0.3s ease-out'
+            animationDuration: '40s',
+            transform: `translate(${(mousePosition.x || 0) * 6}px, ${(mousePosition.y || 0) * 6}px) rotate(${(mousePosition.x || 0) * 15}deg)`,
+            transition: 'transform 2.5s cubic-bezier(0.23, 1, 0.32, 1)'
           }}
         />
         <div
