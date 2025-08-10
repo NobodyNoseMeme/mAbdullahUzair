@@ -328,7 +328,7 @@ const Projects3D = () => {
   }, [isAutoPlaying]);
 
   return (
-    <section ref={sectionRef} id="projects" className="py-20 bg-gradient-to-br from-slate-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-slate-900 relative overflow-hidden min-h-screen">
+    <section ref={sectionRef} id="projects" className="py-20 relative overflow-hidden min-h-screen">
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Animated geometric shapes */}
