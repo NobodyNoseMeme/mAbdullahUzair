@@ -110,7 +110,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
               {/* Mobile menu button - only show on mobile/tablet */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-all duration-200 touch-manipulation"
+                className="lg:hidden w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-all duration-200 touch-manipulation"
                 aria-label="Toggle mobile menu"
               >
                 {isOpen ? (
