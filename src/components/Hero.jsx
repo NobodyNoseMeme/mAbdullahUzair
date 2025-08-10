@@ -87,9 +87,9 @@ const Hero = () => {
               left: `${(Math.random() * 100).toFixed(1)}%`,
               top: `${(Math.random() * 100).toFixed(1)}%`,
               animationDelay: `${(Math.random() * 3).toFixed(2)}s`,
-              animationDuration: `${(2 + Math.random() * 2).toFixed(2)}s`,
-              transform: window.innerWidth > 768 ? `translate(${(mousePosition.x || 0) * (8 + i * 2)}px, ${(mousePosition.y || 0) * (8 + i * 2)}px)` : 'none',
-              transition: window.innerWidth > 768 ? 'transform 0.3s ease-out' : 'none'
+              animationDuration: `${(8 + Math.random() * 4).toFixed(2)}s`,
+              transform: window.innerWidth > 768 ? `translate(${(mousePosition.x || 0) * (3 + i * 0.5)}px, ${(mousePosition.y || 0) * (3 + i * 0.5)}px)` : 'none',
+              transition: window.innerWidth > 768 ? 'transform 2.5s cubic-bezier(0.23, 1, 0.32, 1)' : 'none'
             }}
           />
         ))}
