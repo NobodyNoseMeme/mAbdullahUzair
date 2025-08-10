@@ -494,7 +494,9 @@ const Skills = () => {
                         <button
                           key={`${rowIndex}-${keyIndex}`}
                           className={getKeyStyle(keyData)}
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
                             if (keyData.skill) {
                               setSelectedSkill(keyData.skill);
                               setTypedText(prev => prev + keyData.key);
@@ -523,8 +525,26 @@ const Skills = () => {
                               }
                             }
                           }}
+                          onTouchStart={(e) => {
+                            e.preventDefault();
+                            if (keyData.skill) {
+                              setPressedKeys(prev => new Set(prev).add(keyData.key));
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            e.preventDefault();
+                            if (keyData.skill) {
+                              setPressedKeys(prev => {
+                                const newSet = new Set(prev);
+                                newSet.delete(keyData.key);
+                                return newSet;
+                              });
+                            }
+                          }}
                           style={{
-                            borderColor: keyData.skill ? keyData.skill.color : '#6B7280'
+                            borderColor: keyData.skill ? keyData.skill.color : '#6B7280',
+                            touchAction: 'manipulation',
+                            WebkitTapHighlightColor: 'transparent'
                           }}
                         >
                           {getKeyContent(keyData)}
