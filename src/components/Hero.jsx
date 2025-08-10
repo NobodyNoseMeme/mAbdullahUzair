@@ -200,7 +200,7 @@ const Hero = () => {
             transition: 'transform 2.5s cubic-bezier(0.23, 1, 0.32, 1)'
           }}
         >
-          <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-blue-500 opacity-25 transform rotate-45 animate-pulse" />
+          <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-blue-500 opacity-5 transform rotate-45 animate-pulse" />
         </div>
         <div
           className="absolute bottom-16 left-16 transform-3d"
