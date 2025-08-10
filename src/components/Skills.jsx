@@ -514,6 +514,11 @@ const Skills = () => {
           </div>
         )}
 
+        {/* Interactive Skills Keyboard */}
+        <div className={`mt-20 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          <SkillsKeyboard />
+        </div>
+
         {/* Stats Summary */}
         <div className={`mt-20 text-center transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
