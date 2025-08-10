@@ -86,6 +86,25 @@ const ModernSkills = () => {
       ref={sectionRef}
       className="relative min-h-screen overflow-hidden"
     >
+      {/* Mobile Performance Warning */}
+      {showMobileWarning && isMobile && (
+        <div className="fixed top-20 left-4 right-4 z-50 bg-orange-500 text-white p-4 rounded-xl shadow-2xl animate-bounce">
+          <div className="flex items-center space-x-3">
+            <Monitor className="flex-shrink-0" size={24} />
+            <div>
+              <div className="font-bold">Mobile Device Detected</div>
+              <div className="text-sm opacity-90">3D features may run slower on mobile devices. For best experience, use a desktop computer.</div>
+            </div>
+            <button
+              onClick={() => setShowMobileWarning(false)}
+              className="text-white/80 hover:text-white"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Header with controls */}
       <div className={`relative z-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
