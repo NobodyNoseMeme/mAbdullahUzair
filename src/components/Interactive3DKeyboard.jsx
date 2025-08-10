@@ -84,7 +84,7 @@ function Key({ letter, position, isActive, onKeyPress, isPressed }) {
         color={isActive ? '#ffffff' : '#cccccc'}
         anchorX="center"
         anchorY="middle"
-        font="/fonts/roboto-bold.woff"
+
       >
         {letter}
       </Text>
@@ -187,7 +187,7 @@ function SkillCard({ skill, visible }) {
         color="#ffffff"
         anchorX="center"
         anchorY="middle"
-        font="/fonts/roboto-bold.woff"
+
         maxWidth={3.5}
       >
         {skill.name}
