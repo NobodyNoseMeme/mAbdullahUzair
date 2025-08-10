@@ -144,7 +144,7 @@ const Hero = () => {
         {[...Array(6)].map((_, i) => (
           <div
             key={`hero-ring-${i}`}
-            className="absolute border-3 border-purple-300 rounded-full opacity-15 animate-spin"
+            className="absolute border-1 border-purple-300 rounded-full opacity-5 animate-spin"
             style={{
               width: `${100 + i * 50}px`,
               height: `${100 + i * 50}px`,
