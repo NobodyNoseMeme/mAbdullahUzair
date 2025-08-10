@@ -122,7 +122,6 @@ const Footer = () => {
               <div className="flex items-center text-gray-400 text-sm mb-4 md:mb-0">
                 <span>© {currentYear} Muhammad Abdullah Uzair. Made with</span>
                 <Heart size={16} className="mx-2 text-red-500 animate-pulse" />
-                <span>and lots of coffee ☕</span>
               </div>
               <div className="text-gray-400 text-sm">
                 <span>Built with React.js & Tailwind CSS</span>
