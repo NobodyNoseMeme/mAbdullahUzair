@@ -45,12 +45,13 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             </div>
 
             {/* Desktop Navigation - Forced Visibility */}
-            <div className="hidden lg:flex items-center">
-              <div className="flex items-center space-x-1">
-                <a 
-                  href="#hero" 
+            <div className="hidden lg:flex items-center" style={{display: 'flex'}}>
+              <div className="flex items-center space-x-1" style={{display: 'flex'}}>
+                <a
+                  href="#hero"
                   onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
                   className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  style={{display: 'inline-block', minWidth: 'fit-content', whiteSpace: 'nowrap'}}
                 >
                   Home
                 </a>
