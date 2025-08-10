@@ -14,21 +14,21 @@ const SpiderWebParticles = () => {
     nodeSize: 2,
     cursorInfluence: 200,
     cursorRepulsion: 80,
-    connectionOpacity: 0.15,
-    nodeOpacity: 0.6,
+    connectionOpacity: window.innerWidth <= 768 ? 0.05 : 0.15,
+    nodeOpacity: window.innerWidth <= 768 ? 0.3 : 0.6,
     speed: 0.5,
     cursorSpeed: 0.08,
     wobbleIntensity: 0.3,
     colors: {
       light: {
-        nodes: 'rgba(59, 130, 246, 0.6)',
-        connections: 'rgba(59, 130, 246, 0.15)',
-        cursorGlow: 'rgba(59, 130, 246, 0.3)'
+        nodes: window.innerWidth <= 768 ? 'rgba(59, 130, 246, 0.3)' : 'rgba(59, 130, 246, 0.6)',
+        connections: window.innerWidth <= 768 ? 'rgba(59, 130, 246, 0.05)' : 'rgba(59, 130, 246, 0.15)',
+        cursorGlow: window.innerWidth <= 768 ? 'rgba(59, 130, 246, 0.15)' : 'rgba(59, 130, 246, 0.3)'
       },
       dark: {
-        nodes: 'rgba(147, 197, 253, 0.8)',
-        connections: 'rgba(147, 197, 253, 0.2)',
-        cursorGlow: 'rgba(147, 197, 253, 0.4)'
+        nodes: window.innerWidth <= 768 ? 'rgba(147, 197, 253, 0.4)' : 'rgba(147, 197, 253, 0.8)',
+        connections: window.innerWidth <= 768 ? 'rgba(147, 197, 253, 0.08)' : 'rgba(147, 197, 253, 0.2)',
+        cursorGlow: window.innerWidth <= 768 ? 'rgba(147, 197, 253, 0.2)' : 'rgba(147, 197, 253, 0.4)'
       }
     }
   };
