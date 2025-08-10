@@ -98,9 +98,9 @@ const Hero = () => {
         <div
           className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-15 animate-pulse"
           style={{
-            transform: `translate(${(mousePosition.x || 0) * 40}px, ${(mousePosition.y || 0) * 40}px) rotate(${(mousePosition.x || 0) * 15}deg)`,
-            transition: 'transform 0.5s ease-out',
-            animationDuration: '4s'
+            transform: `translate(${(mousePosition.x || 0) * 15}px, ${(mousePosition.y || 0) * 15}px) rotate(${(mousePosition.x || 0) * 5}deg)`,
+            transition: 'transform 3s cubic-bezier(0.23, 1, 0.32, 1)',
+            animationDuration: '12s'
           }}
         />
         <div
