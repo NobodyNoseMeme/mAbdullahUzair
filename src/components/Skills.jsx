@@ -819,12 +819,6 @@ const Skills = () => {
           </div>
         )}
 
-        <div className="text-center mt-8 sm:mt-12">
-          <div className="bg-white/80 dark:bg-black/30 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-300 dark:border-gray-700/50 shadow-lg">
-            <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mt-3 sm:mt-4">
-            </p>
-          </div>
-        </div>
       </div>
 
       {/* CSS for 3D effects */}
