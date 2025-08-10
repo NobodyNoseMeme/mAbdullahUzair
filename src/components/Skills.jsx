@@ -218,22 +218,22 @@ const Skills = () => {
       description: 'Core programming languages and paradigms',
       category: 'programming',
       skills: [
-        { 
-          name: 'Python', 
-          level: 75, 
-          years: 1, 
-          projects: 5, 
+        {
+          name: 'Python',
+          level: 75,
+          years: 2,
+          projects: 10, 
           icon: Brain, 
           color: '#3776AB', 
           description: 'Versatile programming language for various applications',
           tags: ['Versatile', 'Data Science', 'Automation'],
           trend: 'up'
         },
-        { 
-          name: 'Machine Learning', 
-          level: 68, 
-          years: 1, 
-          projects: 3, 
+        {
+          name: 'Machine Learning',
+          level: 68,
+          years: 2,
+          projects: 8, 
           icon: Star, 
           color: '#FF6B6B', 
           description: 'AI and data science fundamentals',
