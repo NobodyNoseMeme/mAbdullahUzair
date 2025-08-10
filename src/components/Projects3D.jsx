@@ -514,24 +514,26 @@ const Projects3D = () => {
             </div>
           </div>
 
-          {/* Navigation Controls */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-8">
+          {/* Navigation Controls - Mobile Optimized */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-8 z-40">
             <button
               onClick={prevProject}
               disabled={isTransitioning}
-              className="w-14 h-14 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700 disabled:opacity-50"
+              className="w-10 h-10 sm:w-14 sm:h-14 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700 disabled:opacity-50 touch-manipulation"
+              style={{ touchAction: 'manipulation' }}
             >
-              <ChevronLeft size={24} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
+              <ChevronLeft size={16} className="sm:w-6 sm:h-6 text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
             </button>
           </div>
 
-          <div className="absolute top-1/2 -translate-y-1/2 right-8">
+          <div className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-8 z-40">
             <button
               onClick={nextProject}
               disabled={isTransitioning}
-              className="w-14 h-14 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700 disabled:opacity-50"
+              className="w-10 h-10 sm:w-14 sm:h-14 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center group hover:scale-110 border border-purple-200 dark:border-purple-700 disabled:opacity-50 touch-manipulation"
+              style={{ touchAction: 'manipulation' }}
             >
-              <ChevronRight size={24} className="text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
+              <ChevronRight size={16} className="sm:w-6 sm:h-6 text-gray-700 dark:text-gray-300 group-hover:text-purple-600 transition-colors duration-300" />
             </button>
           </div>
 
