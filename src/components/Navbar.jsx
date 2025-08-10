@@ -55,38 +55,43 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 >
                   Home
                 </a>
-                <a 
-                  href="#about" 
+                <a
+                  href="#about"
                   onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
                   className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  style={{display: 'inline-block', minWidth: 'fit-content', whiteSpace: 'nowrap'}}
                 >
                   About
                 </a>
-                <a 
-                  href="#skills" 
+                <a
+                  href="#skills"
                   onClick={(e) => { e.preventDefault(); scrollToSection('#skills'); }}
                   className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  style={{display: 'inline-block', minWidth: 'fit-content', whiteSpace: 'nowrap'}}
                 >
                   Skills
                 </a>
-                <a 
-                  href="#experience" 
+                <a
+                  href="#experience"
                   onClick={(e) => { e.preventDefault(); scrollToSection('#experience'); }}
                   className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  style={{display: 'inline-block', minWidth: 'fit-content', whiteSpace: 'nowrap'}}
                 >
                   Experience
                 </a>
-                <a 
-                  href="#projects" 
+                <a
+                  href="#projects"
                   onClick={(e) => { e.preventDefault(); scrollToSection('#projects'); }}
                   className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  style={{display: 'inline-block', minWidth: 'fit-content', whiteSpace: 'nowrap'}}
                 >
                   Projects
                 </a>
-                <a 
-                  href="#contact" 
+                <a
+                  href="#contact"
                   onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
                   className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  style={{display: 'inline-block', minWidth: 'fit-content', whiteSpace: 'nowrap'}}
                 >
                   Contact
                 </a>
