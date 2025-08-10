@@ -157,7 +157,7 @@ function SkillCard({ skill, position, categoryColor, isFlipped, onFlip }) {
         color="#ffffff"
         anchorX="center"
         anchorY="middle"
-        font="/fonts/roboto-bold.woff"
+
       >
         {skill.level}%
       </Text>
@@ -286,7 +286,7 @@ function CategoryContainer({ category, categoryData, isDragging, onDragStart, on
         color={categoryData.color}
         anchorX="center"
         anchorY="middle"
-        font="/fonts/roboto-bold.woff"
+
       >
         {categoryData.title}
       </Text>
