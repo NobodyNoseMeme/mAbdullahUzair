@@ -198,18 +198,18 @@ const Contact = () => {
               </div>
               
               <div className="relative z-10">
-                <div className="flex items-center justify-between mb-8">
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-                      <MessageSquare className="mr-3 text-blue-500" size={28} />
-                      Send Me a Message
+                <div className="flex items-center justify-between mb-6 sm:mb-8 min-w-0">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white flex items-center">
+                      <MessageSquare className="mr-2 sm:mr-3 text-blue-500 flex-shrink-0" size={24} />
+                      <span className="truncate">Send Me a Message</span>
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mt-2">
+                    <p className="text-gray-600 dark:text-gray-400 mt-1 sm:mt-2 text-sm sm:text-base">
                       I typically respond within 24 hours
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                    <Mail className="text-blue-600" size={24} />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0 ml-3">
+                    <Mail className="text-blue-600" size={20} />
                   </div>
                 </div>
 
