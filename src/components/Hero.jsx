@@ -134,9 +134,9 @@ const Hero = () => {
           className="absolute bottom-1/3 left-1/4 w-16 h-16 bg-blue-300 opacity-25 animate-bounce"
           style={{
             animationDelay: '0.5s',
-            animationDuration: '2s',
-            transform: `translate(${(mousePosition.x || 0) * -25}px, ${(mousePosition.y || 0) * -25}px) rotate(${(mousePosition.x || 0) * -35}deg)`,
-            transition: 'transform 0.4s ease-out'
+            animationDuration: '8s',
+            transform: `translate(${(mousePosition.x || 0) * -7}px, ${(mousePosition.y || 0) * -7}px) rotate(${(mousePosition.x || 0) * -10}deg)`,
+            transition: 'transform 2.8s cubic-bezier(0.23, 1, 0.32, 1)'
           }}
         />
 
