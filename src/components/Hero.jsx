@@ -184,9 +184,9 @@ const Hero = () => {
           className="absolute top-2/3 left-1/2 text-4xl opacity-15 animate-pulse"
           style={{
             animationDelay: '2s',
-            animationDuration: '6s',
-            transform: `translate(${(mousePosition.x || 0) * 28}px, ${(mousePosition.y || 0) * 28}px) rotate(${(mousePosition.x || 0) * 18}deg)`,
-            transition: 'transform 0.5s ease-out'
+            animationDuration: '18s',
+            transform: `translate(${(mousePosition.x || 0) * 7}px, ${(mousePosition.y || 0) * 7}px) rotate(${(mousePosition.x || 0) * 4}deg)`,
+            transition: 'transform 3s cubic-bezier(0.23, 1, 0.32, 1)'
           }}
         >
           <Globe className="text-green-500" />
