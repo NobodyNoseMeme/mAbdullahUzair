@@ -173,9 +173,9 @@ const Hero = () => {
           className="absolute bottom-1/4 right-1/2 text-4xl opacity-15 animate-bounce"
           style={{
             animationDelay: '1s',
-            animationDuration: '4s',
-            transform: `translate(${(mousePosition.x || 0) * -22}px, ${(mousePosition.y || 0) * -22}px) rotate(${(mousePosition.x || 0) * -12}deg)`,
-            transition: 'transform 0.4s ease-out'
+            animationDuration: '14s',
+            transform: `translate(${(mousePosition.x || 0) * -6}px, ${(mousePosition.y || 0) * -6}px) rotate(${(mousePosition.x || 0) * -3}deg)`,
+            transition: 'transform 2.8s cubic-bezier(0.23, 1, 0.32, 1)'
           }}
         >
           <Database className="text-blue-500" />
