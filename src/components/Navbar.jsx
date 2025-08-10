@@ -125,7 +125,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-700/50">
+          <div className="lg:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-700/50">
             <div className="px-4 py-6 space-y-2">
               <a href="#hero" onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }} className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Home</a>
               <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }} className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">About</a>
