@@ -170,7 +170,7 @@ const Hero = () => {
           <Code className="text-purple-500" />
         </div>
         <div
-          className="absolute bottom-1/4 right-1/2 text-4xl opacity-15 animate-bounce"
+          className="absolute bottom-1/4 right-1/2 text-xl opacity-5 animate-bounce"
           style={{
             animationDelay: '1s',
             animationDuration: '14s',
