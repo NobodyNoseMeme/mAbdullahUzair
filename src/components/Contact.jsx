@@ -97,7 +97,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" ref={sectionRef} className="py-20 bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-800 relative overflow-hidden">
+    <section id="contact" ref={sectionRef} className="py-20 relative overflow-hidden">
       {/* Interactive Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Floating Elements */}
