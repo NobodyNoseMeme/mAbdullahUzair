@@ -162,9 +162,9 @@ const Hero = () => {
         <div
           className="absolute top-1/3 right-1/3 text-5xl opacity-15 animate-pulse"
           style={{
-            transform: `translate(${(mousePosition.x || 0) * 15}px, ${(mousePosition.y || 0) * 15}px) rotate(${(mousePosition.x || 0) * 8}deg)`,
-            transition: 'transform 0.3s ease-out',
-            animationDuration: '3s'
+            transform: `translate(${(mousePosition.x || 0) * 4}px, ${(mousePosition.y || 0) * 4}px) rotate(${(mousePosition.x || 0) * 2}deg)`,
+            transition: 'transform 2.5s cubic-bezier(0.23, 1, 0.32, 1)',
+            animationDuration: '12s'
           }}
         >
           <Code className="text-purple-500" />
