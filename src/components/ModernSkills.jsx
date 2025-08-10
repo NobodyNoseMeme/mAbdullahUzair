@@ -13,6 +13,21 @@ const ModernSkills = () => {
   const switchRef = useRef(null);
 
   useEffect(() => {
+    // Mobile detection
+    const checkMobile = () => {
+      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+        || window.innerWidth < 768;
+      setIsMobile(isMobileDevice);
+
+      if (isMobileDevice) {
+        setShowMobileWarning(true);
+        setTimeout(() => setShowMobileWarning(false), 5000);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -31,6 +46,7 @@ const ModernSkills = () => {
     }, 1000);
 
     return () => {
+      window.removeEventListener('resize', checkMobile);
       observer.disconnect();
       clearTimeout(fallbackTimer);
     };
