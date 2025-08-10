@@ -619,7 +619,7 @@ const Skills = () => {
         )}
 
         {/* Skills Categories Section */}
-        <div className={`mt-16 sm:mt-20 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+        <div className={`mt-8 sm:mt-16 lg:mt-20 transition-all duration-1000 delay-700 relative z-20 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
           <div className="text-center mb-8 sm:mb-12">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
