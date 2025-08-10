@@ -10,20 +10,38 @@ const GlobalParticles = () => {
       return;
     }
 
-    // Optimized mouse tracking with throttling for desktop only
+    // Buttery smooth mouse tracking with proper interpolation
     let animationFrame;
+    let lastTime = 0;
+    let targetPosition = { x: 0, y: 0 };
+    let currentPosition = { x: 0, y: 0 };
+
+    const lerp = (start, end, factor) => start + (end - start) * factor;
+
     const handleMouseMove = (e) => {
-      if (animationFrame) return;
-      animationFrame = requestAnimationFrame(() => {
-        setMousePosition({
-          x: (e.clientX / window.innerWidth - 0.5) * 1.5, // Reduced intensity
-          y: (e.clientY / window.innerHeight - 0.5) * 1.5
-        });
-        animationFrame = null;
-      });
+      targetPosition = {
+        x: (e.clientX / window.innerWidth - 0.5) * 0.8, // Reduced intensity for smoother movement
+        y: (e.clientY / window.innerHeight - 0.5) * 0.8
+      };
+    };
+
+    const animate = (currentTime) => {
+      const deltaTime = currentTime - lastTime;
+      lastTime = currentTime;
+
+      // Smooth interpolation factor (higher = more responsive, lower = smoother)
+      const lerpFactor = Math.min(deltaTime * 0.008, 0.15); // Smooth interpolation
+
+      currentPosition.x = lerp(currentPosition.x, targetPosition.x, lerpFactor);
+      currentPosition.y = lerp(currentPosition.y, targetPosition.y, lerpFactor);
+
+      setMousePosition({ ...currentPosition });
+
+      animationFrame = requestAnimationFrame(animate);
     };
 
     document.addEventListener('mousemove', handleMouseMove, { passive: true });
+    animationFrame = requestAnimationFrame(animate);
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
