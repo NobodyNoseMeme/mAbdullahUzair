@@ -63,7 +63,7 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" ref={sectionRef} className="py-20 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
+    <section id="experience" ref={sectionRef} className="py-20 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-64 h-64 bg-purple-200 dark:bg-purple-900 rounded-full opacity-10 animate-pulse" />
