@@ -73,8 +73,8 @@ const GlobalParticles = () => {
       <div 
         className="absolute top-1/4 left-1/4 w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-purple-400 to-pink-400 dark:from-purple-600 dark:to-pink-600 rounded-full opacity-5 animate-pulse"
         style={{
-          transform: `translate(${(mousePosition.x || 0) * 20}px, ${(mousePosition.y || 0) * 20}px) rotate(${(mousePosition.x || 0) * 5}deg)`,
-          transition: 'transform 0.5s ease-out',
+          transform: `translate(${(mousePosition.x || 0) * 12}px, ${(mousePosition.y || 0) * 12}px) rotate(${(mousePosition.x || 0) * 3}deg)`,
+          transition: 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
           animationDuration: '4s'
         }}
       />
