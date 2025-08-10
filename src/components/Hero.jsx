@@ -24,8 +24,8 @@ const Hero = () => {
         const rect = document.getElementById('hero')?.getBoundingClientRect();
         if (rect) {
           setMousePosition({
-            x: ((e.clientX - rect.left) / rect.width - 0.5) * 1.5, // Reduced intensity
-            y: ((e.clientY - rect.top) / rect.height - 0.5) * 1.5
+            x: ((e.clientX - rect.left) / rect.width - 0.5) * 0.5, // Very reduced intensity for slow movement
+            y: ((e.clientY - rect.top) / rect.height - 0.5) * 0.5
           });
         }
         animationFrame = null;
