@@ -63,8 +63,8 @@ const GlobalParticles = () => {
             top: `${(Math.random() * 100).toFixed(1)}%`,
             animationDelay: `${(Math.random() * 3).toFixed(2)}s`,
             animationDuration: `${(2 + Math.random() * 3).toFixed(2)}s`,
-            transform: window.innerWidth > 768 ? `translate(${(mousePosition.x || 0) * (3 + i)}px, ${(mousePosition.y || 0) * (3 + i)}px)` : 'none',
-            transition: window.innerWidth > 768 ? 'transform 0.3s ease-out' : 'none'
+            transform: window.innerWidth > 768 ? `translate(${(mousePosition.x || 0) * (2 + i * 0.5)}px, ${(mousePosition.y || 0) * (2 + i * 0.5)}px)` : 'none',
+            transition: window.innerWidth > 768 ? 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none'
           }}
         />
       ))}
