@@ -252,7 +252,13 @@ const SkillsKeyboard = () => {
     if (skillsData[key]) {
       setSelectedSkill(skillsData[key]);
       setTypedText(prev => prev + key.toUpperCase());
+      setClickedKey(key);
       createRippleEffect(key);
+
+      // Reset clicked state after animation
+      setTimeout(() => {
+        setClickedKey(null);
+      }, 200);
     }
   };
 
