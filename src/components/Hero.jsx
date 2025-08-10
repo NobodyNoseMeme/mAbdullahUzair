@@ -131,7 +131,7 @@ const Hero = () => {
           }}
         />
         <div
-          className="absolute bottom-1/3 left-1/4 w-16 h-16 bg-blue-300 opacity-25 animate-bounce"
+          className="absolute bottom-1/3 left-1/4 w-6 h-6 bg-blue-300 opacity-10 animate-bounce"
           style={{
             animationDelay: '0.5s',
             animationDuration: '8s',
