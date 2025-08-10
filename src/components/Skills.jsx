@@ -717,7 +717,7 @@ const Skills = () => {
                               <div className="flex items-center justify-between mb-2">
                                 <div className="flex items-center">
                                   <SkillIcon size={16} style={{ color: skill.color }} className="mr-2" />
-                                  <span className="text-gray-900 dark:text-white text-sm font-semibold">{skill.name}</span>
+                                  <span className="text-gray-900 dark:text-white text-xs sm:text-sm font-semibold overflow-hidden" style={{display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical'}}>{skill.name}</span>
                                 </div>
                                 <span className="text-xs" style={{ color: skill.color }}>{skill.level}%</span>
                               </div>
