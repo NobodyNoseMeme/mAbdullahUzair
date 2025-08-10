@@ -482,7 +482,7 @@ const SkillsEnhanced = () => {
       </div>
 
       {/* Custom CSS for floating animations */}
-      <style jsx={true}>{`
+      <style jsx>{`
         @keyframes float-0 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } }
         @keyframes float-1 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-15px) rotate(90deg); } }
         @keyframes float-2 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-25px) rotate(270deg); } }
