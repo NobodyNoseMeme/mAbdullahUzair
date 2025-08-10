@@ -165,7 +165,7 @@ function App() {
       <main className="relative z-10">
         <Hero />
         <About />
-        <Skills />
+        <Skills3D />
         <Experience />
         <Projects3D />
         <Education />
