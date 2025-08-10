@@ -820,7 +820,6 @@ const Skills = () => {
           </div>
         )}
 
-        {/* Keyboard Instructions */}
         <div className="text-center mt-8 sm:mt-12">
           <div className="bg-white/80 dark:bg-black/30 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-300 dark:border-gray-700/50 shadow-lg">
             <h4 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 font-mono flex items-center justify-center">
