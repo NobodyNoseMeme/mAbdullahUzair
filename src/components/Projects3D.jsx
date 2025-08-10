@@ -595,36 +595,36 @@ const Projects3D = () => {
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4 min-w-0">
                 <Button
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2 sm:py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
                   onClick={() => window.open(projects[currentProject].liveUrl, '_blank')}
                 >
-                  <ExternalLink size={20} className="mr-2" />
-                  View Live Project
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  className="w-full border-2 border-purple-600 text-purple-600 dark:text-purple-400 hover:bg-purple-600 hover:text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
-                  onClick={() => window.open(projects[currentProject].githubUrl, '_blank')}
-                >
-                  <Github size={20} className="mr-2" />
-                  View Source Code
+                  <ExternalLink size={16} className="mr-2 sm:mr-2" />
+                  <span className="truncate">View Live Project</span>
                 </Button>
 
-                <div className="grid grid-cols-3 gap-2 md:gap-4 pt-3 md:pt-4">
-                  <div className="text-center p-2 md:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg md:rounded-xl">
-                    <div className="text-lg md:text-2xl font-bold text-purple-600">{projects[currentProject].rating}</div>
-                    <div className="text-xs text-gray-500">Rating</div>
+                <Button
+                  variant="outline"
+                  className="w-full border-2 border-purple-600 text-purple-600 dark:text-purple-400 hover:bg-purple-600 hover:text-white py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+                  onClick={() => window.open(projects[currentProject].githubUrl, '_blank')}
+                >
+                  <Github size={16} className="mr-2 sm:mr-2" />
+                  <span className="truncate">View Source Code</span>
+                </Button>
+
+                <div className="grid grid-cols-3 gap-1 sm:gap-2 md:gap-4 pt-2 sm:pt-3 md:pt-4">
+                  <div className="text-center p-1.5 sm:p-2 md:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg md:rounded-xl">
+                    <div className="text-sm sm:text-lg md:text-2xl font-bold text-purple-600">{projects[currentProject].rating}</div>
+                    <div className="text-xs text-gray-500 truncate">Rating</div>
                   </div>
-                  <div className="text-center p-2 md:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg md:rounded-xl">
-                    <div className="text-lg md:text-2xl font-bold text-blue-600">{projects[currentProject].year}</div>
-                    <div className="text-xs text-gray-500">Year</div>
+                  <div className="text-center p-1.5 sm:p-2 md:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg md:rounded-xl">
+                    <div className="text-sm sm:text-lg md:text-2xl font-bold text-blue-600">{projects[currentProject].year}</div>
+                    <div className="text-xs text-gray-500 truncate">Year</div>
                   </div>
-                  <div className="text-center p-2 md:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg md:rounded-xl">
-                    <div className="text-lg md:text-2xl font-bold text-green-600">{projects[currentProject].status === 'Completed' ? '✓' : '⚡'}</div>
-                    <div className="text-xs text-gray-500">{projects[currentProject].status}</div>
+                  <div className="text-center p-1.5 sm:p-2 md:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg md:rounded-xl">
+                    <div className="text-sm sm:text-lg md:text-2xl font-bold text-green-600">{projects[currentProject].status === 'Completed' ? '✓' : '⚡'}</div>
+                    <div className="text-xs text-gray-500 truncate">{projects[currentProject].status.length > 8 ? projects[currentProject].status.slice(0,8) + '...' : projects[currentProject].status}</div>
                   </div>
                 </div>
               </div>
