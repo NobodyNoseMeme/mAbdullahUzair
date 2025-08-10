@@ -164,44 +164,44 @@ const Skills = () => {
       description: 'Data management and development tools',
       category: 'database',
       skills: [
-        { 
-          name: 'MySQL', 
-          level: 80, 
-          years: 1, 
-          projects: 8, 
+        {
+          name: 'MySQL',
+          level: 80,
+          years: 2,
+          projects: 13, 
           icon: Database, 
           color: '#4479A1', 
           description: 'Relational database management and optimization',
           tags: ['Relational', 'SQL', 'Optimization'],
           trend: 'stable'
         },
-        { 
-          name: 'MongoDB', 
-          level: 72, 
-          years: 1, 
-          projects: 4, 
+        {
+          name: 'MongoDB',
+          level: 72,
+          years: 2,
+          projects: 9, 
           icon: Layers, 
           color: '#47A248', 
           description: 'NoSQL document database for flexible data storage',
           tags: ['NoSQL', 'Document', 'Flexible'],
           trend: 'up'
         },
-        { 
-          name: 'Git & GitHub', 
-          level: 90, 
-          years: 1, 
-          projects: 15, 
+        {
+          name: 'Git & GitHub',
+          level: 90,
+          years: 2,
+          projects: 20, 
           icon: Code, 
           color: '#F05032', 
           description: 'Version control and collaborative development',
           tags: ['Version Control', 'Collaboration', 'DevOps'],
           trend: 'stable'
         },
-        { 
-          name: 'VS Code', 
-          level: 95, 
-          years: 1, 
-          projects: 15, 
+        {
+          name: 'VS Code',
+          level: 95,
+          years: 2,
+          projects: 20, 
           icon: Monitor, 
           color: '#007ACC', 
           description: 'Advanced IDE usage with extensions and debugging',
