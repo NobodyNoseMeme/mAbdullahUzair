@@ -205,8 +205,8 @@ const Hero = () => {
         <div
           className="absolute bottom-16 left-16 transform-3d"
           style={{
-            transform: `translate(${(mousePosition.x || 0) * -40}px, ${(mousePosition.y || 0) * -40}px) rotateX(${(mousePosition.y || 0) * -30}deg) rotateY(${(mousePosition.x || 0) * -30}deg)`,
-            transition: 'transform 0.5s ease-out'
+            transform: `translate(${(mousePosition.x || 0) * -12}px, ${(mousePosition.y || 0) * -12}px) rotateX(${(mousePosition.y || 0) * -9}deg) rotateY(${(mousePosition.x || 0) * -9}deg)`,
+            transition: 'transform 3.2s cubic-bezier(0.23, 1, 0.32, 1)'
           }}
         >
           <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-cyan-500 opacity-25 rounded-lg animate-bounce" />
