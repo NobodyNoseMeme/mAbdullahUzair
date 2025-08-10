@@ -273,14 +273,22 @@ const Skills = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: [0, 0.05, 0.1], rootMargin: '-20px 0px' }
     );
 
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect();
+    // Fallback timer to ensure visibility if observer fails
+    const fallbackTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
   const getTrendIcon = (trend) => {
