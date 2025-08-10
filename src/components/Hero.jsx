@@ -150,10 +150,10 @@ const Hero = () => {
               height: `${100 + i * 50}px`,
               left: `${15 + i * 12}%`,
               top: `${25 + i * 8}%`,
-              animationDuration: `${12 + i * 4}s`,
+              animationDuration: `${30 + i * 10}s`,
               animationDirection: i % 2 === 0 ? 'normal' : 'reverse',
-              transform: `translate(${(mousePosition.x || 0) * (8 + i * 4)}px, ${(mousePosition.y || 0) * (8 + i * 4)}px) rotate(${(mousePosition.x || 0) * (15 + i * 8)}deg)`,
-              transition: 'transform 0.5s ease-out'
+              transform: `translate(${(mousePosition.x || 0) * (2 + i * 1)}px, ${(mousePosition.y || 0) * (2 + i * 1)}px) rotate(${(mousePosition.x || 0) * (4 + i * 2)}deg)`,
+              transition: 'transform 3.5s cubic-bezier(0.23, 1, 0.32, 1)'
             }}
           />
         ))}
