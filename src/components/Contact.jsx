@@ -278,7 +278,7 @@ const Contact = () => {
                   <div className="group relative">
                     <div className={`absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 ${focusedField === 'message' ? 'opacity-20' : ''}`} />
                     <div className="relative">
-                      <MessageSquare className={`absolute left-4 top-6 transition-colors duration-300 ${focusedField === 'message' ? 'text-pink-500' : 'text-gray-400'}`} size={20} />
+                      <MessageSquare className={`absolute left-3 sm:left-4 top-4 sm:top-6 transition-colors duration-300 ${focusedField === 'message' ? 'text-pink-500' : 'text-gray-400'}`} size={18} />
                       <textarea
                         name="message"
                         value={formData.message}
@@ -286,8 +286,8 @@ const Contact = () => {
                         onFocus={() => setFocusedField('message')}
                         onBlur={() => setFocusedField(null)}
                         placeholder="Tell me about your amazing idea..."
-                        rows={5}
-                        className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 resize-none"
+                        rows={4}
+                        className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 resize-none text-sm sm:text-base"
                         required
                       />
                       <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full transform origin-left transition-transform duration-300 ${focusedField === 'message' ? 'scale-x-100' : 'scale-x-0'}`} />
@@ -298,19 +298,19 @@ const Contact = () => {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                    className="w-full py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative flex items-center justify-center">
                       {isSubmitting ? (
                         <>
-                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3" />
-                          <span>Sending your message...</span>
+                          <div className="animate-spin rounded-full h-5 w-5 sm:h-6 sm:w-6 border-b-2 border-white mr-2 sm:mr-3" />
+                          <span className="text-sm sm:text-base">Sending your message...</span>
                         </>
                       ) : (
                         <>
-                          <Send size={20} className="mr-3 transform group-hover:translate-x-1 transition-transform duration-300" />
-                          <span>Send Message</span>
+                          <Send size={18} className="mr-2 sm:mr-3 transform group-hover:translate-x-1 transition-transform duration-300" />
+                          <span className="text-sm sm:text-base">Send Message</span>
                         </>
                       )}
                     </div>
