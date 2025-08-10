@@ -3,7 +3,7 @@ import LoadingScreen from './components/LoadingScreen';
 import ModernNavbar from './components/ModernNavbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import ModernSkills from './components/ModernSkills';
+import CleanSkills from './components/CleanSkills';
 import Experience from './components/Experience';
 import Projects3D from './components/Projects3D';
 import Education from './components/Education';
