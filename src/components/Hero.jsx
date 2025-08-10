@@ -209,7 +209,7 @@ const Hero = () => {
             transition: 'transform 3.2s cubic-bezier(0.23, 1, 0.32, 1)'
           }}
         >
-          <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-cyan-500 opacity-25 rounded-lg animate-bounce" />
+          <div className="w-4 h-4 bg-gradient-to-br from-green-500 to-cyan-500 opacity-5 rounded-lg animate-bounce" />
         </div>
       </div>
 
