@@ -312,18 +312,18 @@ const Skills = () => {
   };
 
   const getKeyStyle = (keyData) => {
-    if (keyData.empty) return 'w-16 sm:w-20 lg:w-24 h-12 sm:h-14 lg:h-16 invisible';
-    
+    if (keyData.empty) return 'w-12 sm:w-16 lg:w-20 h-10 sm:h-12 lg:h-14 invisible';
+
     const isPressed = pressedKeys.has(keyData.key);
     const isSelected = selectedSkill?.name === keyData.skill?.name;
     const categoryColor = getCategoryColor(keyData.category);
-    
+
     return `
-      w-16 sm:w-20 lg:w-24 h-12 sm:h-14 lg:h-16 rounded-xl font-bold text-xs sm:text-sm lg:text-base
-      transition-all duration-200 transform cursor-pointer
-      ${isPressed ? 'scale-95 shadow-inner' : 'shadow-lg hover:shadow-xl'} 
+      w-12 sm:w-16 lg:w-20 h-10 sm:h-12 lg:h-14 rounded-lg font-bold text-xs sm:text-sm lg:text-base
+      transition-all duration-200 transform cursor-pointer touch-manipulation
+      ${isPressed ? 'scale-95 shadow-inner' : 'shadow-lg hover:shadow-xl active:shadow-inner'}
       ${isSelected ? 'ring-2 ring-blue-500 dark:ring-white ring-opacity-75 scale-105' : ''}
-      bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-white border-2 hover:scale-105
+      bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 active:bg-gray-400 dark:active:bg-gray-600 text-gray-900 dark:text-white border-2 hover:scale-105 active:scale-95
       border-gray-400 dark:border-gray-600 hover:border-opacity-75
     `;
   };
