@@ -45,7 +45,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             </div>
 
             {/* Desktop Navigation - Properly hidden on mobile */}
-            <div className="hidden lg:flex items-center">
+            <div className="hidden md:flex items-center">
               <div className="flex items-center space-x-1">
                 <a
                   href="#hero"
