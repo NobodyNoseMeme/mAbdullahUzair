@@ -10,7 +10,7 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingActionButton from './components/FloatingActionButton';
-import GlobalParticles from './components/GlobalParticles';
+import SpiderWebParticles from './components/SpiderWebParticles';
 import CursorTrail from './components/CursorTrail';
 import './App.css';
 
