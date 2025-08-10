@@ -7,6 +7,8 @@ const ModernSkills = () => {
   const [activeView, setActiveView] = useState('keyboard');
   const [isVisible, setIsVisible] = useState(false);
   const [autoSwitch, setAutoSwitch] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [showMobileWarning, setShowMobileWarning] = useState(false);
   const sectionRef = useRef(null);
   const switchRef = useRef(null);
 
