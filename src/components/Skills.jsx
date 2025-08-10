@@ -637,8 +637,8 @@ const Skills = () => {
                         >
                           <IconComponent size={32} style={{ color: category.color }} />
                         </div>
-                        <h4 className="text-gray-900 dark:text-white font-bold text-lg sm:text-xl mb-2">{category.name}</h4>
-                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{category.description}</p>
+                        <h4 className="text-gray-900 dark:text-white font-bold text-sm sm:text-lg mb-2 line-clamp-2">{category.name}</h4>
+                        <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-3 line-clamp-3">{category.description}</p>
 
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-gray-500 dark:text-gray-400 text-sm">Average Level:</span>
@@ -822,7 +822,7 @@ const Skills = () => {
               </div>
             </div>
             <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mt-3 sm:mt-4">
-              🖱️ Drag to rotate • ⌨️ Type to explore • 📱 Touch-friendly • 🎯 Click categories to flip
+              🖱️ Drag to rotate • ⌨️ Type to explore • ��� Touch-friendly • 🎯 Click categories to flip
             </p>
           </div>
         </div>
