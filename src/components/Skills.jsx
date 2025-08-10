@@ -829,10 +829,6 @@ const Skills = () => {
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-mono">
               <div className="flex flex-col items-center">
-                <kbd className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded mb-1 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">J</kbd>
-                <span>JavaScript</span>
-              </div>
-              <div className="flex flex-col items-center">
                 <kbd className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded mb-1 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">R</kbd>
                 <span>React.js</span>
               </div>
