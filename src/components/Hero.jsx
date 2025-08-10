@@ -115,9 +115,9 @@ const Hero = () => {
           className="absolute top-1/2 right-1/4 w-40 h-40 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full opacity-15 animate-pulse"
           style={{
             animationDelay: '1s',
-            animationDuration: '5s',
-            transform: `translate(${(mousePosition.x || 0) * 25}px, ${(mousePosition.y || 0) * 25}px) scale(${1 + (mousePosition.x || 0) * 0.15})`,
-            transition: 'transform 0.6s ease-out'
+            animationDuration: '15s',
+            transform: `translate(${(mousePosition.x || 0) * 8}px, ${(mousePosition.y || 0) * 8}px) scale(${1 + (mousePosition.x || 0) * 0.05})`,
+            transition: 'transform 3.2s cubic-bezier(0.23, 1, 0.32, 1)'
           }}
         />
 
