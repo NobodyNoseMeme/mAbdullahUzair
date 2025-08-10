@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
-import { 
-  Monitor, 
-  Cpu, 
-  HardDrive, 
-  Terminal, 
-  Code, 
-  Database, 
-  Globe, 
-  Palette, 
-  Layers, 
-  Zap, 
-  Wrench, 
-  Brain, 
+import {
+  Monitor,
+  Cpu,
+  HardDrive,
+  Terminal,
+  Code,
+  Database,
+  Globe,
+  Palette,
+  Layers,
+  Zap,
+  Wrench,
+  Brain,
   Star,
   Trophy,
   Award,
@@ -24,6 +24,7 @@ import {
   Play,
   Pause
 } from 'lucide-react';
+import SkillsKeyboard from './SkillsKeyboard';
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
