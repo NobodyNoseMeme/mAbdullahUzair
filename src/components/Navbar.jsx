@@ -107,10 +107,10 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 {darkMode ? <Sun size={18} className="text-yellow-500" /> : <Moon size={18} className="text-purple-600" />}
               </button>
 
-              {/* Mobile menu button - only show on mobile/tablet */}
+              {/* Mobile menu button - only show on mobile */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-all duration-200 touch-manipulation"
+                className="md:hidden w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-all duration-200 touch-manipulation"
                 aria-label="Toggle mobile menu"
               >
                 {isOpen ? (
