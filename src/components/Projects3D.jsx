@@ -635,7 +635,7 @@ const Projects3D = () => {
       </div>
 
       {/* Custom CSS for 3D perspective */}
-      <style jsx={true}>{`
+      <style jsx>{`
         .perspective-1000 {
           perspective: 1000px;
         }
