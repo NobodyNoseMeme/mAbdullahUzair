@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import LoadingScreen from './components/LoadingScreen';
-import Navbar from './components/Navbar';
+import ModernNavbar from './components/ModernNavbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import Skills3D from './components/Skills3D';
+import ModernSkills from './components/ModernSkills';
 import Experience from './components/Experience';
 import Projects3D from './components/Projects3D';
 import Education from './components/Education';
