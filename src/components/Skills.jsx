@@ -403,7 +403,7 @@ const Skills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="py-20 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-900 dark:via-slate-900 dark:to-black relative overflow-hidden"
+      className="py-20 relative overflow-hidden"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
