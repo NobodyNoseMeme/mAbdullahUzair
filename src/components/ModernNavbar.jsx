@@ -50,8 +50,8 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ease-out ${
-        scrolled 
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl border-b border-gray-200/50 dark:border-gray-700/50' 
+        scrolled
+          ? 'bg-white/98 dark:bg-gray-900/98 backdrop-blur-sm shadow-2xl border-b border-gray-200/50 dark:border-gray-700/50'
           : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
