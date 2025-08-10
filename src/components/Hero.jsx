@@ -146,8 +146,8 @@ const Hero = () => {
             key={`hero-ring-${i}`}
             className="absolute border-1 border-purple-300 rounded-full opacity-5 animate-spin"
             style={{
-              width: `${100 + i * 50}px`,
-              height: `${100 + i * 50}px`,
+              width: `${20 + i * 10}px`,
+              height: `${20 + i * 10}px`,
               left: `${15 + i * 12}%`,
               top: `${25 + i * 8}%`,
               animationDuration: `${30 + i * 10}s`,
