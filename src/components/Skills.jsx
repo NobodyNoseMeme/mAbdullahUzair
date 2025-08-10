@@ -45,66 +45,66 @@ const Skills = () => {
       description: 'Creating beautiful and responsive user interfaces',
       category: 'frontend',
       skills: [
-        { 
-          name: 'HTML5', 
-          level: 95, 
-          years: 1, 
-          projects: 15, 
+        {
+          name: 'HTML5',
+          level: 95,
+          years: 2,
+          projects: 20, 
           icon: Code, 
           color: '#E34F26', 
           description: 'Semantic markup and modern web standards',
           tags: ['Semantic', 'Web Standards', 'Accessibility'],
           trend: 'stable'
         },
-        { 
-          name: 'CSS3', 
-          level: 92, 
-          years: 1, 
-          projects: 15, 
+        {
+          name: 'CSS3',
+          level: 92,
+          years: 2,
+          projects: 20, 
           icon: Palette, 
           color: '#1572B6', 
           description: 'Advanced styling, animations and responsive design',
           tags: ['Flexbox', 'Grid', 'Animations', 'Responsive'],
           trend: 'up'
         },
-        { 
-          name: 'JavaScript', 
-          level: 88, 
-          years: 1, 
-          projects: 12, 
+        {
+          name: 'JavaScript',
+          level: 88,
+          years: 2,
+          projects: 17, 
           icon: Zap, 
           color: '#F7DF1E', 
           description: 'Modern ES6+ features and DOM manipulation',
           tags: ['ES6+', 'Async/Await', 'DOM', 'APIs'],
           trend: 'up'
         },
-        { 
-          name: 'React.js', 
-          level: 85, 
-          years: 1, 
-          projects: 10, 
+        {
+          name: 'React.js',
+          level: 85,
+          years: 2,
+          projects: 15, 
           icon: Layers, 
           color: '#61DAFB', 
           description: 'Component-based architecture and hooks',
           tags: ['Hooks', 'Components', 'JSX', 'Virtual DOM'],
           trend: 'up'
         },
-        { 
-          name: 'Tailwind CSS', 
-          level: 90, 
-          years: 1, 
-          projects: 8, 
+        {
+          name: 'Tailwind CSS',
+          level: 90,
+          years: 2,
+          projects: 13, 
           icon: Wrench, 
           color: '#06B6D4', 
           description: 'Utility-first CSS framework for rapid development',
           tags: ['Utility-First', 'Responsive', 'Components'],
           trend: 'up'
         },
-        { 
-          name: 'Bootstrap', 
-          level: 88, 
-          years: 1, 
-          projects: 6, 
+        {
+          name: 'Bootstrap',
+          level: 88,
+          years: 2,
+          projects: 11, 
           icon: Grid3X3, 
           color: '#7952B3', 
           description: 'Responsive component library and grid system',
