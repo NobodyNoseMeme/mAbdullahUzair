@@ -455,11 +455,11 @@ const Skills = () => {
 
         {/* 3D Keyboard */}
         <div className={`flex justify-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-          <div 
+          <div
             ref={keyboardRef}
-            className="relative"
-            style={{ 
-              perspective: isMobile ? '800px' : '1200px',
+            className="relative w-full max-w-xs sm:max-w-lg md:max-w-2xl"
+            style={{
+              perspective: isMobile ? '600px' : '1200px',
               transformStyle: 'preserve-3d'
             }}
           >
