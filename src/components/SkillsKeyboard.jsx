@@ -295,11 +295,20 @@ const SkillsKeyboard = () => {
 
   const KeyCard = ({ keyChar, skill }) => {
     const isFlipped = hoveredKey === keyChar;
-    
+    const isClicked = clickedKey === keyChar;
+    const isPressed = pressedKeys.has(keyChar);
+
     return (
-      <div 
-        className={`perspective-1000 ${skill ? 'cursor-pointer' : 'cursor-default'}`}
-        onMouseEnter={() => skill && setHoveredKey(keyChar)}
+      <div
+        className={`perspective-1000 ${skill ? 'cursor-pointer' : 'cursor-default'} ${
+          isClicked ? 'animate-pulse' : ''
+        }`}
+        onMouseEnter={() => {
+          if (skill) {
+            // Only allow one card to flip at a time
+            setHoveredKey(keyChar);
+          }
+        }}
         onMouseLeave={() => setHoveredKey(null)}
         onClick={() => handleKeyClick(keyChar)}
         data-key={keyChar}
