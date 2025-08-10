@@ -500,7 +500,7 @@ const SkillsKeyboard = () => {
         .rotate-y-180 {
           transform: rotateY(180deg);
         }
-        
+
         .ripple-effect .ripple-overlay::after {
           content: '';
           position: absolute;
@@ -509,17 +509,45 @@ const SkillsKeyboard = () => {
           width: 0;
           height: 0;
           border-radius: 50%;
-          background: rgba(59, 130, 246, 0.6);
+          background: linear-gradient(45deg, rgba(59, 130, 246, 0.8), rgba(147, 51, 234, 0.6));
           transform: translate(-50%, -50%);
-          animation: ripple 0.3s ease-out;
+          animation: enhanced-ripple 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 10;
         }
-        
-        @keyframes ripple {
-          to {
-            width: 100%;
-            height: 100%;
+
+        @keyframes enhanced-ripple {
+          0% {
+            width: 0;
+            height: 0;
+            opacity: 1;
+          }
+          50% {
+            width: 120%;
+            height: 120%;
+            opacity: 0.8;
+          }
+          100% {
+            width: 150%;
+            height: 150%;
             opacity: 0;
           }
+        }
+
+        /* Glow effect for hovered keys */
+        .perspective-1000:hover {
+          filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.3));
+        }
+
+        /* Pulse animation for clicked keys */
+        @keyframes key-click {
+          0% { transform: scale(1); }
+          50% { transform: scale(0.95); }
+          100% { transform: scale(1); }
+        }
+
+        /* Smooth color transitions */
+        .transition-all {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
       `}</style>
     </div>
