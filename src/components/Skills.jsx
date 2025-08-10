@@ -429,7 +429,6 @@ const Skills = () => {
               <span className="text-gray-300 text-xs hidden sm:inline">Reset</span>
             </button>
             <span className="text-gray-400 text-xs">
-              {isMobile ? '👆 Drag to rotate' : '🖱️ Drag to rotate'}
             </span>
           </div>
         </div>
@@ -823,7 +822,6 @@ const Skills = () => {
         <div className="text-center mt-8 sm:mt-12">
           <div className="bg-white/80 dark:bg-black/30 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-300 dark:border-gray-700/50 shadow-lg">
             <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mt-3 sm:mt-4">
-              🖱️ Drag to rotate • ⌨️ Type to explore • ��� Touch-friendly • 🎯 Click categories to flip
             </p>
           </div>
         </div>
