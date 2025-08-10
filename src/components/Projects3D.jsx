@@ -329,27 +329,6 @@ const Projects3D = () => {
 
   return (
     <section ref={sectionRef} id="projects" className="py-20 relative overflow-hidden min-h-screen">
-      {/* Enhanced Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated geometric shapes */}
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-purple-400/20 to-blue-400/20 rounded-full animate-pulse blur-xl"/>
-        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-pink-400/20 to-purple-400/20 rounded-full animate-pulse blur-xl" style={{animationDelay: '1s'}}/>
-        <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 rounded-full animate-pulse blur-xl" style={{animationDelay: '2s'}}/>
-        
-        {/* Floating particles - Reduced count on mobile */}
-        {[...Array(window.innerWidth > 768 ? 15 : 5)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-30 animate-pulse"
-            style={{
-              left: `${(Math.random() * 100).toFixed(1)}%`,
-              top: `${(Math.random() * 100).toFixed(1)}%`,
-              animationDelay: `${(Math.random() * 3).toFixed(2)}s`,
-              animationDuration: `${(2 + Math.random() * 3).toFixed(2)}s`
-            }}
-          />
-        ))}
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Enhanced Section Header */}
