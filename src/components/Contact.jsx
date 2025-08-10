@@ -238,7 +238,7 @@ const Contact = () => {
                   <div className="group relative">
                     <div className={`absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 ${focusedField === 'email' ? 'opacity-20' : ''}`} />
                     <div className="relative">
-                      <Mail className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${focusedField === 'email' ? 'text-blue-500' : 'text-gray-400'}`} size={20} />
+                      <Mail className={`absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${focusedField === 'email' ? 'text-blue-500' : 'text-gray-400'}`} size={18} />
                       <input
                         type="email"
                         name="email"
@@ -247,7 +247,7 @@ const Contact = () => {
                         onFocus={() => setFocusedField('email')}
                         onBlur={() => setFocusedField(null)}
                         placeholder="your@email.com"
-                        className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                        className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-sm sm:text-base"
                         required
                       />
                       <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transform origin-left transition-transform duration-300 ${focusedField === 'email' ? 'scale-x-100' : 'scale-x-0'}`} />
@@ -258,7 +258,7 @@ const Contact = () => {
                   <div className="group relative">
                     <div className={`absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 ${focusedField === 'subject' ? 'opacity-20' : ''}`} />
                     <div className="relative">
-                      <Sparkles className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${focusedField === 'subject' ? 'text-green-500' : 'text-gray-400'}`} size={20} />
+                      <Sparkles className={`absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${focusedField === 'subject' ? 'text-green-500' : 'text-gray-400'}`} size={18} />
                       <input
                         type="text"
                         name="subject"
@@ -267,7 +267,7 @@ const Contact = () => {
                         onFocus={() => setFocusedField('subject')}
                         onBlur={() => setFocusedField(null)}
                         placeholder="What's this about?"
-                        className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                        className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 text-sm sm:text-base"
                         required
                       />
                       <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full transform origin-left transition-transform duration-300 ${focusedField === 'subject' ? 'scale-x-100' : 'scale-x-0'}`} />
