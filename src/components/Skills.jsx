@@ -121,33 +121,33 @@ const Skills = () => {
       description: 'Building robust server-side applications',
       category: 'backend',
       skills: [
-        { 
-          name: 'PHP', 
-          level: 82, 
-          years: 1, 
-          projects: 8, 
+        {
+          name: 'PHP',
+          level: 82,
+          years: 2,
+          projects: 13, 
           icon: Code, 
           color: '#777BB4', 
           description: 'Server-side scripting and web development',
           tags: ['Server-Side', 'Web Development', 'OOP'],
           trend: 'stable'
         },
-        { 
-          name: 'Node.js', 
-          level: 78, 
-          years: 1, 
-          projects: 6, 
+        {
+          name: 'Node.js',
+          level: 78,
+          years: 2,
+          projects: 11, 
           icon: Cpu, 
           color: '#339933', 
           description: 'JavaScript runtime for server-side development',
           tags: ['Runtime', 'Event-Driven', 'Non-blocking'],
           trend: 'up'
         },
-        { 
-          name: 'Express.js', 
-          level: 76, 
-          years: 1, 
-          projects: 6, 
+        {
+          name: 'Express.js',
+          level: 76,
+          years: 2,
+          projects: 11, 
           icon: Globe, 
           color: '#000000', 
           description: 'Fast and minimalist web framework for Node.js',
