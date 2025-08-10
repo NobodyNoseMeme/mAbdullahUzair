@@ -61,6 +61,21 @@ const Hero = () => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-24 md:pt-32 lg:pt-20">
+      {/* Special Hero Background Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Enhanced Aurora Effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-blue-500/5 to-cyan-500/10 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/5 via-purple-500/10 to-blue-500/5 animate-pulse" style={{animationDelay: '1s'}}></div>
+
+        {/* Floating Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-purple-400/20 to-blue-400/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-40 h-40 bg-gradient-to-r from-cyan-400/15 to-purple-400/15 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-gradient-to-r from-pink-400/20 to-orange-400/15 rounded-full blur-3xl animate-float" style={{animationDelay: '3s'}}></div>
+
+        {/* Glowing Lines */}
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-400/30 to-transparent animate-pulse"></div>
+        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-blue-400/30 to-transparent animate-pulse" style={{animationDelay: '1.5s'}}></div>
+      </div>
       {/* Hero Specific Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Enhanced Hero Particles */}
