@@ -96,7 +96,7 @@ const Hero = () => {
 
         {/* Large Hero Shapes */}
         <div
-          className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-15 animate-pulse"
+          className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-5 animate-pulse"
           style={{
             transform: `translate(${(mousePosition.x || 0) * 15}px, ${(mousePosition.y || 0) * 15}px) rotate(${(mousePosition.x || 0) * 5}deg)`,
             transition: 'transform 3s cubic-bezier(0.23, 1, 0.32, 1)',
