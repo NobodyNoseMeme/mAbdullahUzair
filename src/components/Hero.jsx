@@ -108,7 +108,7 @@ const Hero = () => {
           style={{
             transform: `translate(${(mousePosition.x || 0) * -12}px, ${(mousePosition.y || 0) * -12}px) rotate(${(mousePosition.x || 0) * -6}deg)`,
             transition: 'transform 2.8s cubic-bezier(0.23, 1, 0.32, 1)',
-            animationDuration: '3s'
+            animationDuration: '10s'
           }}
         />
         <div
