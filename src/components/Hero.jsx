@@ -181,7 +181,7 @@ const Hero = () => {
           <Database className="text-blue-500" />
         </div>
         <div
-          className="absolute top-2/3 left-1/2 text-4xl opacity-15 animate-pulse"
+          className="absolute top-2/3 left-1/2 text-xl opacity-5 animate-pulse"
           style={{
             animationDelay: '2s',
             animationDuration: '18s',
