@@ -318,9 +318,11 @@ const SkillsKeyboard = () => {
         } ${isClicked ? 'scale-95' : ''} ${isPressed ? 'scale-90' : ''}`}>
           
           {/* Front Side */}
-          <div className={`absolute inset-0 backface-hidden rounded-lg border-2 flex flex-col items-center justify-center ${
-            skill 
-              ? 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-blue-400 shadow-md hover:shadow-lg'
+          <div className={`absolute inset-0 backface-hidden rounded-lg border-2 flex flex-col items-center justify-center transition-all duration-300 ${
+            skill
+              ? `bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-blue-400 shadow-md hover:shadow-lg ${
+                  isPressed ? 'border-blue-500 shadow-inner bg-blue-50 dark:bg-blue-900/30' : ''
+                } ${isClicked ? 'border-purple-500 shadow-purple-500/30' : ''}`
               : 'bg-gray-100 dark:bg-gray-700 border-gray-200 dark:border-gray-600'
           }`}>
             {skill ? (
