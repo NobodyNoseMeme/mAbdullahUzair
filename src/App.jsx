@@ -80,10 +80,25 @@ function App() {
     `;
     document.head.appendChild(cursorStyle);
 
+    // Highly optimized cursor movement with throttling
+    let animationFrame;
+    let lastUpdate = 0;
+    const throttleDelay = 8; // ~120fps
+
     const updateCursor = (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+      const now = performance.now();
+      if (animationFrame || now - lastUpdate < throttleDelay) return;
+
+      lastUpdate = now;
+      animationFrame = requestAnimationFrame(() => {
+        cursor.style.transform = `translate(${e.clientX - cursorSize/2}px, ${e.clientY - cursorSize/2}px)`;
+        animationFrame = null;
+      });
     };
+
+    // Update cursor initial position to use transform
+    cursor.style.left = '0px';
+    cursor.style.top = '0px';
 
     // Add both mouse and touch event listeners
     document.addEventListener('mousemove', updateCursor, { passive: true });
