@@ -699,7 +699,7 @@ const Skills = () => {
                         >
                           <IconComponent size={20} style={{ color: category.color }} />
                         </div>
-                        <h4 className="text-gray-900 dark:text-white font-bold text-base sm:text-lg">{category.name}</h4>
+                        <h4 className="text-gray-900 dark:text-white font-bold text-sm sm:text-base overflow-hidden" style={{display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical'}}>{category.name}</h4>
                       </div>
 
                       <div className="space-y-3 flex-1 overflow-y-auto">
