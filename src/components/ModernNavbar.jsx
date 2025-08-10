@@ -159,7 +159,7 @@ const ModernNavbar = ({ darkMode, toggleDarkMode }) => {
         <div className={`md:hidden overflow-hidden transition-all duration-500 ease-out ${
           isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}>
-          <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-700/50">
+          <div className="bg-white/98 dark:bg-gray-900/98 backdrop-blur-sm border-t border-gray-200/50 dark:border-gray-700/50">
             <div className="px-4 py-6 space-y-2">
               {navItems.map((item, index) => {
                 const IconComponent = item.icon;
