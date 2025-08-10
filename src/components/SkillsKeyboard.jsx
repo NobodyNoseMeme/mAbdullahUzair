@@ -25,6 +25,7 @@ const SkillsKeyboard = () => {
   const [pressedKeys, setPressedKeys] = useState(new Set());
   const [typedText, setTypedText] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [clickedKey, setClickedKey] = useState(null);
   const sectionRef = useRef(null);
 
   // Skills data with keyboard mappings
