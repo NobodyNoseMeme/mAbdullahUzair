@@ -161,11 +161,11 @@ function App() {
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300 relative">
       <SpiderWebParticles />
       <CursorTrail />
-      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <ModernNavbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main className="relative z-10">
         <Hero />
         <About />
-        <Skills3D />
+        <ModernSkills />
         <Experience />
         <Projects3D />
         <Education />
