@@ -568,26 +568,26 @@ const Projects3D = () => {
                   {projects[currentProject].description}
                 </p>
 
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
-                    <Zap className="w-5 h-5 mr-2 text-yellow-500"/>
+                <div className="mb-4 sm:mb-6">
+                  <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                    <Zap className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-yellow-500"/>
                     All Features
                   </h4>
-                  <div className="grid grid-cols-1 gap-2">
+                  <div className="grid grid-cols-1 gap-1 sm:gap-2">
                     {projects[currentProject].features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center text-gray-700 dark:text-gray-200">
-                        <span className="w-2 h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mr-3"></span>
-                        {feature}
+                      <div key={idx} className="flex items-start text-sm sm:text-base text-gray-700 dark:text-gray-200 break-words">
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mr-2 sm:mr-3 mt-1.5 sm:mt-2 flex-shrink-0"></span>
+                        <span className="min-w-0 break-words">{feature}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6 overflow-hidden">
                   {projects[currentProject].technologies.map((tech, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
+                      className="px-2 sm:px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap"
                     >
                       {tech}
                     </span>
