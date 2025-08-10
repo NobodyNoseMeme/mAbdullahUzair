@@ -825,7 +825,7 @@ const Skills = () => {
           <div className="bg-white/80 dark:bg-black/30 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-300 dark:border-gray-700/50 shadow-lg">
             <h4 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 font-mono flex items-center justify-center">
               <Terminal className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-600 dark:text-green-400" />
-              Keyboard Controls
+              Skills Quick Reference
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-mono">
               <div className="flex flex-col items-center">
