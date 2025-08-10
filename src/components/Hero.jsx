@@ -123,7 +123,7 @@ const Hero = () => {
 
         {/* Hero Geometric Shapes */}
         <div
-          className="absolute top-1/4 left-1/3 w-20 h-20 border-4 border-purple-300 opacity-25 animate-spin"
+          className="absolute top-1/4 left-1/3 w-8 h-8 border-2 border-purple-300 opacity-10 animate-spin"
           style={{
             animationDuration: '40s',
             transform: `translate(${(mousePosition.x || 0) * 6}px, ${(mousePosition.y || 0) * 6}px) rotate(${(mousePosition.x || 0) * 15}deg)`,
