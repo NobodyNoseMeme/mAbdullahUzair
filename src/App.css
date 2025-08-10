@@ -1466,3 +1466,118 @@ h1, h2, h3, h4, h5, h6 {
 .dark ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1);
 }
+
+/* Modern skill card enhancements */
+.skill-card-modern {
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-card-modern:hover {
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Enhanced gradient animations */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.gradient-animated {
+  background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #ec4899, #06b6d4);
+  background-size: 400% 400%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Modern button hover effects */
+.btn-modern:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 20px 40px rgba(59, 130, 246, 0.3),
+    0 0 0 1px rgba(59, 130, 246, 0.1);
+}
+
+/* Smooth reveal animation for skill cards */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-reveal-up {
+  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Loading state shimmer */
+.shimmer {
+  background: linear-gradient(90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Enhanced skill level animations */
+@keyframes progress-fill {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.progress-bar {
+  animation: progress-fill 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Modern glow effects */
+.glow-modern {
+  filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5));
+}
+
+.glow-modern:hover {
+  filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.8));
+}
+
+/* Enhanced text effects */
+.text-glow {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+}
+
+/* Optimized animations for mobile */
+@media (max-width: 768px) {
+  .animate-reveal-up {
+    animation-duration: 0.6s;
+  }
+
+  .progress-bar {
+    animation-duration: 1s;
+  }
+
+  .btn-modern:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+}
