@@ -160,7 +160,7 @@ const Hero = () => {
 
         {/* Hero Code Elements */}
         <div
-          className="absolute top-1/3 right-1/3 text-5xl opacity-15 animate-pulse"
+          className="absolute top-1/3 right-1/3 text-2xl opacity-5 animate-pulse"
           style={{
             transform: `translate(${(mousePosition.x || 0) * 4}px, ${(mousePosition.y || 0) * 4}px) rotate(${(mousePosition.x || 0) * 2}deg)`,
             transition: 'transform 2.5s cubic-bezier(0.23, 1, 0.32, 1)',
