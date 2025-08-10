@@ -82,7 +82,7 @@ const Hero = () => {
         {[...Array(window.innerWidth > 768 ? 15 : 6)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-3 h-3 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-40 animate-pulse"
+            className="absolute w-1 h-1 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-5 animate-pulse"
             style={{
               left: `${(Math.random() * 100).toFixed(1)}%`,
               top: `${(Math.random() * 100).toFixed(1)}%`,
