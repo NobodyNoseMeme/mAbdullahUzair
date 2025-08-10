@@ -313,9 +313,9 @@ const SkillsKeyboard = () => {
         onClick={() => handleKeyClick(keyChar)}
         data-key={keyChar}
       >
-        <div className={`relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 transition-transform duration-600 transform-style-preserve-3d ${
+        <div className={`relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 transition-all duration-600 transform-style-preserve-3d ${
           isFlipped ? 'rotate-y-180' : ''
-        }`}>
+        } ${isClicked ? 'scale-95' : ''} ${isPressed ? 'scale-90' : ''}`}>
           
           {/* Front Side */}
           <div className={`absolute inset-0 backface-hidden rounded-lg border-2 flex flex-col items-center justify-center ${
